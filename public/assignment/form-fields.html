@@ -44,6 +44,7 @@
 				</ul>
 				
 				<div class = "form-group container">
+					<br>
 					<div class="row">
 						<div class="col-xs-4">
 						<label for="fname" class="control-label">First Name:</label>
@@ -60,7 +61,7 @@
 							<scan class="glyphicon glyphicon-align-justify"></scan>
 						</div>
 					</div>
-					
+					<br>
 					<div class="row">
 						<div class="col-xs-4">
 						<label for="lname" class="control-label">Last Name:</label>
@@ -85,14 +86,7 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-4">
-							<div class="form-group">
-								<div class="input-group date">
-									<input type="text" class="form-control" id="dateofbirth" placeholder="Select Date">
-									<span class="input-group-addon">
-										<span class="glyphicon glyphicon-triangle-bottom"></span>
-									</span>
-								</div>
-							</div>	
+									<input type="date" class="form-control" id="dateofbirth" placeholder="Select Date">	
 						</div>
 						<div class="col-xs-4">
 							<scan class="glyphicon glyphicon-pencil"></scan>
@@ -130,15 +124,15 @@
 					<div class="row">
 						<div class="col-xs-4">
 							<div class="checkbox">
-								<label><input type="checkbox" value="admin">
+								<label><input name="role" type="checkbox" value="admin">
 								Admin</label> 	
 							</div>
 							<div class="checkbox">
-								<label><input type="checkbox" value="student">
+								<label><input name="role" type="checkbox" value="student">
 								Student</label> 	
 							</div>
 							<div class="checkbox">
-								<label><input type="checkbox" value="user">
+								<label><input name="role" type="checkbox" value="user">
 								User</label> 	
 							</div>	
 						</div>
@@ -191,16 +185,12 @@
 								<option value="checkboxes">Checkboxes</option>
 								<option value="radiobuttons">Radio Buttons</option>
 								<option value="paragraphtext">Paragraph Text Field</option>
-								<option value=""></option>
-								<option value=""></option>
 							</select>	
 						</div>
 						<div class="col-xs-4">
 							<scan class="glyphicon glyphicon-plus"></scan>
 						</div>
 					</div>
-					
-					
 				</div>	
 		</div>
 	</div>
