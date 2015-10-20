@@ -1,0 +1,49 @@
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+
+<h1>JSON</h1>
+
+
+<script>
+	var alice= {
+		"firstname": "Alice",
+		"lastname": "Wonder",
+		"salary": 123234,
+		//"dob": new Date(1999,08,08)
+	}
+	
+	console.log(alice)
+	console.log(alice.firstname);
+	
+	var department = {
+		name: "computer science",
+		director: {
+			firstName: "Bob",
+			lastName: "Marley"
+		},
+		
+		dean: $.extend({}, alice),
+	
+		 
+		
+		courses: [
+			{title: "cs5610"},
+			{title: "cs5200"}
+		]
+	};
+	
+	department.dean.dob = new Date();
+	console.log('========');
+	console.log(department.dean);
+	console.log(alice);
+	
+	console.log(department);
+	var stringDept = JSON.stringify(department)
+	console.log(stringDept)
+	
+	var deptString = '{"name":"computer science","director":{"firstName":"Bob",						"lastName":"Marley"},"dean":{"firstname":"Alice","lastname":"Wonder","salary":123234},"courses":[{"title":"cs5610"},{"title":"cs5200"}]}';
+				
+	var deptObj = JSON.parse(deptString);
+	console.log(deptObj);	
+</script>

@@ -1,0 +1,30 @@
+<script>
+	function sayHello()
+	{
+		//alert("Say Hello");
+		//document.write("Say Hello");
+		document.getElementById("para")
+		.innerHTML="Say Hello";
+	}
+	
+	function sayMsg(msg)
+	{
+		document.getElementById("para")
+		.innerHTML=msg;
+	}
+	function inputMsg()
+	{
+		var msg = document.getElementById("msg");
+		document.getElementById("para")
+		.innerHTML=msg.value;
+	}
+
+</script>
+<h1>On Click Event Handling</h1>
+
+<button onclick="sayHello()">Say Hello</button>
+<button onclick="sayMsg('This is the message')">Say Msg</button>
+<input type="text" id="msg"/>
+<button onclick="inputMsg()">print input field msg</button>
+<p id = "para">
+</p>

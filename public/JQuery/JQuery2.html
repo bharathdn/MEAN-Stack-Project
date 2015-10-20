@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Manipulating DOM with Jquery
+	</title>
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script>
+		$(hello);
+		
+		function hello()
+		{
+			$("h2").html("Changing HTML Content with JQUERY");
+		
+			$("body").append("<h2>Appending content with JQUERY</h2>");
+			
+			var ul = $("<ul>");
+			
+			for(var i=0; i<10; i++)
+			{
+				var li = $("<li>");
+				li.append("Line Item " + i);
+				ul.append(li);
+			}
+			$("body").append(ul);
+			
+			
+			//$("ul").css("color","green");
+			//$("ul").css("background-color","black");
+			// or
+			$("ul").css("color","green")
+				   .css("background-color","black");
+				   
+			$("#p2")
+			.css({"color": "yellow", 
+			      "background-color": "blue"})
+		} 
+	</script>
+</head>
+	
+<body>
+	<h2>Manipulating DOM with Jquery</h2>
+	
+	<p id="p2">color changed paragraph </p>
+</body>
+</html>

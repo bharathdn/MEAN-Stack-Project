@@ -1,0 +1,31 @@
+(function(){
+	var a = 1;
+	var b = 5;
+	fact = 1;
+	for(var i=a; i<=b; i++)
+	{
+		fact = fact * i;
+	}
+	document.write("factorial of "+b+" is "+fact);
+	
+	//arrays
+	var arr=[12,34,7,8,08];
+	minFunc(arr);
+	var arr=[120,34,4,8,08];
+	minFunc(arr);
+	
+	function minFunc(arr)
+	{
+		var min=arr[0];
+		var max=arr[0];
+		for(var k=0; k<arr.length; k++)
+		{
+			if(arr[k]<min)
+			{min = arr[k];}
+			
+			if(arr[k]>max)
+			{max = arr[k];}
+		}
+		document.write("<br>min is "+min+" max is "+max);	
+	}
+})();
