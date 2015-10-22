@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="FormBuilderApp">
+	<head>
+		<meta charset="utf-8">
+		<title>Home</title>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
+		<script src="app.js"> </script>
+		<script src="config.js"></script>
+		<script src="header/header.contoller.js"></script>
+
+			
+		<!--link href="../css/bootstrap.min.css" rel="stylesheet"-->
+		<!-- this dashboard.css is from course website -->
+		<link  rel="stylesheet" href="css/dashboard.css">
+	</head>
+	
+	<body>
+	<div ng-controller="HeaderController" class="container">
+		<div ng-include="header/header.view.html">
+		</div>
+		
+		<div class="row" ng-include="header/header.view.html">
+		</div>
+	
+	</div>
+
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-offset-2 main">
+				<h1 class="page-header">Welcome!</h1>
+				<p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.
+				</p>	
+			</div>	
+		</div>
+	</div>					
+	</body>
+</html>
