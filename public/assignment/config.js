@@ -4,13 +4,13 @@
 		.config(function($routeProvider){
 			$routeProvider
 				.when("/",{
-					templateUrl: "index.html"
+					templateUrl: "home/home.view.html"
 				})
 				.when("/profile",{
 					templateUrl: "profile/profile.html"
 				})
 				.when("/admin",{
-					templateUrl: "admin/admin.html"
+					templateUrl: "admin/admin.view.html"
 				})
 				.when("/forms",{
 					templateUrl: "forms/forms.html"

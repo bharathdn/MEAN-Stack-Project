@@ -30,7 +30,7 @@
                     templateUrl: "profile.html"
                 })
                 .when("/admin", {
-                    templateUrl: "admin.html"
+                    templateUrl: "admin.view.html"
                 })
                 .otherwise({
                     redirectTo: "/"
