@@ -20,7 +20,7 @@
 		$scope.hello ="Injected data into the variable HEllo!"
 		console.log("Hello from controller");	
 		
-		$scope.courseName = "Java 101";
+		$scope.courseName = "Java 102";
 		
 		$scope.user = {
 			fName: "Alice",

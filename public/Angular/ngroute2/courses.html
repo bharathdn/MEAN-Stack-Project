@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="coursesApp">
+<head>
+	<title>NR ROUTE Courses</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
+	<script src="courses.js"></script>
+	<script src="config.js"></script>
+	<script src="maincontroller.js"></script>
+	<script src="coursecontroller.js"></script>
+	<script src="courseEditController.js"></script>
+	<script src="courseService.js">	</script>
+</head>
+
+<body ng-controller="mainController">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<nav class="pull-right">
+				<ul class="list-inline nav nav-pills">
+					<li ng-class="{'active' : $location.url().indexOf('register') != -1}"><a href="#/register">Register</a></li>
+					<li ng-class="{'active' : $location.url().indexOf('login') != -1}"><a href="#/login">Login</a></li>
+					<li ng-class="{'active' : $location.url().indexOf('logout') != -1}"><a href="#/logout">Logout</a></li>
+				</ul>
+				</nav>	
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<nav>
+				<ul class="nav nav-pills">
+					<li ng-class="{'active' : $location.url().indexOf('home') != -1}"><a href="#/">Home</a></li>
+					<li ng-class="{'active' : $location.url().indexOf('courselist') != -1}"><a href="#/courselist">Courses</a></li>
+				</ul>
+				</nav>
+			</div>
+			<div class="col-md-10" ng-view>
+				
+			</div>
+		</div>
+	</div>
+</body>
+</html>
