@@ -7,19 +7,22 @@
 					templateUrl: "home/home.view.html"
 				})
 				.when("/profile",{
-					templateUrl: "profile/profile.html"
+					templateUrl: "profile/profile.view.html"
 				})
 				.when("/admin",{
 					templateUrl: "admin/admin.view.html"
 				})
-				.when("/forms",{
-					templateUrl: "forms/forms.html"
+				.when("/form",{
+					templateUrl: "form/form.view.html"
+				})
+				.when("/form-fields",{
+					templateUrl: "form/form-fields.view.html"
 				})
 				.when("/login",{
-					templateUrl: "login/login.html"
+					templateUrl: "login/login.view.html"
 				})
 				.when("/register",{
-					templateUrl: "register/register.html"
+					templateUrl: "register/register.view.html"
 				})
 				.otherwise(
 					{redirectTo: "/"

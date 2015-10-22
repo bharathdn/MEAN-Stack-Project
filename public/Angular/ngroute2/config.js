@@ -10,11 +10,11 @@
 		.when("/home",
 		{ templateUrl: "home.html"})
 		.when("/login",
-		{templateUrl: "login.html"})
+		{templateUrl: "login.view.html"})
 		.when("/logout",
 		{templateUrl: "logout.html"})
 		.when("/register",
-		{templateUrl: "register.html"})
+		{templateUrl: "register.view.html"})
 		.when("/courselist",
 		{templateUrl: "courselist.html",
 		controller: "courseController"})
