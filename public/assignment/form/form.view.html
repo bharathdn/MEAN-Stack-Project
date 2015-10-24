@@ -1,9 +1,9 @@
-<div>
+<div ng-controller="FormController">
     <h1 class="page-header">Forms</h1>
 
     <ul class="nav nav-tabs">
         <li role="presentation" class=active><a href="#/form">Forms</a></li>
-        <li role="presentation"><a href="#/form-fields">Fields</a></li>
+        <li role="presentation"><a href="#">Fields</a></li>
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
@@ -16,33 +16,18 @@
             <tr>
                 <td><input ng-model="userName" type="text" class="form-control" id="username" placeholder="name"></td>
                 <td>
-                    <scan class="glyphicon glyphicon-plus btn"></scan>
-                    <scan class="glyphicon glyphicon-ok btn"></scan>
+                    <a ng-click="addForm()"><span class="glyphicon glyphicon-plus btn btn-primary"></span></a>
+                    <a ng-click="updateForm()"><span class="glyphicon glyphicon-ok btn btn-primary"></span></a>
                 </td>
             </tr>
 
-            <tr>
-                <td><a href="form-fields.view.html">Registration Form</a></td>
+            <tr ng-repeat="form in forms">
+                <td><a href="form-fields.view.html">{{form.name}}</a></td>
                 <td>
-                    <scan class="glyphicon glyphicon-remove btn"></scan>
-                    <scan class="glyphicon glyphicon-pencil btn"></scan>
+                    <a ng-click="deleteForm()"><span class="glyphicon glyphicon-remove btn btn-primary"></span></a>
+                    <a ng-click="selectForm()"><span class="glyphicon glyphicon-pencil btn btn-primary"></span></a>
                 </td>
             </tr>
 
-            <tr>
-                <td><a href="form-fields.view.html">Contact List</a></td>
-                <td>
-                    <scan class="glyphicon glyphicon-remove btn"></scan>
-                    <scan class="glyphicon glyphicon-pencil btn"></scan>
-                </td>
-            </tr>
-
-            <tr>
-                <td><a href="form-fields.view.html">To Do List</a></td>
-                <td>
-                    <scan class="glyphicon glyphicon-remove btn"></scan>
-                    <scan class="glyphicon glyphicon-pencil btn"></scan>
-                </td>
-            </tr>
             </tbody>
 </div>
