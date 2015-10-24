@@ -9,6 +9,7 @@
         $scope.headerShow = headerShow;
 
         function headerShow(){
+            //console.log("headerShow called")
             if($location.url().match( /profile|admin|form|form-fields/ )){
                 return true;
             }

@@ -6,6 +6,7 @@
 
     function FormService(){
 
+        var forms = [];
         var service = {
             createFormForUser: createFormForUser,
             findAllFormsForUser: findAllFormsForUser,
