@@ -1,6 +1,6 @@
-<ul class="nav nav-sidebar">
-	<li><a href="#/">Home</a></li>
-	<li><a href="#/profile">Profile</a></li>
-	<li><a href="#/admin">Admin</a></li>
-	<li><a href="#/form">Forms</a></li>
+<ul class="nav nav-sidebar" ng-controller="SidebarController">
+	<li ng-class="{'active' : $location.url().indexOf('home') != -1 }"><a href="#/home">Home</a></li>
+	<li ng-class="{'active' : $location.url().indexOf('profile') != -1 }"><a href="#/profile">Profile</a></li>
+	<li ng-class="{'active' : $location.url().indexOf('form') != -1 }"><a href="#/form">Forms</a></li>
+	<li ng-class="{'active' : $location.url().indexOf('admin') != -1 }"><a href="#/admin">Admin</a></li>
 </ul>

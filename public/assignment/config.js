@@ -6,6 +6,9 @@
 				.when("/",{
 					templateUrl: "home/home.view.html"
 				})
+				.when("/home",{
+					templateUrl: "home/home.view.html"
+				})
 				.when("/profile",{
 					templateUrl: "profile/profile.view.html"
 				})
@@ -25,7 +28,7 @@
 					templateUrl: "register/register.view.html"
 				})
 				.otherwise(
-					{redirectTo: "/"
+					{ redirectTo: "/"
 				});
 				
 		});
