@@ -18,9 +18,11 @@
 				.when("/form",{
 					templateUrl: "form/form.view.html"
 				})
+				/*
 				.when("/form-fields",{
 					templateUrl: "form/form-fields.view.html"
 				})
+				*/
 				.when("/login",{
 					templateUrl: "login/login.view.html"
 				})
