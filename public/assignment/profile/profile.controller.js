@@ -7,21 +7,20 @@
     function ProfileController($scope, $location,UserService,$rootScope){
         //$scope.$location = $location;
         var user = $rootScope.user;
-        showUserinfo();
+        if(typeof user != "undefined") {
+            showUserinfo();
+        }
 
         $scope.update = update;
-        //$scope.updateCallback = updateCallback;
 
         function update(){
             var newuser = {
                 userName : $scope.userName,
                 password : $scope.password,
-                //id: user.id,
                 email : $scope.email,
                 FName: $scope.fName,
                 LName: $scope.lName
             };
-            //console.log(newuser);
 
             UserService.updateUser(user.id,newuser,updateCallback);
         }

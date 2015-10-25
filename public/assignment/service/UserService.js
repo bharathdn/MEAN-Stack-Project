@@ -14,20 +14,18 @@
             for (user in currentUsers) {
                 if (user.userName == username) {
                     if (user.password == password) {
-                        return true;
+                        callback(user);
                     }
                 }
                 else {
-                    return null;
+                    callback(null);
                 }
             }
-
-            // callback
         }
 
         function findAllUsers(callback) {
             callback(currentUsers);
-            //callback
+
         }
 
         function createUser(user, callback) {
@@ -45,7 +43,6 @@
             };
             currentUsers.push(newUser);
 
-            // on success callback
             callback(newUser);
         }
 
@@ -63,26 +60,20 @@
 
         function deleteUserById(userId, callback) {
             var userIndex = getUserIndex(userId);
+            var deletedUser = currentUsers[userIndex];
             $scope.currentUsers.splice(index,1);
-
-
-
-            // callback
+            callback(deletedUser);
         }
 
         function updateUser(userId, user, callback) {
             var userIndex = getUserIndex(userId);
-            //console.log(user);
-            console.log(userIndex);
-            console.log(currentUsers[userIndex]);
 
-            /*currentUsers[userIndex].userName = user.userName;
+            currentUsers[userIndex].userName = user.userName;
             currentUsers[userIndex].password = user.password;
             currentUsers[userIndex].id = userId;
             currentUsers[userIndex].userFname = user.FName;
             currentUsers[userIndex].userLname = user.LName;
-            currentUsers[userIndex].userEmail = user.email;*/
-
+            currentUsers[userIndex].userEmail = user.email;
 
             // callback
             callback(currentUsers[userIndex]);
