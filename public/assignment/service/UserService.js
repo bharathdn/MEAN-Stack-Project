@@ -8,15 +8,6 @@
 
         var currentUsers = [];
 
-        var service = {
-            findUserByUsernameAndPassword: findUserByUsernameAndPassword,
-            findAllUsers: findAllUsers,
-            createUser: createUser,
-            deleteUserById: deleteUserById,
-            updateUser: updateUser
-        };
-        return service;
-
         function findUserByUsernameAndPassword(username, password, callback) {
             var userFlag = false;
 
@@ -35,29 +26,35 @@
         }
 
         function findAllUsers(callback) {
-            return currentUsers;
+            callback(currentUsers);
             //callback
         }
 
         function createUser(user, callback) {
+            //todo: check if username already exists
+
+            //todo: check if password and verify password match
+
             var newUser = {
                 userName: user.userName,
                 password: user.password,
-                //guid = create a guid
+                id: createGuid(),
                 userFname: user.Fname,
                 userLname: user.Lname,
-                userEmail: user.Email
-            }
-            $scope.currentUsers.push(newUser);
+                userEmail: user.email
+            };
+            currentUsers.push(newUser);
 
             // on success callback
+            callback(newUser);
         }
+
 
         function getUserIndex(userId){
             var userIndex = false;
             for (var index = 0; index < currentUsers.length; index++) {
-                if (currentUsers[i].userName == userId) {
-                    userIndex = i;
+                if (currentUsers[index].id == userId) {
+                    userIndex = index;
                     continue;
                 }
             }
@@ -75,14 +72,40 @@
 
         function updateUser(userId, user, callback) {
             var userIndex = getUserIndex(userId);
+            //console.log(user);
+            console.log(userIndex);
+            console.log(currentUsers[userIndex]);
 
-            currentUsers[userIndex].userName = user.userName;
+            /*currentUsers[userIndex].userName = user.userName;
             currentUsers[userIndex].password = user.password;
-            currentUsers[userIndex].userFname = user.userFname;
-            currentUsers[userIndex].userLname = user.userLname;
-            currentUsers[userIndex].userEmail = user.userEmail;
+            currentUsers[userIndex].id = userId;
+            currentUsers[userIndex].userFname = user.FName;
+            currentUsers[userIndex].userLname = user.LName;
+            currentUsers[userIndex].userEmail = user.email;*/
+
 
             // callback
+            callback(currentUsers[userIndex]);
         }
+
+        var service = {
+            findUserByUsernameAndPassword: findUserByUsernameAndPassword,
+            findAllUsers: findAllUsers,
+            createUser: createUser,
+            deleteUserById: deleteUserById,
+            updateUser: updateUser
+        };
+        return service;
     }
+
+    function createGuid() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
+    }
+
 })();

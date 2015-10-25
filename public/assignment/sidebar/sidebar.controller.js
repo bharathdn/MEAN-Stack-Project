@@ -9,7 +9,7 @@
         $scope.setActive = setActive;
 
         function setActive(pageName){
-            console.log("setActive function called by "+pageName);
+            //console.log("setActive function called by "+pageName);
             if($location.url().indexOf(pageName) != -1){
                 return 'active';
             }
