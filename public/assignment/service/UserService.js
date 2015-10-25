@@ -8,13 +8,26 @@
 
         var currentUsers = [];
 
-        function findUserByUsernameAndPassword(username, password, callback) {
-            var userFlag = false;
+        var testUser = {
+            userName: "test",
+            password: "test",
+            id: createGuid(),
+            userFname: "test",
+            userLname: "test2",
+            userEmail: "test@neu.edu"
+        };
 
-            for (user in currentUsers) {
-                if (user.userName == username) {
-                    if (user.password == password) {
-                        callback(user);
+        console.log("adding test user.....");
+        currentUsers.push(testUser);
+        console.log("test user: added");
+
+        function findUserByUsernameAndPassword(username, password, callback) {
+            console.log('user: '+username+' password: '+password);
+            for (userIndex in currentUsers) {
+                if (currentUsers[userIndex].userName == username) {
+                    if (currentUsers[userIndex].password == password) {
+                        callback(currentUsers[userIndex]);
+                        return;
                     }
                 }
                 else {
