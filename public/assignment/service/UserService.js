@@ -8,7 +8,8 @@
 
         var currentUsers = [];
 
-        var testUser = {
+        // creating test user for testing
+        /*var testUser = {
             userName: "test",
             password: "test",
             id: createGuid(),
@@ -20,9 +21,10 @@
         console.log("adding test user.....");
         currentUsers.push(testUser);
         console.log("test user: added");
+        */
 
         function findUserByUsernameAndPassword(username, password, callback) {
-            console.log('user: '+username+' password: '+password);
+            //console.log('user: '+username+' password: '+password);
             for (userIndex in currentUsers) {
                 if (currentUsers[userIndex].userName == username) {
                     if (currentUsers[userIndex].password == password) {
@@ -38,7 +40,6 @@
 
         function findAllUsers(callback) {
             callback(currentUsers);
-
         }
 
         function createUser(user, callback) {
@@ -74,8 +75,8 @@
         function deleteUserById(userId, callback) {
             var userIndex = getUserIndex(userId);
             var deletedUser = currentUsers[userIndex];
-            $scope.currentUsers.splice(index,1);
-            callback(deletedUser);
+            currentUsers.splice(index,1);
+            callback(currentUsers);
         }
 
         function updateUser(userId, user, callback) {

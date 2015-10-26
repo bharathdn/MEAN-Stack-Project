@@ -14,20 +14,23 @@
 
             <tbody>
             <tr>
-                <td><input ng-model="userName" type="text" class="form-control" id="username" placeholder="name"></td>
+                <td><input ng-model="name" type="text" class="form-control" id="username" placeholder="name"></td>
                 <td>
-                    <a ng-click="addForm()"><span class="glyphicon glyphicon-plus btn btn-primary"></span></a>
-                    <a ng-click="updateForm()"><span class="glyphicon glyphicon-ok btn btn-primary"></span></a>
+                    <a href="#" ng-click="addForm()"><span class="glyphicon glyphicon-plus btn btn-primary"></span></a>
+                    <a href="#" ng-click="updateForm()"><span class="glyphicon glyphicon-ok btn btn-primary"></span></a>
                 </td>
             </tr>
 
             <tr ng-repeat="form in forms">
-                <td><a href="form-fields.view.html">{{form.name}}</a></td>
+                <td>{{form.name}}</td>
                 <td>
-                    <a ng-click="deleteForm()"><span class="glyphicon glyphicon-remove btn btn-primary"></span></a>
-                    <a ng-click="selectForm()"><span class="glyphicon glyphicon-pencil btn btn-primary"></span></a>
+                    <a href="#" ng-click="deleteForm($index)"><span class="glyphicon glyphicon-remove btn btn-primary">
+                        </span></a>
+                    <a href="#" ng-click="selectForm($index)"><span class="glyphicon glyphicon-pencil btn btn-primary">
+                        </span></a>
                 </td>
             </tr>
 
             </tbody>
+        </table>
 </div>
