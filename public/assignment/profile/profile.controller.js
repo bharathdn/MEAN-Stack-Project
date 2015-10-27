@@ -6,6 +6,8 @@
 
     function ProfileController($scope, $location,UserService,$rootScope){
         //$scope.$location = $location;
+        $scope.update = update;
+
         var user = $rootScope.user;
         if(typeof user != "undefined") {
             showUserinfo();

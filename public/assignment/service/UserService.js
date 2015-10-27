@@ -4,12 +4,12 @@
         .module("FormBuilderApp")
         .factory("UserService",UserService);
 
-    function UserService() {
+    function UserService($rootScope) {
 
         var currentUsers = [];
 
         // creating test user for testing
-        /*var testUser = {
+        var testUser = {
             userName: "test",
             password: "test",
             id: createGuid(),
@@ -20,8 +20,9 @@
 
         console.log("adding test user.....");
         currentUsers.push(testUser);
+        $rootScope.user = testUser;
         console.log("test user: added");
-        */
+
 
         function findUserByUsernameAndPassword(username, password, callback) {
             //console.log('user: '+username+' password: '+password);

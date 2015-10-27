@@ -16,18 +16,16 @@
             <tr>
                 <td><input ng-model="name" type="text" class="form-control" id="username" placeholder="name"></td>
                 <td>
-                    <a href="#" ng-click="addForm()"><span class="glyphicon glyphicon-plus btn btn-primary"></span></a>
-                    <a href="#" ng-click="updateForm()"><span class="glyphicon glyphicon-ok btn btn-primary"></span></a>
-                </td>
+                    <button ng-click="addForm()" class="glyphicon glyphicon-plus btn btn-primary"></button>
+                    <button ng-click="updateForm()" class="glyphicon glyphicon-ok btn btn-primary"></button>
+                    </td>
             </tr>
 
             <tr ng-repeat="form in forms">
                 <td>{{form.name}}</td>
                 <td>
-                    <a href="#" ng-click="deleteForm($index)"><span class="glyphicon glyphicon-remove btn btn-primary">
-                        </span></a>
-                    <a href="#" ng-click="selectForm($index)"><span class="glyphicon glyphicon-pencil btn btn-primary">
-                        </span></a>
+                    <button ng-click="deleteForm($index)" class="glyphicon glyphicon-remove btn btn-primary"></button>
+                    <button ng-click="selectForm($index)" class="glyphicon glyphicon-pencil btn btn-primary"></button>
                 </td>
             </tr>
 

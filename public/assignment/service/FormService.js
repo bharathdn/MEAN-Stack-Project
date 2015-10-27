@@ -16,7 +16,6 @@
         return service;
 
         function createFormForUser(userId, form, callback) {
-
             form.id = createGuid();
             form.userId = userId;
             forms.push(form);

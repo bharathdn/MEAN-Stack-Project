@@ -10,7 +10,7 @@
 <div class="container" ng-controller="movieSearchController">
   <h1>Welcome to AJAX</h1>
   <div class="input-group">
-    <input
+    <input ng-model="title"
       id="title"
       class="form-control"/>
     <span class="input-group-btn">
@@ -34,7 +34,7 @@
           <tr ng-repeat="movie in movies">
             <td>{{movie.title}}</td>
             <td>{{movie.plot}}</td>
-            <!--td><img src={{movie.urlposter}} class="poster"></td-->
+            <td><img ng-src={{movie.urlPoster}}></td>
           </tr>
         </tbody>
     </table>
