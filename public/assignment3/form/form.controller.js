@@ -16,6 +16,10 @@
 
 
         function addForm(){
+            if($scope.name.length <= 0)
+            {
+                return;
+            }
             var form = {
                 name : $scope.name
             };
