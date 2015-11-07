@@ -26,6 +26,7 @@
 			
 		
 		$http.jsonp(url+"&callback=JSON_CALLBACK").success
+		//$http.jsonp(url).success
 		(function(response) {
 				console.log(response);
 				$scope.movies = response;

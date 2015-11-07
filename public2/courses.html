@@ -23,6 +23,7 @@
                 <th>Title</th>
                 <th>Seats</th>
                 <th>Start Date</th>
+                <th>&nbsp</th>
             </tr>
             <tr>
                 <td><input ng-model="course.title" class="form-control"></td>
@@ -35,11 +36,10 @@
                 <td>{{course.title}}</td>
                 <td>{{course.seats}}</td>
                 <td>{{course.starts | date: 'short'}}</td>
+                <td><button class="btn btn-danger" ng-click="removeCourse($index)">Remove</button></td>
             </tr>
         </tbody>
     </table>
-
-    {{testCourse}}
 </div>
 </body>
 </html>

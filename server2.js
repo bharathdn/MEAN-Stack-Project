@@ -6,6 +6,8 @@ app.use(express.static(__dirname + '/public2'));
 var courses = [
     {title: "Java 101",seats: 25,starts: new Date()},
     {title: "PHP 101", seats:244, starts: new Date(2016,1,15)},
+    {title: "C#", seats:24, starts: new Date(2016,1,15)},
+    {title: "SQL", seats:23, starts: new Date(2016,1,15)},
     {title: "MR 101", seats:255, starts: new Date(2015,12,5)}
 ];
 
@@ -13,12 +15,20 @@ var courses = [
 
 //this is read
 app.get("/rest/course",function(req,res){
-    res.send(courses);
+    res.json(courses);
 });
 
 app.get("/rest/course/:id",function(req,res){
     var index = req.params.id;
-    res.send(courses[index]);
+    res.json(courses[index]);
+});
+
+app.delete("/rest/course/:id",function(req,res){
+    var index = req.params.id;
+    courses.splice(index,1);
+    //res.send(courses);
+    // use the below code to respond as a JSON
+    res.json(courses);
 });
 
 

@@ -35,8 +35,9 @@
 
         }
 
-        function deleteCourseById(){
-
+        function deleteCourseById(id,callback){
+            $http.delete("/rest/course/"+id)
+                .success(callback);
         }
 
         function updateCourseById(){

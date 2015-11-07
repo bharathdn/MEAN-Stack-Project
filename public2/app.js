@@ -7,19 +7,22 @@
         //call the service
         CourseService.readAllCourses(renderCourses);
         //CourseService.readSingleCourseByID
-
-        function renderCourses(response){
-            $scope.courses = response;
-        }
-
         $scope.selectCourse = selectCourse;
+        $scope.removeCourse = removeCourse;
 
-        function selectCourse(index)
-        {
+        function selectCourse(index){
             $scope.selectedCourseIndex = index;
             CourseService.readCourseById(index,function(response){
                 $scope.course = response;
             })
+        }
+
+        function removeCourse(index){
+            CourseService.deleteCourseById(index,renderCourses);
+        }
+
+        function renderCourses(response){
+            $scope.courses = response;
         }
     }
 })();
