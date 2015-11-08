@@ -6,20 +6,23 @@
             .when("/",{
                 templateUrl: "home/home.view.html"
             })
-            .when("home",{
+            .when("/home",{
                 templateUrl: "home/home.view.html"
             })
-            .when("profile",{
+            .when("/profile",{
                 templateUrl: "profile/profile.view.html"
             })
-            .when("register",{
+            .when("/register",{
                 templateUrl: "register/register.view.html"
             })
-            .when("search",{
+            .when("/search",{
                 templateUrl: "search/search.view.html"
             })
-            .when("favorite",{
-                templateUrl: "favorites/favorite/view.html"
+            .when("/favorite",{
+                templateUrl: "favorites/favorite.view.html"
+            })
+            .when("/login",{
+                templateUrl: "login/login.view.html"
             })
             .otherwise("/",
                 {redirectTo: "/"
