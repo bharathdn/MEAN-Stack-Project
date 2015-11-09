@@ -1,0 +1,17 @@
+/* code from https://css-tricks.com/star-ratings/ */
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: ltr;
+    padding-top: 15%;
+}
+.rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.5em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+    content: "\2605";
+    position: absolute;
+}

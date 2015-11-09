@@ -18,6 +18,9 @@
             .when("/search",{
                 templateUrl: "search/search.view.html"
             })
+            .when("/search_result",{
+                templateUrl: "search/search_result.view.html"
+            })
             .when("/favorite",{
                 templateUrl: "favorites/favorite.view.html"
             })
