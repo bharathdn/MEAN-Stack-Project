@@ -21,8 +21,11 @@
             .when("/search_result",{
                 templateUrl: "search/search_result.view.html"
             })
-            .when("/favorite",{
-                templateUrl: "favorites/favorite.view.html"
+            .when("/favorites",{
+                templateUrl: "favorites/favorites-reviews.view.html"
+            })
+            .when("/favorite_books",{
+                templateUrl: "favorites/favorites-favorite.view.html"
             })
             .when("/login",{
                 templateUrl: "login/login.view.html"

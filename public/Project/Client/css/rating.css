@@ -2,7 +2,7 @@
 
 .rating {
     unicode-bidi: bidi-override;
-    direction: ltr;
+    direction: rtl;
     padding-top: 15%;
 }
 .rating > span {
