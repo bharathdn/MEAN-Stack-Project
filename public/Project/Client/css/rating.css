@@ -3,11 +3,11 @@
 .rating {
     unicode-bidi: bidi-override;
     direction: rtl;
-    padding-top: 15%;
+    /*padding-top: 15%; */
 }
 .rating > span {
     display: inline-block;
-    position: relative;
+    /* position: relative; */
     width: 1.5em;
 }
 .rating > span:hover:before,
