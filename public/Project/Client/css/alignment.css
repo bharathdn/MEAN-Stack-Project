@@ -11,3 +11,29 @@
     -webkit-justify-content: center; /* For Safari */
     -webkit-align-items: center; /* For Safari */
 }
+
+img{
+    padding-top: 15%;
+
+}
+
+@media screen and (min-width: 900px) {
+    .col-md-3 {
+        width: 23%;
+        float: left;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    .col-md-3 {
+        width: 17%;
+        float: left;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .col-md-3 {
+        width: 12%;
+        float: left;
+    }
+}
