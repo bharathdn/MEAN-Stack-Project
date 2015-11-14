@@ -4,7 +4,7 @@
         .controller("courseController",courseController);
 
     function courseController($scope,$http,CourseService){
-        //call the service
+        //call the services
         CourseService.readAllCourses(renderCourses);
         //CourseService.readSingleCourseByID
         $scope.selectCourse = selectCourse;
