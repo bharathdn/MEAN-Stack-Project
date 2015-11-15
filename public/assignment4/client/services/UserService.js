@@ -5,24 +5,7 @@
         .factory("UserService",UserService);
 
     function UserService($rootScope, $http, $q) {
-
-        var currentUsers = [];
-
-        // creating test user for testing
-        /*var testUser = {
-            userName: "test",
-            password: "test",
-            id: createGuid(),
-            userFname: "test",
-            userLname: "test2",
-            userEmail: "test@neu.edu"
-        };
-         console.log("adding test user.....");
-         currentUsers.push(testUser);
-         $rootScope.user = testUser;
-         console.log("test user: added");
-        */
-
+        
         function findUserByUsernameAndPassword(username, password, callback) {
             //console.log('user: '+username+' password: '+password);
             for (userIndex in currentUsers) {

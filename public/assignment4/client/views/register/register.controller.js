@@ -4,7 +4,7 @@
         .controller("RegisterController",RegisterController);
 
 
-    function RegisterController($scope,$location,UserService,$rootScope){
+    function RegisterController($location,UserService,$rootScope){
         //$scope.$location = $location;
         //$scope.register = register;
         var model = this;
@@ -19,6 +19,7 @@
         function registerCallback(user){
             console.log(user);
             $rootScope.user = user;
+            $location.url("/profile");
         }
     }
 })();
