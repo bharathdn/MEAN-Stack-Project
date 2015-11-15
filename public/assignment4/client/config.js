@@ -8,6 +8,7 @@
 				})
 				.when("/home",{
 					templateUrl: "views/home/home.view.html"
+					//controller: "homecontroller as model "
 				})
 				.when("/profile",{
 					templateUrl: "views/profile/profile.view.html"

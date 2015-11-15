@@ -6,6 +6,8 @@
 
     function FormController($scope, $location, $rootScope, FormService){
         //$scope.$location = $location;
+        // var model = this;
+        // model.addForm = addForm;
         var user = $rootScope.user;
         var forms=[];
         $scope.addForm = addForm;
