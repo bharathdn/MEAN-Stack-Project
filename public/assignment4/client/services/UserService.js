@@ -5,7 +5,17 @@
         .factory("UserService",UserService);
 
     function UserService($rootScope, $http, $q) {
-        
+        var service = {
+            createUser: createUser,
+            findUserByUsernameAndPassword: findUserByUsernameAndPassword,
+            findAllUsers: findAllUsers,
+            getUserIndex: getUserIndex,
+            deleteUserById: deleteUserById,
+            updateUser: updateUser,
+        };
+
+        return service;
+
         function findUserByUsernameAndPassword(username, password, callback) {
             //console.log('user: '+username+' password: '+password);
             for (userIndex in currentUsers) {
@@ -82,14 +92,6 @@
             callback(currentUsers[userIndex]);
         }
 
-        var service = {
-            findUserByUsernameAndPassword: findUserByUsernameAndPassword,
-            findAllUsers: findAllUsers,
-            createUser: createUser,
-            deleteUserById: deleteUserById,
-            updateUser: updateUser
-        };
-        return service;
     }
 
     function createGuid() {
