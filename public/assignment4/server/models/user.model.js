@@ -1,20 +1,20 @@
-var mockUsers = require("./user.mock.json");
-module.exports = function(app){
-
+module.exports = function(){
+    var mockUsers = require("./user.mock.json");
     var api = {
-        Create: Create,
+        createNewUser: createNewUser,
         FindAll: FindAll,
         FindById: FindById,
         Update: Update,
         Delete: Delete,
         findUserByUsername:findUserByUsername,
         findUserByCredentials:findUserByCredentials
-    }
+    };
     return api;
 
-    function Create(Object){
-
-    }
+    function createNewUser(user){
+        mockUsers.push(user);
+        return  mockUsers;
+    };
 
     function FindAll(){
 

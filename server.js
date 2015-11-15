@@ -1,4 +1,6 @@
 var express = require('express');
+var bodyParser = require('body-parser');
+var multer = require('multer');
 var app = express();
 
 app.use(bodyParser.json()); //parse application/json

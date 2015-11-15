@@ -28,7 +28,8 @@
 					templateUrl: "views/login/login.view.html"
 				})
 				.when("/register",{
-					templateUrl: "views/register/register.view.html"
+					templateUrl: "views/register/register.view.html",
+					controller : "RegisterController as model"
 				})
 				.otherwise(
 					{ redirectTo: "/"

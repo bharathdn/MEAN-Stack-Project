@@ -4,12 +4,12 @@
         .module("FormBuilderApp")
         .factory("UserService",UserService);
 
-    function UserService($rootScope) {
+    function UserService($rootScope, $http, $q) {
 
         var currentUsers = [];
 
         // creating test user for testing
-        var testUser = {
+        /*var testUser = {
             userName: "test",
             password: "test",
             id: createGuid(),
@@ -17,12 +17,11 @@
             userLname: "test2",
             userEmail: "test@neu.edu"
         };
-
-        console.log("adding test user.....");
-        currentUsers.push(testUser);
-        $rootScope.user = testUser;
-        console.log("test user: added");
-
+         console.log("adding test user.....");
+         currentUsers.push(testUser);
+         $rootScope.user = testUser;
+         console.log("test user: added");
+        */
 
         function findUserByUsernameAndPassword(username, password, callback) {
             //console.log('user: '+username+' password: '+password);
@@ -44,10 +43,12 @@
         }
 
         function createUser(user, callback) {
+            var deferred = $q.defer();
+
             //todo: check if username already exists
 
             //todo: check if password and verify password match
-
+            console.log("UserService :: new user registration called")
             var newUser = {
                 userName: user.userName,
                 password: user.password,
@@ -56,9 +57,13 @@
                 userLname: user.Lname,
                 userEmail: user.email
             };
-            currentUsers.push(newUser);
 
-            callback(newUser);
+            $http.post("/api/assignment/user", newUser)
+                .success(function (users){
+                    deferred.resolve(users);
+                });
+            return deferred.promise;
+
         }
 
 
