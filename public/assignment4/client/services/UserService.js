@@ -54,6 +54,17 @@
             return deferred.promise;
         }
 
+
+        function updateUser(userId, user) {
+            var deferred = $q.defer();
+
+            $http.put("/api/assignment/user/"+userId)
+                .success(function(userResponse){
+                    deferred.resolve(userResponse);
+                });
+            return deferred.promise;
+        }
+
         function findUserById(userId){
 
         }
@@ -76,31 +87,6 @@
             callback(currentUsers);
         }
 
-
-        function updateUser(userId, user, callback) {
-            var userIndex = getUserIndex(userId);
-
-            currentUsers[userIndex].userName = user.userName;
-            currentUsers[userIndex].password = user.password;
-            currentUsers[userIndex].id = userId;
-            currentUsers[userIndex].userFname = user.FName;
-            currentUsers[userIndex].userLname = user.LName;
-            currentUsers[userIndex].userEmail = user.email;
-
-            // callback
-            callback(currentUsers[userIndex]);
-        }
-
-        function getUserIndex(userId){
-            var userIndex = null;
-            for (var index = 0; index < mockUsers.length; index++) {
-                if (currentUsers[index].id == userId) {
-                    userIndex = index;
-                    return userIndex;
-                }
-            }
-            return userIndex;
-        }
     }
 
     function createGuid() {

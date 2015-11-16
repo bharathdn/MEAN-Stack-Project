@@ -4,27 +4,31 @@
         .controller("ProfileController",ProfileController);
 
 
-    function ProfileController($scope, $location,UserService,$rootScope){
+    function ProfileController($scope,$location,UserService,$rootScope){
         //$scope.$location = $location;
-        $scope.update = update;
+        //$scope.update = update;
+        var model = this;
+        model.update = update;
 
-        var user = $rootScope.user;
-        if(typeof user != "undefined") {
+        var loggedInUser = $rootScope.user;
+        if(typeof loggedInUser != "undefined") {
             showUserinfo();
         }
 
-        $scope.update = update;
-
         function update(){
             var newuser = {
-                userName : $scope.userName,
-                password : $scope.password,
-                email : $scope.email,
-                FName: $scope.fName,
-                LName: $scope.lName
+                userName : model.userName,
+                password : model.password,
+                email : model.eMail,
+                FName: model.fName,
+                LName: model.lName
             };
 
-            UserService.updateUser(user.id,newuser,updateCallback);
+            UserService.updateUser(loggedInUser.id,newuser)
+                .then(function(users){
+                    console.log(users);
+                    updateCallback(newuser);
+                });
         }
 
         function updateCallback(user){
@@ -32,11 +36,13 @@
         }
 
         function showUserinfo(){
-            $scope.userName = user.userName,
-            $scope.password = user.password,
-            $scope.fName = user.userFname,
-            $scope.lName = user.userLname,
-            $scope.eMail = user.userEmail
+            console.log("showing user info");
+            console.log(loggedInUser);
+            model.userName = loggedInUser.userName;
+            model.password = loggedInUser.password;
+            model.fName = loggedInUser.userFname;
+            model.lName = loggedInUser.userLname;
+            model.eMail = loggedInUser.userEmail;
         }
     }
 })();

@@ -11,7 +11,8 @@
 					//controller: "homecontroller as model "
 				})
 				.when("/profile",{
-					templateUrl: "views/profile/profile.view.html"
+					templateUrl: "views/profile/profile.view.html",
+					controller: "ProfileController as model"
 				})
 				.when("/admin",{
 					templateUrl: "views/admin/admin.view.html"
