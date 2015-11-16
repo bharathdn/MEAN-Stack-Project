@@ -25,7 +25,8 @@
 				})
 				*/
 				.when("/login",{
-					templateUrl: "views/login/login.view.html"
+					templateUrl: "views/login/login.view.html",
+					controller : "LoginController as model"
 				})
 				.when("/register",{
 					templateUrl: "views/register/register.view.html",

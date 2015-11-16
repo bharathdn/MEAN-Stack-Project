@@ -4,19 +4,28 @@
         .controller("LoginController",LoginController);
 
 
-    function LoginController($scope, $location,UserService,$rootScope){
-        $scope.login = login;
+    function LoginController($location,UserService,$rootScope){
+        var model = this;
+        model.login = login;
 
-        function login(){
-            UserService.findUserByUsernameAndPassword(
-                $scope.userName, $scope.password,userLoginCallback);
-        }
+        function login(user){
+            console.log(user);
+
+            userObj = { "username": user.userName,
+                        "password": user.password };
+
+            UserService.findUserByUsernameAndPassword(user)
+                .then(function(userResponse){
+                    console.log(userResponse);
+                    userLoginCallback(userResponse);
+                });
+        };
 
         function userLoginCallback(user){
             if(user != null){
                 $rootScope.user = user;
                 console.log("user found, login sucessful");
-                $location.url("/");
+                //$location.url("/");
             }
             else
             {

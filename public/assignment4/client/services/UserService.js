@@ -7,41 +7,22 @@
     function UserService($rootScope, $http, $q) {
         var service = {
             createUser: createUser,
+            findUserById: findUserById,
+            findUserByUserName: findUserByUserName,
             findUserByUsernameAndPassword: findUserByUsernameAndPassword,
             findAllUsers: findAllUsers,
-            getUserIndex: getUserIndex,
             deleteUserById: deleteUserById,
-            updateUser: updateUser,
+            updateUser: updateUser
         };
-
         return service;
 
-        function findUserByUsernameAndPassword(username, password, callback) {
-            //console.log('user: '+username+' password: '+password);
-            for (userIndex in currentUsers) {
-                if (currentUsers[userIndex].userName == username) {
-                    if (currentUsers[userIndex].password == password) {
-                        callback(currentUsers[userIndex]);
-                        return;
-                    }
-                }
-                else {
-                    callback(null);
-                }
-            }
-        }
-
-        function findAllUsers(callback) {
-            callback(currentUsers);
-        }
-
-        function createUser(user, callback) {
+        function createUser(user) {
             var deferred = $q.defer();
 
             //todo: check if username already exists
 
             //todo: check if password and verify password match
-            console.log("UserService :: new user registration called")
+            console.log("UserService :: new user registration called");
             var newUser = {
                 userName: user.userName,
                 password: user.password,
@@ -56,20 +37,37 @@
                     deferred.resolve(users);
                 });
             return deferred.promise;
+        }
+
+
+        function findUserByUsernameAndPassword(user) {
+            var deferred = $q.defer();
+            //var username = user.userName;
+            //var password = user.password;
+            console.log("Client UserService : authenticating user:"+user.userName);
+            var searchUser = { username: user.userName,
+                password: user.password };
+            $http.get("/api/assignment/userauth/"+user.userName+"/"+user.password)
+                .success(function (userResponse){
+                    deferred.resolve(userResponse);
+                });
+            return deferred.promise;
+        }
+
+        function findUserById(userId){
 
         }
 
 
-        function getUserIndex(userId){
-            var userIndex = false;
-            for (var index = 0; index < currentUsers.length; index++) {
-                if (currentUsers[index].id == userId) {
-                    userIndex = index;
-                    continue;
-                }
-            }
-            return userIndex;
+        function findUserByUserName(userName){
+
         }
+
+
+        function findAllUsers(callback) {
+            callback(currentUsers);
+        }
+
 
         function deleteUserById(userId, callback) {
             var userIndex = getUserIndex(userId);
@@ -77,6 +75,7 @@
             currentUsers.splice(index,1);
             callback(currentUsers);
         }
+
 
         function updateUser(userId, user, callback) {
             var userIndex = getUserIndex(userId);
@@ -92,6 +91,16 @@
             callback(currentUsers[userIndex]);
         }
 
+        function getUserIndex(userId){
+            var userIndex = null;
+            for (var index = 0; index < mockUsers.length; index++) {
+                if (currentUsers[index].id == userId) {
+                    userIndex = index;
+                    return userIndex;
+                }
+            }
+            return userIndex;
+        }
     }
 
     function createGuid() {

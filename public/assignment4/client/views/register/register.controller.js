@@ -13,7 +13,9 @@
         function registerNewUser(user){
             console.log("Register Controller: new user registration");
             UserService.createUser(user)
-                .then(registerCallback(user));
+                .then(function(newUser) {
+                    registerCallback(newUser)
+                });
         }
 
         function registerCallback(user){
