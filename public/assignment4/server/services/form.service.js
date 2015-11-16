@@ -26,13 +26,17 @@ module.exports = function(app, model) {
 
     function GetFormsByUserId(req,res){
         var userId = req.params.userId;
+        var forms = model.FindFormsByUserId(userId);
+        res.json(forms);
     }
 
     function GetFormContentsById(req,res){
         var formId = req.params.formId;
+        var form = model.FindFormByFormId(formID)
+        res.json(form);
     }
 
-    function DeleteFormByFormById(req,res){
+    function DeleteFormByFormId(req,res){
         var formId = req.params.formId;
     }
 
@@ -43,4 +47,13 @@ module.exports = function(app, model) {
     function UpdateFormByFormId(req,res){
         var formId = req.params.formId;
     }
+
+    function guid() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    };
 }

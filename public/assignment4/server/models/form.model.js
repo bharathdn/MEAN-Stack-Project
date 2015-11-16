@@ -8,6 +8,12 @@ module.exports = function(app) {
         Update: Update,
         Delete: Delete,
         findFormByTitle: findFormByTitle,
+
+        FindFormsByUserId: FindFormsByUserId,
+        FindFormByFormId: FindFormByFormId,
+
+        GetAllFieldsByFormId: GetAllFieldsByFormId,
+
     }
     return api;
 
@@ -23,11 +29,11 @@ module.exports = function(app) {
 
     }
 
-    function Update() {
+    function Update(id) {
 
     }
 
-    function Delete() {
+    function Delete(id) {
 
     }
 
