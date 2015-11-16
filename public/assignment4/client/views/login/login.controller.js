@@ -16,7 +16,7 @@
 
             UserService.findUserByUsernameAndPassword(user)
                 .then(function(userResponse){
-                    console.log(userResponse);
+                    //console.log(userResponse);
                     userLoginCallback(userResponse);
                 });
         };
@@ -25,7 +25,7 @@
             if(user != null){
                 $rootScope.user = user;
                 console.log("user found, login sucessful");
-                //$location.url("/");
+                $location.url("/");
             }
             else
             {

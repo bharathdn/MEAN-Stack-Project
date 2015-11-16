@@ -19,7 +19,7 @@ module.exports = function(){
     };
 
     function FindAll(){
-
+        return mockUsers;
     }
 
     //sample user json
@@ -36,7 +36,7 @@ module.exports = function(){
             }
         }
         return null;
-    };
+    }
 
 
     function FindById(id){
@@ -46,15 +46,18 @@ module.exports = function(){
             }
         }
         return null;
-    };
-
-
-    function Update(){
-
     }
 
 
-    function Delete(){
+    function Delete(userId){
+        var userIndex = getUserIndex(userId);
+        if(userIndex == null){
+            return userIndex;
+        }
+        else {
+            mockUsers.splice(userIndex,1);
+            return mockUsers;
+        }
 
     }
 
@@ -72,16 +75,50 @@ module.exports = function(){
             }
         }
         return null;
-    };
+    }
+
+    function updateUser(userId, user, callback) {
+        var userIndex = getUserIndex(userId);
+
+        currentUsers[userIndex].userName = user.userName;
+        currentUsers[userIndex].password = user.password;
+        currentUsers[userIndex].id = userId;
+        currentUsers[userIndex].userFname = user.FName;
+        currentUsers[userIndex].userLname = user.LName;
+        currentUsers[userIndex].userEmail = user.email;
+
+        // callback
+        callback(currentUsers[userIndex]);
+    }
+
+    var userSample = [{"id": 123, "firstName": "Alice",
+        "lastName": "Wonderland",
+        "username": "alice",
+        "password": "alice"}];
+
+
+    function Update(userId, user){
+        var userIndex = getUserIndex(userId);
+        if(userIndex == null){
+            return userIndex;
+        }
+        else {
+            mockUsers[userIndex].username = user.userName;
+            mockUsers[userIndex].lastName = user.lastName;
+            mockUsers[userIndex].firstName = user.firstName;
+            mockUsers[userIndex].password = user.password;
+            return mockUsers;
+        }
+    }
 
     function getUserIndex(userId){
         var userIndex = null;
         for (var index = 0; index < mockUsers.length; index++) {
-            if (currentUsers[index].id == userId) {
+            if (mockUsers[index].id == userId) {
                 userIndex = index;
                 return userIndex;
             }
         }
         return userIndex;
-    };
+    }
 }

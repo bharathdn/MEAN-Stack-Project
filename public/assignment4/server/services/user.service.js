@@ -6,11 +6,8 @@ module.exports = function(app, model){
     app.get("/api/assignment/user?username=username", FindUserByUserName);
     app.get("/api/assignment/userauth/:username/:password", AuthenticateUser);
     //app.get("/api/assignment/user?username=username/password=password", AuthenticateUser);
-    /*
-    app.get("/api/assignment/user?username=alice&password=wonderland",AuthenticateUser);
     app.put("/api/assignment/user/:id", UpdateUserById);
     app.delete("/api/assignment/user/:id", RemoveUserByID);
-    */
 
     function CreateUser(req,res){
         var user = req.body;
@@ -18,6 +15,7 @@ module.exports = function(app, model){
         var users = model.CreateNewUser(user);
         res.json(users);
     };
+
 
     function AuthenticateUser(req,res){
         var credentials = req.body;
@@ -52,4 +50,19 @@ module.exports = function(app, model){
         res.json(user);
     }
 
+
+    function UpdateUserById(req, res){
+        var userId = req.params.id;
+        var user = req.body;
+        var users = model.Update(userId,user);
+        res.json(users);
+    }
+
+
+    function RemoveUserByID(req, res){
+        var userId = req.params.id;
+        var user = req.body;
+        var users = model.Delete(userId,user);
+        res.json(users);
+    }
 };

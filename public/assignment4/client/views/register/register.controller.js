@@ -11,7 +11,7 @@
         model.registerNewUser = registerNewUser;
 
         function registerNewUser(user){
-            console.log("Register Controller: new user registration");
+            //console.log("Register Controller: new user registration");
             UserService.createUser(user)
                 .then(function(newUser) {
                     registerCallback(newUser)
