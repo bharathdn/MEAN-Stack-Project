@@ -24,7 +24,6 @@
 				.when("/field",{
 					templateUrl: "views/field/field.view.html",
 					controller:	"FieldController as model"
-
 				})
 				.when("/login",{
 					templateUrl: "views/login/login.view.html",
@@ -33,6 +32,10 @@
 				.when("/register",{
 					templateUrl: "views/register/register.view.html",
 					controller : "RegisterController as model"
+				})
+				.when("/user/:userId/form/:formId/fields",{
+					templateUrl: "views/field/field.view.html",
+					controller:	"FieldController as model"
 				})
 				.otherwise(
 					{ redirectTo: "/"

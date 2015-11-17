@@ -7,17 +7,32 @@
     function FormController($q, $location, $rootScope, FormService){
 
         var model = this;
+
+        //var user = $rootScope.user;
+
         model.addForm = addForm;
-        var user = $rootScope.user;
         model.updateForm = updateForm;
         model.deleteForm = deleteForm;
         model.selectForm = selectForm;
 
+
         //loading alice user for testing purpose
-        var user = {id: 711}
+        var user = {id: 123}
+        model.userId = 123;
 
         // call function to render forms for Logged In USer
+        console.log("calling render forms");
         renderFormsForUser();
+
+        // function to show the forms for logged in User
+        function renderFormsForUser(){
+            FormService
+                .findAllFormsForUser(user.id)
+                .then(function (formsForUser){
+                    model.forms = formsForUser;
+                    createFormCallback(formsForUser);
+                });
+        }
 
 
         function addForm(form){
@@ -30,26 +45,17 @@
             FormService.createFormForUser(user.id,model.form)
                 .then(function (formResponse){
                     console.log(formResponse);
-                    createFormCallback(formResponse);
+                    renderFormsForUser();
                 });
         }
 
-        // function to show the forms for logged in User
-        function renderFormsForUser(){
-            FormService
-                .findAllFormsForUser(user.id)
-                .then(function (formsForUser){
-                    //model.forms = formsForUser;
-                    createFormCallback(formsForUser);
-                });
-        }
 
         function createFormCallback(forms){
             //forms.push(form);
             //model.title= "";
             //console.log(form);
-            model.forms = forms;
-            renderFormsForUser();
+
+            //renderFormsForUser();
         }
 
         function selectForm(selectedForm){

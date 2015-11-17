@@ -51,7 +51,12 @@ module.exports = function(app) {
 
     }
 
-    function GetAllFieldsByFormId(){
+    function GetAllFieldsByFormId(formId){
+        for(formIndex in mockForms){
+            if(mockForms[formIndex].id == formId){
+                return mockForms[formIndex].fields;
+            }
+        }
 
     }
 
