@@ -14,18 +14,19 @@
 
             <tbody>
             <tr>
-                <td><input ng-model="name" type="text" class="form-control" id="username" placeholder="name"></td>
+                <td><input ng-model="form.title" type="text" class="form-control" id="username" placeholder="name"></td>
                 <td>
-                    <button ng-click="addForm()" class="glyphicon glyphicon-plus btn btn-primary"></button>
-                    <button ng-click="updateForm()" class="glyphicon glyphicon-ok btn btn-primary"></button>
-                    </td>
+                    <button ng-click="model.addForm(form)" class="glyphicon glyphicon-plus btn btn-primary"></button>
+                    <button ng-click="model.updateForm(form)" class="glyphicon glyphicon-ok btn btn-primary"></button>
+                </td>
             </tr>
 
-            <tr ng-repeat="form in forms">
-                <td>{{form.name}}</td>
+            <tr ng-repeat="form in model.forms">
+                <!--td><a>{{form.title}}</a></td-->
+                <td><a href="#/user/{{model.userId}}/form/{{form.id}}/field">{{form.title}}</a></td>
                 <td>
-                    <button ng-click="deleteForm($index)" class="glyphicon glyphicon-remove btn btn-primary"></button>
-                    <button ng-click="selectForm($index)" class="glyphicon glyphicon-pencil btn btn-primary"></button>
+                    <button ng-click="model.deleteForm(form)" class="glyphicon glyphicon-remove btn btn-primary"></button>
+                    <button ng-click="model.selectForm(form)" class="glyphicon glyphicon-pencil btn btn-primary"></button>
                 </td>
             </tr>
 

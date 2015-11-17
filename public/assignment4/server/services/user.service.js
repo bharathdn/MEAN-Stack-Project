@@ -5,7 +5,7 @@ module.exports = function(app, model){
     app.get("/api/assignment/user/:id", FindUserById);
     app.get("/api/assignment/user?username=username", FindUserByUserName);
     app.get("/api/assignment/userauth/:username/:password", AuthenticateUser);
-    //app.get("/api/assignment/user?username=username/password=password", AuthenticateUser);
+    //app.get("/api/assignment/user?username=username&password=password", AuthenticateUser);
     app.put("/api/assignment/user/:id", UpdateUserById);
     app.delete("/api/assignment/user/:id", RemoveUserByID);
 

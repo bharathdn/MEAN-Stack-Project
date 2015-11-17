@@ -4,45 +4,58 @@
         .controller("FormController",FormController);
 
 
-    function FormController($scope, $location, $rootScope, FormService){
-        //$scope.$location = $location;
-        // var model = this;
-        // model.addForm = addForm;
+    function FormController($q, $location, $rootScope, FormService){
+
+        var model = this;
+        model.addForm = addForm;
         var user = $rootScope.user;
-        var forms=[];
-        $scope.addForm = addForm;
-        $scope.updateForm = updateForm;
-        $scope.deleteForm = deleteForm;
-        $scope.selectForm = selectForm;
-        $scope.forms = forms;
+        model.updateForm = updateForm;
+        model.deleteForm = deleteForm;
+        model.selectForm = selectForm;
+
+        //loading alice user for testing purpose
+        var user = {id: 711}
+
+        FormService
+            .findAllFormsForUser(user.id)
+            .then(function (formsForUser){
+                //model.forms = formsForUser;
+                createFormCallback(formsForUser);
+            });
 
 
-        function addForm(){
-            if($scope.name.length <= 0)
+
+        function addForm(form){
+            //console.log(form.title);
+            if(angular.isUndefined(form))
             {
                 return;
             }
-            var form = {
-                name : $scope.name
-            };
-            FormService.createFormForUser(user.id,form,createFormCallback);
+
+            FormService.createFormForUser(user.id,form)
+                .then(function (formResponse){
+                    console.log(formResponse);
+                    createFormCallback(formResponse);
+                });
+
         }
 
-        function createFormCallback(form){
-            forms.push(form);
-            $scope.name= "";
-            console.log(form);
+        function createFormCallback(forms){
+            //forms.push(form);
+            //model.title= "";
+            //console.log(form);
+            model.forms = forms;
         }
 
         function selectForm($index){
             var selectedForm = $scope.forms[$index];
-            $scope.name = selectedForm.name;
+            $scope.title = selectedForm.title;
             $scope.selectedForm = $scope.forms[$index];
         }
 
         function updateForm(){
             var newForm = {
-                name: $scope.name
+                title: $scope.title
             };
             FormService.updateFormById(
                         $scope.selectedForm.id,
@@ -53,7 +66,7 @@
         function updateCallback(form){
             $scope.selectedForm = form;
             console.log(form);
-            $scope.name="";
+            $scope.title="";
         }
 
         function deleteForm($index){

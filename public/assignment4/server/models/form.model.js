@@ -1,6 +1,5 @@
-var mockForms = require("./form.mock.json");
 module.exports = function(app) {
-
+    var mockForms = require("./form.mock.json");
     var api = {
         Create: Create,
         FindAll: FindAll,
@@ -17,8 +16,10 @@ module.exports = function(app) {
     }
     return api;
 
-    function Create(Object) {
-
+    function Create(form) {
+        form.fields = [];
+        mockForms.push(form);
+        return mockForms;
     }
 
     function FindAll() {
@@ -39,5 +40,24 @@ module.exports = function(app) {
 
     function findFormByTitle(title){
 
+    }
+
+    function FindFormByFormId(){
+
+    }
+
+    function GetAllFieldsByFormId(){
+
+    }
+
+    function FindFormsByUserId(userId)
+    {
+        var userForms = [];
+        for(formIndex in mockForms){
+            if(mockForms[formIndex].userId == userId){
+                userForms.push(mockForms[formIndex]);
+            }
+        }
+        return userForms;
     }
 }

@@ -18,7 +18,8 @@
 					templateUrl: "views/admin/admin.view.html"
 				})
 				.when("/form",{
-					templateUrl: "views/form/form.view.html"
+					templateUrl: "views/form/form.view.html",
+					controller: "FormController as model"
 				})
 				/*
 				.when("/form-fields",{

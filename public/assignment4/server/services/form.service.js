@@ -30,30 +30,40 @@ module.exports = function(app, model) {
         res.json(forms);
     }
 
-    function GetFormContentsById(req,res){
+    function GetFormContentsByFormId(req,res){
         var formId = req.params.formId;
         var form = model.FindFormByFormId(formID)
         res.json(form);
     }
 
-    function DeleteFormByFormId(req,res){
+    function DeleteFormByFormById(req,res){
         var formId = req.params.formId;
     }
 
     function CreateFormForUser(req,res){
         var userId = req.params.userId;
+        var form = req.body;
+
+        form.id = createGuid();
+        form.userId = userId;
+
+        var forms = model.Create(form);
+        var userforms = model.FindFormsByUserId(userId);
+        res.json(userforms);
     }
+
 
     function UpdateFormByFormId(req,res){
         var formId = req.params.formId;
     }
 
-    function guid() {
+    function createGuid() {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000)
                 .toString(16)
                 .substring(1);
         }
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-    };
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
+    }
 }

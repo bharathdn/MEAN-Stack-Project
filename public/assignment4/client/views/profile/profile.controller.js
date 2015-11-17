@@ -36,13 +36,8 @@
         }
 
         function showUserinfo(){
-            console.log("showing user info");
-            console.log(loggedInUser);
-            model.userName = loggedInUser.userName;
-            model.password = loggedInUser.password;
-            model.fName = loggedInUser.userFname;
-            model.lName = loggedInUser.userLname;
-            model.eMail = loggedInUser.userEmail;
+            console.log("Profile page: registered user info");
+            model.user = loggedInUser;
         }
     }
 })();

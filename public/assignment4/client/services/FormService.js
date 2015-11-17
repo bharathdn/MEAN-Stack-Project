@@ -4,9 +4,9 @@
         .module("FormBuilderApp")
         .factory("FormService",FormService);
 
-    function FormService(){
+    function FormService($http,$q){
 
-        var forms = [];
+        //var forms = [];
         var service = {
             createFormForUser: createFormForUser,
             findAllFormsForUser: findAllFormsForUser,
@@ -15,22 +15,23 @@
         };
         return service;
 
-        function createFormForUser(userId, form, callback) {
-            form.id = createGuid();
+        function createFormForUser(userId, form) {
+            var deferred = $q.defer();
+
+            //form.id = createGuid();
             form.userId = userId;
-            forms.push(form);
-            callback(form);
+            $http.post("/api/assignment/user/"+userId+"/form", form)
+                .success(function (forms) {
+                   deferred.resolve(forms)
+                });
+
+            return deferred.promise;
         }
 
-        function findAllFormsForUser(userId, callback){
-            userForms = [];
-
-            for (formIndex in forms){
-                if(forms[formIndex].userId == userId){
-                    userForms.push(forms[formIndex]);
-                }
-            }
-            callback(userForms);
+        app.get("/api/assignment/user/:userId/form", GetFormsByUserId);
+        function findAllFormsForUser(userId){
+            var deferred = $q.defer();
+            
         }
 
         function deleteFormById(formId, callback){
@@ -54,14 +55,6 @@
             callback(forms[formIndex]);
         }
 
-        function createGuid() {
-            function s4() {
-                return Math.floor((1 + Math.random()) * 0x10000)
-                    .toString(16)
-                    .substring(1);
-            }
-            return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-                s4() + '-' + s4() + s4() + s4();
-        }
+
     }
 })();
