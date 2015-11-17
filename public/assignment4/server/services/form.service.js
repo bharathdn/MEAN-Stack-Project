@@ -38,6 +38,8 @@ module.exports = function(app, model) {
 
     function DeleteFormByFormById(req,res){
         var formId = req.params.formId;
+        var forms = model.Delete(formId);
+        res.json(forms);
     }
 
     function CreateFormForUser(req,res){

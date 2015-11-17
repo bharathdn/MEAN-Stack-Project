@@ -34,8 +34,13 @@ module.exports = function(app) {
 
     }
 
-    function Delete(id) {
-
+    function Delete(formId) {
+        for(formIndex in mockForms){
+            if(mockForms[formIndex].id == formId){
+                mockForms.splice(formIndex,1);
+            }
+        }
+        return mockForms;
     }
 
     function findFormByTitle(title){

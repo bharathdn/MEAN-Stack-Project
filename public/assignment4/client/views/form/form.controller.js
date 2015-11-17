@@ -16,13 +16,8 @@
         //loading alice user for testing purpose
         var user = {id: 711}
 
-        FormService
-            .findAllFormsForUser(user.id)
-            .then(function (formsForUser){
-                //model.forms = formsForUser;
-                createFormCallback(formsForUser);
-            });
-
+        // call function to render forms for Logged In USer
+        renderFormsForUser();
 
 
         function addForm(form){
@@ -37,7 +32,16 @@
                     console.log(formResponse);
                     createFormCallback(formResponse);
                 });
+        }
 
+        // function to show the forms for logged in User
+        function renderFormsForUser(){
+            FormService
+                .findAllFormsForUser(user.id)
+                .then(function (formsForUser){
+                    //model.forms = formsForUser;
+                    createFormCallback(formsForUser);
+                });
         }
 
         function createFormCallback(forms){
@@ -69,14 +73,18 @@
             $scope.title="";
         }
 
-        function deleteForm($index){
-            var formToDelete = $scope.forms[$index];
-            FormService.deleteFormById(formToDelete.id, formDeleteCallback);
-            forms.splice($index,1);
+        function deleteForm(form){
+            formId = form.id;
+            FormService.deleteFormById(formId)
+                .then(function(forms){
+                    console.log(forms);
+                    formDeleteCallback(forms);
+                })
         }
 
-        function formDeleteCallback(deletedForm){
-            console.log(deletedForm);
+        function formDeleteCallback(forms){
+            //console.log(deletedForm);
+            renderFormsForUser();
         }
     }
 

@@ -28,20 +28,24 @@
             return deferred.promise;
         }
 
-        app.get("/api/assignment/user/:userId/form", GetFormsByUserId);
+        
         function findAllFormsForUser(userId){
             var deferred = $q.defer();
-            
+
+            $http.get("/api/assignment/user/"+userId+"/form")
+                .success(function (forms) {
+                    deferred.resolve(forms);
+                });
+            return deferred.promise;
         }
 
-        function deleteFormById(formId, callback){
-            for (formIndex in forms){
-                if(forms[formIndex].id == formId){
-                    forms.splice(formIndex,1);
-                    break;
-                }
-            }
-            callback(forms);
+        function deleteFormById(formId){
+            var deferred = $q.defer();
+            $http.delete("/api/assignment/form/"+formId)
+                .success(function (forms){
+                    deferred.resolve(forms);
+                });
+            return deferred.promise;
         }
 
         function updateFormById(formId, newForm, callback){

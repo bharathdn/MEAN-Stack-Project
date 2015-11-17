@@ -4,29 +4,11 @@
     "title": "Contacts",
     "userId": 123,
     "fields": [
-      {
-        "id": "111",
-        "label": "First Name",
-        "type": "TEXT",
-        "placeholder": "First Name"
-      },
-      {
-        "id": "222",
-        "label": "Last Name",
-        "type": "TEXT",
-        "placeholder": "Last Name"
-      },
-      {
-        "id": "333",
-        "label": "Address",
-        "type": "TEXT",
-        "placeholder": "Address"
-      },
-      {
-        "id": "444",
-        "label": "State",
-        "type": "OPTIONS",
-        "options": [
+      { "id": "111", "label": "First Name", "type": "TEXT", "placeholder": "First Name" },
+      { "id": "222", "label": "Last Name", "type": "TEXT","placeholder": "Last Name" },
+      { "id": "333", "label": "Address", "type": "TEXT", "placeholder": "Address"},
+      { "id": "444", "label": "State", "type": "OPTIONS","options":
+        [
           {
             "label": "Massachussets",
             "value": "MA"
@@ -37,11 +19,7 @@
           }
         ]
       },
-      {
-        "id": "6666",
-        "label": "Itinerary",
-        "type": "CHECKBOXES",
-        "options": [
+      { "id": "6666", "label": "Itinerary", "type": "CHECKBOXES", "options": [
           {
             "label": "Flight",
             "value": "FL"
@@ -57,10 +35,7 @@
         ]
       },
       {
-        "id": "7777",
-        "label": "Gender",
-        "type": "RADIOS",
-        "options": [
+        "id": "7777", "label": "Gender", "type": "RADIOS", "options": [
           {
             "label": "Male",
             "value": "M"
@@ -72,22 +47,10 @@
         ]
       },
       {
-        "id": "555",
-        "label": "ZIP",
-        "type": "TEXT",
-        "placeholder": "ZIP"
-      },
+        "id": "555", "label": "ZIP", "type": "TEXT", "placeholder": "ZIP" },
       {
-        "id": "666",
-        "label": "Email",
-        "type": "EMAIL",
-        "placeholder": "Email"
-      },
-      {
-        "id": "9999",
-        "label": "Due Date",
-        "type": "DATE"
-      }
+        "id": "666", "label": "Email", "type": "EMAIL","placeholder": "Email" },
+      { "id": "9999", "label": "Due Date", "type": "DATE"}
     ]
   },
   {
