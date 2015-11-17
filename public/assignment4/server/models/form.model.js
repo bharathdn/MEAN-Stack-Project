@@ -12,8 +12,8 @@ module.exports = function(app) {
         FindFormByFormId: FindFormByFormId,
 
         GetAllFieldsByFormId: GetAllFieldsByFormId,
-        DeleteFieldByIds: DeleteFieldByIds
-
+        DeleteFieldByIds: DeleteFieldByIds,
+        CreateFieldForForm: CreateFieldForForm
     }
     return api;
 
@@ -21,6 +21,15 @@ module.exports = function(app) {
         form.fields = [];
         mockForms.push(form);
         return mockForms;
+    }
+
+    function CreateFieldForForm(formId,field){
+        for(formIndex in mockForms){
+            if(mockForms[formIndex].id == formId){
+                mockForms[formIndex].fields.push(field);
+                return mockForms[formIndex].fields;
+            }
+        }
     }
 
     function FindAll() {
@@ -36,7 +45,6 @@ module.exports = function(app) {
     }
 
     function DeleteFieldByIds(formId,fieldId){
-        console.log("calling delete on "+formId+" "+fieldId);
         for(formIndex in mockForms){
 
             if(mockForms[formIndex].id == formId)
@@ -79,7 +87,6 @@ module.exports = function(app) {
                 return mockForms[formIndex].fields;
             }
         }
-
     }
 
     function FindFormsByUserId(userId)

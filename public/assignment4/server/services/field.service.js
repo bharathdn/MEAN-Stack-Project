@@ -54,8 +54,10 @@ module.exports = function(app, model) {
 
     function CreateFieldForFormID(req, res) {
         var formId = req.params.formId;
-
-
+        var field = req.body;
+        field.id = createGuid();
+        var fields = model.CreateFieldForForm(formId,field);
+        res.json(fields);
     }
 
     function UpdateFieldByIds(req, res) {
@@ -63,7 +65,7 @@ module.exports = function(app, model) {
         var fieldId = req.params.fieldId;
     }
 
-    function guid() {
+    function createGuid() {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000)
                 .toString(16)

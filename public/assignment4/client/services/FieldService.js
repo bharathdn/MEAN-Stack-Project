@@ -13,9 +13,21 @@
             //deleteFormById: deleteFormById,
             //updateFormById: updateFormById,
             FindFieldsForFormId: FindFieldsForFormId,
-            DeleteFieldFromForm: DeleteFieldFromForm
+            DeleteFieldFromForm: DeleteFieldFromForm,
+            AddFieldIntoForm: AddFieldIntoForm
         };
         return service;
+
+        function AddFieldIntoForm(formId, field){
+            var deferred = $q.defer();
+
+            $http.post("/api/assignment/form/"+formId+"/field",field)
+                .success(function (fields){
+                    deferred.resolve(fields);
+                });
+            return deferred.promise;
+
+        }
 
         function FindFieldsForFormId(formId){
             var deferred = $q.defer();
