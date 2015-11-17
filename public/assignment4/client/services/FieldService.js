@@ -17,13 +17,13 @@
         return service;
 
         function FindFieldsForFormId(formId){
-            var deffered = $q.defer();
-
-            $http.get("/api/assignment/form/:formId/field")
+            var deferred = $q.defer();
+            //console.log("feild Service, fecting fields for:"+formId);
+            $http.get("/api/assignment/form/"+formId+"/field")
                 .success(function(fields){
-                    deffered.resolve(fields);
+                    deferred.resolve(fields);
                 });
-            return deffered.promise;
+            return deferred.promise;
         }
     }
 

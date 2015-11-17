@@ -6,11 +6,11 @@
     function FieldController($routeParams, $rootScope, FieldService) {
         var model = this;
         var userId = $routeParams.userId;
-        var formId = $routeParams.userId;
+        var formId = $routeParams.formId;
 
 
         //fetch the fields for the user
-        GetFieldsForFormId();
+        GetFieldsForFormId(formId);
 
         function GetFieldsForFormId(){
             FieldService
