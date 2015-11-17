@@ -21,11 +21,11 @@
 					templateUrl: "views/form/form.view.html",
 					controller: "FormController as model"
 				})
-				/*
-				.when("/form-fields",{
-					templateUrl: "form/form-fields.view.html"
+				.when("/field",{
+					templateUrl: "views/field/field.view.html",
+					controller:	"FieldController as model"
+
 				})
-				*/
 				.when("/login",{
 					templateUrl: "views/login/login.view.html",
 					controller : "LoginController as model"

@@ -19,8 +19,8 @@
 					templateUrl: "form/form.view.html"
 				})
 				/*
-				.when("/form-fields",{
-					templateUrl: "form/form-fields.view.html"
+				.when("/form-field",{
+					templateUrl: "form/field.view.html"
 				})
 				*/
 				.when("/login",{

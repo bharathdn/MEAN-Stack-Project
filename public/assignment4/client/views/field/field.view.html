@@ -1,0 +1,113 @@
+<div>
+	<h1 class="page-header">Forms : Registration Form</h1>
+
+	<ul class="nav nav-tabs">
+		<li role="presentation"><a href="#/form">Forms</a></li>
+		<li role="presentation" class=active><a href="forms/form-fields.view.html">Fields</a></li>
+	</ul>
+
+	<div class="container">
+		<form class="form-horizontal">
+
+			<div class="form-group">
+				<div class="row" ng-repeat="field in model.fields">
+
+				<div ng-switch="field.type">
+
+					<div ng-switch-when="TEXT">
+						<label class="col-md-12 text-left">{{field.label}}:</label>
+						<div class="col-md-6">
+							 <input class="form-control" type="text" placeholder="{{field.placeholder}}">
+						</div>
+					</div>
+
+					<div ng-switch-when="TEXTAREA">
+						<label class="col-md-12 text-left">{{field.label}}:</label>
+						<div class="col-md-6">
+							<textarea class="form-control" type="text" placeholder="{{field.placeholder}}"></textarea>
+						</div>
+					</div>
+
+					<div ng-switch-when="EMAIL">
+						<label class="col-md-12 text-left">{{field.label}}:</label>
+						<div class="col-md-6">
+							<input class="form-control" type="email" placeholder="{{field.placeholder}}">
+						</div>
+					</div>
+
+					<div ng-switch-when="OPTIONS">
+						<label class="col-md-12 text-left">{{field.label}}:</label>
+						<div class="col-md-6">
+							<select class="form-control">
+								<option ng-repeat="option in field.options"
+										value="{{option.value}}">{{optin.label}}</option>
+							</select>
+						</div>
+					</div>
+
+					<div ng-switch-when="CHECKBOXES">
+						<label class="col-md-12 text-left">{{field.label}}:</label>
+						<div class="col-md-6">
+							<div class="checkbox" ng-repeat="checkbox in field.options">
+								<label>
+								<input type="checkbox"
+										value="{{checkbox.value}}">{{checkbox.label}}>
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div ng-switch-when="RADIOS">
+						<label class="col-md-12 text-left">{{field.label}}:</label>
+						<div class="col-md-6">
+							<div class="checkbox" ng-repeat="checkbox in field.options">
+								<label>
+									<input type="radio"
+										   name="{{field.id}}_radios"
+											value="{{radio.value}}">{{radio.label}}
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div ng-switch-when="DATE">
+						<label class="col-md-12 text-left">{{field.label}}:</label>
+						<div class="col-md-6">
+							<input class="form-control" type="date">
+						</div>
+					</div>
+
+					<div class="col-xs-4">
+						<a><span class="glyphicon glyphicon-pencil btn"></span></a>
+						<a><span class="glyphicon glyphicon-plus btn"></span></a>
+						<a><span class="glyphicon glyphicon-remove btn"></span></a>
+						<a><span class="glyphicon glyphicon-align-justify btn"></span></a>
+					</div>
+				</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-xs-4">
+						<label class="col-md-10 text-left">Add New Field:</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4 dropdown">
+						<select class="form-control" ng-model="model.fieldType">
+							<option value="singlelinetext">Single Line Text</option>
+							<option value="date">Date</option>
+							<option value="dropdown">Dropdown</option>
+							<option value="checkboxes">Checkboxes</option>
+							<option value="radiobuttons">Radio Buttons</option>
+							<option value="paragraphtext">Paragraph Text Field</option>
+						</select>
+					</div>
+					<div class="col-xs-3">
+						<a ng-click="model.addField(model.fieldType)">
+							<span class="glyphicon glyphicon-plus btn"></span></a>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,6 +1,6 @@
 module.exports = function(app, model) {
 
-    //returns an array of fields belonging to a form object
+    //returns an array of field belonging to a form object
     // whose id is equal to the formId path parameter
     app.get("/api/assignment/form/:formId/field", GetAllFieldsByFormId);
 
