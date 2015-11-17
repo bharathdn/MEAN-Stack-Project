@@ -33,7 +33,7 @@ module.exports = function(app, model) {
 
     function GetAllFieldsByFormId(req, res) {
         var formId = req.params.formId;
-        console.log("feild Service, fecting fields for:"+formId);
+        //console.log("feild Service, fecting fields for:"+formId);
         var fields = model.GetAllFieldsByFormId(formId);
         res.json(fields);
     }

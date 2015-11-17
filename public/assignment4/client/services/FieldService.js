@@ -12,7 +12,8 @@
             //findAllFormsForUser: findAllFormsForUser,
             //deleteFormById: deleteFormById,
             //updateFormById: updateFormById,
-            FindFieldsForFormId: FindFieldsForFormId
+            FindFieldsForFormId: FindFieldsForFormId,
+            DeleteFieldFromForm: DeleteFieldFromForm
         };
         return service;
 
@@ -22,6 +23,15 @@
             $http.get("/api/assignment/form/"+formId+"/field")
                 .success(function(fields){
                     deferred.resolve(fields);
+                });
+            return deferred.promise;
+        }
+
+        function DeleteFieldFromForm(fieldId, formId){
+            var deferred = $q.defer();
+            $http.delete("/api/assignment/form/"+formId+"/field/"+fieldId)
+                .success(function(fields){
+                   deferred.resolve(fields);
                 });
             return deferred.promise;
         }
