@@ -22,12 +22,12 @@
 
         function addForm(form){
             //console.log(form.title);
-            if(angular.isUndefined(form))
+            if(angular.isUndefined(model.form))
             {
                 return;
             }
 
-            FormService.createFormForUser(user.id,form)
+            FormService.createFormForUser(user.id,model.form)
                 .then(function (formResponse){
                     console.log(formResponse);
                     createFormCallback(formResponse);
@@ -49,28 +49,25 @@
             //model.title= "";
             //console.log(form);
             model.forms = forms;
+            renderFormsForUser();
         }
 
-        function selectForm($index){
-            var selectedForm = $scope.forms[$index];
-            $scope.title = selectedForm.title;
-            $scope.selectedForm = $scope.forms[$index];
+        function selectForm(selectedForm){
+            model.form = selectedForm;
+            renderFormsForUser();
         }
 
-        function updateForm(){
-            var newForm = {
-                title: $scope.title
-            };
-            FormService.updateFormById(
-                        $scope.selectedForm.id,
-                        newForm,
-                        updateCallback);
+        function updateForm(form){
+            FormService.updateFormById(form)
+                .then(function (forms) {
+                    console.log(forms);
+                    updateCallback(forms);
+                });
         }
 
         function updateCallback(form){
-            $scope.selectedForm = form;
-            console.log(form);
-            $scope.title="";
+            //console.log(form);
+            renderFormsForUser();
         }
 
         function deleteForm(form){

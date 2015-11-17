@@ -50,13 +50,17 @@ module.exports = function(app, model) {
         form.userId = userId;
 
         var forms = model.Create(form);
-        var userforms = model.FindFormsByUserId(userId);
-        res.json(userforms);
+        //var userforms = model.FindFormsByUserId(userId);
+        res.json(forms);
     }
 
 
     function UpdateFormByFormId(req,res){
         var formId = req.params.formId;
+        var updatedForm = req.body;
+
+        var forms = model.Update(formId,form);
+        res.json(forms);
     }
 
     function createGuid() {

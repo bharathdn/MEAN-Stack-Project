@@ -48,17 +48,13 @@
             return deferred.promise;
         }
 
-        function updateFormById(formId, newForm, callback){
-            for (formIndex in forms){
-                if(forms[formIndex].id == formId){
-                    forms[formIndex].userId = newForm.userId;
-                    forms[formIndex].name = newForm.name;
-                    break;
-                }
-            }
-            callback(forms[formIndex]);
+        function updateFormById(form){
+            var deferred = $q.defer();
+            $http.put("/api/assignment/form/:formId",form)
+                .success(function (forms) {
+                    deferred.resolve(forms);
+                });
+            return deferred.promise;
         }
-
-
     }
 })();

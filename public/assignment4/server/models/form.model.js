@@ -30,7 +30,7 @@ module.exports = function(app) {
 
     }
 
-    function Update(id) {
+    function Update(id,form) {
 
     }
 
