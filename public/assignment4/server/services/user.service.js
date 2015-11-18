@@ -3,8 +3,8 @@ module.exports = function(app, model){
     app.post("/api/assignment/user", CreateUser);
     app.get("/api/assignment/user", FindAllUsers);
     app.get("/api/assignment/user/:id", FindUserById);
-    app.get("/api/assignment/user?username=username", FindUserByUserName);
-    app.get("/api/assignment/userauth/:username/:password", AuthenticateUser);
+    //app.get("/api/assignment/user?username=username", FindUserByUserName);
+    //app.get("/api/assignment/userauth/:username/:password", AuthenticateUser);
     //app.get("/api/assignment/user?username=username&password=password", AuthenticateUser);
     app.put("/api/assignment/user/:id", UpdateUserById);
     app.delete("/api/assignment/user/:id", RemoveUserByID);
@@ -14,26 +14,34 @@ module.exports = function(app, model){
         //console.log("creating user "+user);
         var users = model.CreateNewUser(user);
         res.json(users);
-    };
+    }
+
+    function FindAllUsers(req,res){
+        var userName = req.query.username;
+        var password = req.query.password;
+
+        if(!((userName == null) && (password == null))){
+            AuthenticateUser(userName,password)
+        }
+        else if(password == null){
+            FindUserByUserName(userName)
+        }
 
 
-    function AuthenticateUser(req,res){
+        var users = model.FindAll();
+        res.json(users);
+    }
+
+    function AuthenticateUser(userName,password){//req,res){
         var credentials = req.body;
         var credentials = {
-            username: req.params.username,
-            password: req.params.password
+            username: userName, //req.params.username,
+            password: password //req.params.password
         };
 
         var user = model.findUserByCredentials(credentials);
         res.json(user);
     }
-
-
-    function FindAllUsers(req,res){
-        var users = model.FindAll();
-        res.json(users);
-    }
-
 
     function FindUserById(req,res){
         var userId = req.params.id;
@@ -43,8 +51,8 @@ module.exports = function(app, model){
     }
 
 
-    function FindUserByUserName(req,res){
-        var userName = req.params.username;
+    function FindUserByUserName(userName){
+        //var userName = req.params.username;
         console.log("searching for userName "+userName);
         var user = model.findUserByUsername(userName);
         res.json(user);
