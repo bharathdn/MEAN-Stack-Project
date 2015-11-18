@@ -21,26 +21,27 @@ module.exports = function(app, model){
         var password = req.query.password;
 
         if(!((userName == null) && (password == null))){
-            AuthenticateUser(userName,password)
+            var credentials = {
+                username: userName, //req.params.username,
+                password: password //req.params.password
+            };
+
+            var user = model.findUserByCredentials(credentials);
+            res.json(user);
         }
         else if(password == null){
-            FindUserByUserName(userName)
+            console.log("searching for userName "+userName);
+            var user = model.findUserByUsername(userName);
+            res.json(user);
         }
-
 
         var users = model.FindAll();
         res.json(users);
     }
 
     function AuthenticateUser(userName,password){//req,res){
-        var credentials = req.body;
-        var credentials = {
-            username: userName, //req.params.username,
-            password: password //req.params.password
-        };
+        //var credentials = req.body;
 
-        var user = model.findUserByCredentials(credentials);
-        res.json(user);
     }
 
     function FindUserById(req,res){
@@ -53,9 +54,7 @@ module.exports = function(app, model){
 
     function FindUserByUserName(userName){
         //var userName = req.params.username;
-        console.log("searching for userName "+userName);
-        var user = model.findUserByUsername(userName);
-        res.json(user);
+
     }
 
 
@@ -64,7 +63,7 @@ module.exports = function(app, model){
         var user = req.body;
         var users = model.Update(userId,user);
         res.json(users);
-    }
+    }1
 
 
     function RemoveUserByID(req, res){

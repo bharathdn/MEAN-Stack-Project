@@ -47,7 +47,11 @@
             console.log("Client UserService : authenticating user:"+user.userName);
             var searchUser = { username: user.userName,
                 password: user.password };
-            $http.get("/api/assignment/userauth/"+user.userName+"/"+user.password)
+
+            //$http.get("/api/assignment/userauth/"+user.userName+"/"+user.password)
+            $http.get("/api/assignment/user?username=" + username + "&password=" + password)
+
+            $http.get("/api/assignment/user?username="+user.userName+"&password="+user.password)
                 .success(function (userResponse){
                     deferred.resolve(userResponse);
                 });
