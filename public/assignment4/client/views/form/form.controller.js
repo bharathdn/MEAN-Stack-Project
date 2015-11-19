@@ -30,7 +30,7 @@
                 .findAllFormsForUser(user.id)
                 .then(function (formsForUser){
                     model.forms = formsForUser;
-                    createFormCallback(formsForUser);
+                    //createFormCallback(formsForUser);
                 });
         }
 
