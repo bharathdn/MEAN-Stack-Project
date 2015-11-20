@@ -1,0 +1,36 @@
+<div ng-controller="FormController">
+    <h1 class="page-header">Forms</h1>
+
+    <ul class="nav nav-tabs">
+        <li role="presentation" class=active><a href="#/form">Forms</a></li>
+        <li role="presentation"><a href="#/field">Fields</a></li>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th><scan class="glyphicon glyphicon-triangle-bottom btn"></scan> Form Name</th>
+                <th><scan class="glyphicon glyphicon-triangle-bottom btn"></scan> Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td><input ng-model="model.form.title" type="text" class="form-control" id="username" placeholder="name"></td>
+                <td>
+                    <button ng-click="model.addForm(form)" class="glyphicon glyphicon-plus btn btn-primary"></button>
+                    <button ng-click="model.updateForm(form)" class="glyphicon glyphicon-ok btn btn-primary"></button>
+                </td>
+            </tr>
+
+            <tr ng-repeat="form in model.forms">
+                <!--td><a>{{form.title}}</a></td-->
+                <td><a href="#/user/{{model.userId}}/form/{{form.id}}/fields">{{form.title}}</a></td>
+                <td>
+                    <a ng-click="model.deleteForm(form)" class="glyphicon glyphicon-remove btn btn-primary"></a>
+                    <a ng-click="model.selectForm(form)" class="glyphicon glyphicon-pencil btn btn-primary"></a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </ul>
+</div>

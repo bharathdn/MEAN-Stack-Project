@@ -23,6 +23,7 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
+    "mongoose": "~4.2.6",
     "express": "~3.4.4",
     "q": "^1.4.1",
     "body-parser": "^1.14.1",

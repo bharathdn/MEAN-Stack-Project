@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="FormBuilderApp">
+	<head>
+		<meta charset="utf-8">
+		<title>Home</title>
+
+
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
+		<script src="app.js"> </script>
+		<script src="config.js"></script>
+		<script src="views/header/header.contoller.js"></script>
+		<script src="views/sidebar/sidebar.controller.js"></script>
+		<script src="views/header/header.contoller.js"></script>
+		<script src="services/UserService.js"></script>
+		<script src="services/FormService.js"></script>
+		<script src="services/FieldService.js"></script>
+		<script src="views/login/login.controller.js"></script>
+		<script src="views/register/register.controller.js"></script>
+		<script src="views/profile/profile.controller.js"></script>
+		<script src="views/form/form.controller.js"></script>
+		<script src="views/field/field.controller.js"></script>
+
+		<!-- this dashboard.css is from course website -->
+		<link  rel="stylesheet" href="css/dashboard.css">
+	</head>
+	
+	<body>
+		<div ng-include="'views/header/header.view.html'">
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3 col-md-2 sidebar">
+					<div ng-include="'views/sidebar/sidebar.view.html'"></div>
+				</div>
+				
+				<div ng-view class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
+
+				</div>
+			</div>
+		</div>
+</body>
+</html>
