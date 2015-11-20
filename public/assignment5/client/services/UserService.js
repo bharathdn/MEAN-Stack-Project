@@ -22,17 +22,19 @@
             //todo: check if username already exists
 
             //todo: check if password and verify password match
-            console.log("UserService :: new user registration called");
-            var newUser = {
+            //console.log("UserService :: new user registration called");
+
+            /*var newUser = {
                 userName: user.userName,
                 password: user.password,
-                id: createGuid(),
+                //id: createGuid(),
                 userFname: user.Fname,
                 userLname: user.Lname,
                 userEmail: user.email
-            };
-
-            $http.post("/api/assignment/user", newUser)
+            }; */
+            console.log(" User Service says: calling user creation"+ newUser);
+            //console.log(newUser);
+            $http.post("/api/assignment/user", user)
                 .success(function (users){
                     deferred.resolve(users);
                 });

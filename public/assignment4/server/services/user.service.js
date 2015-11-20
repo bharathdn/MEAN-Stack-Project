@@ -11,7 +11,7 @@ module.exports = function(app, model){
 
     function CreateUser(req,res){
         var user = req.body;
-        //console.log("creating user "+user);
+        //console.log("Server UserService : creating user "+user);
         var users = model.CreateNewUser(user);
         res.json(users);
     }

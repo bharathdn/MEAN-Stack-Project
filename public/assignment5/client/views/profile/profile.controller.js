@@ -26,17 +26,17 @@
 
             UserService.updateUser(loggedInUser.id,newuser)
                 .then(function(users){
-                    console.log(users);
+                    //console.log(users);
                     updateCallback(newuser);
                 });
         }
 
         function updateCallback(user){
-            console.log(user);
+            //console.log(user);
         }
 
         function showUserinfo(){
-            console.log("Profile page: registered user info");
+            //console.log("Profile page: registered user info");
             model.user = loggedInUser;
         }
     }

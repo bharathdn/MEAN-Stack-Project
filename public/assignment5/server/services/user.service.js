@@ -3,15 +3,14 @@ module.exports = function(app, model){
     app.post("/api/assignment/user", CreateUser);
     app.get("/api/assignment/user", FindAllUsers);
     app.get("/api/assignment/user/:id", FindUserById);
-    //app.get("/api/assignment/user?username=username", FindUserByUserName);
-    //app.get("/api/assignment/userauth/:username/:password", AuthenticateUser);
-    //app.get("/api/assignment/user?username=username&password=password", AuthenticateUser);
     app.put("/api/assignment/user/:id", UpdateUserById);
     app.delete("/api/assignment/user/:id", RemoveUserByID);
 
     function CreateUser(req,res){
+        console.log("Server USerservice ;creating user "+user);
         var user = req.body;
-        //console.log("creating user "+user);
+        console.lgo("inside server user service");
+        console.log(user);
         var users = model.CreateNewUser(user);
         res.json(users);
     }

@@ -1,5 +1,12 @@
-module.exports = function(){
+var q  = require("q");
+module.exports = function(mongoose,db){
+
     var mockUsers = require("./user.mock.json");
+    var userSchema = require("./user.schema.js")(mongoose);
+    //console.log("hello from user model");
+    //console.log(userSchema);
+    var userModel = mongoose.model("userModel",userSchema);
+
 
     var api = {
         CreateNewUser: CreateNewUser,
@@ -14,8 +21,24 @@ module.exports = function(){
     return api;
 
     function CreateNewUser(user){
-        mockUsers.push(user);
-        return  mockUsers;
+        console.log(user);
+
+        var dbUser = {  username: user.userName,
+                    password: user.password,
+                    email: user.userEmail
+                 };
+        console.log(dbUser);
+        var deferred = q.defer();
+        //return  mockUsers;
+        userModel.create(dbUser, function(err, result){
+            if(err){
+                deferred.reject(err);
+            } else {
+                deferred.resolve(user);
+            }
+        });
+        console.log("added user:"+ user);
+        return deferred.promise;
     };
 
     function FindAll(){

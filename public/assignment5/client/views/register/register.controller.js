@@ -14,13 +14,13 @@
             //console.log("Register Controller: new user registration");
             UserService.createUser(user)
                 .then(function(newUsers) {
-                    console.log(newUsers)
+                    //console.log(newUsers)
                     registerCallback(user)
                 });
         }
 
         function registerCallback(user){
-            console.log(user);
+            //console.log(user);
             $rootScope.user = user;
             $location.url("/profile");
         }
