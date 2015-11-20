@@ -42,10 +42,17 @@
         }
 
 
-        function updateUser(userId, user) {
+        function updateUser(user) {
+
             var deferred = $q.defer();
 
-            $http.put("/api/assignment/user/"+userId)
+
+            //  console.log(user);
+
+            var userId = user._id;
+            console.log("userID fetched is");
+            console.log(userId);
+            $http.put("/api/assignment/user/"+userId, user)
                 .success(function(userResponse){
                     deferred.resolve(userResponse);
                 });

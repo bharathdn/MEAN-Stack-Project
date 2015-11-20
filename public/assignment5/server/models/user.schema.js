@@ -1,8 +1,8 @@
 module.exports = function(mongoose) {
 
-    var mongoose = require('mongoose');
-    var Schema = mongoose.Schema;
-    var userSchema = new Schema({
+    //var mongoose = require('mongoose');
+    //var Schema = mongoose.Schema;
+    var userSchema =  mongoose.Schema({
         firstName: String,
         lastName: String,
         username: String,

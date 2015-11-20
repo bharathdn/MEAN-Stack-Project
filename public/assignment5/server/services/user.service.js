@@ -8,7 +8,7 @@ module.exports = function(app, model){
 
     function CreateUser(req,res){
         var user = req.body;
-        console.lgo("inside server user service");
+        console.log("inside server user service");
         var users = model.CreateNewUser(user);
         res.json(users);
     }
@@ -63,17 +63,23 @@ module.exports = function(app, model){
 
 
     function UpdateUserById(req, res){
-        var userId = req.params.id;
         var user = req.body;
-        var users = model.Update(userId,user);
-        res.json(users);
-    }1
+        var userId = req.params.id;
+        model.Update(userId, user)
+            .then(function (user) {
+                //console.log(user);
+                res.json(user);
+            });
+    }
 
 
     function RemoveUserByID(req, res){
         var userId = req.params.id;
-        var user = req.body;
-        var users = model.Delete(userId,user);
-        res.json(users);
+        model.Delete(userId)
+            .then(function (user) {
+                //console.log(user);
+                res.json(user);
+            });
     }
+
 };

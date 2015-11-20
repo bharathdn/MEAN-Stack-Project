@@ -1,5 +1,5 @@
 var q  = require("q");
-module.exports = function(mongoose,db){
+module.exports = function(db, mongoose){
 
     var mockUsers = require("./user.mock.json");
     var userSchema = require("./user.schema.js")(mongoose);
@@ -20,6 +20,7 @@ module.exports = function(mongoose,db){
     };
     return api;
 
+
     function CreateNewUser(user){
         console.log(user);
 
@@ -35,6 +36,7 @@ module.exports = function(mongoose,db){
         console.log("added user:"+ user);
         return deferred.promise;
     };
+
 
     function findUserByCredentials(credentials){
         var deferred = q.defer();
@@ -67,6 +69,7 @@ module.exports = function(mongoose,db){
         return deferred.promise;
     }
 
+
     //sample user json
     var userSample = [{"id": 123, "firstName": "Alice",
         "lastName": "Wonderland",
@@ -90,11 +93,8 @@ module.exports = function(mongoose,db){
 
     function FindById(id){
         var deferred = q.defer();
-        if(!mongoose.Types.ObjectId.isValid(id)){
-            deferred.reject(null);
-        }
-        console.log("USer Model : searching for user "+id);
-        userModel.findById({_id: id},
+
+        userModel.findById(id,
             function(err,result){
                 if(err){
                     deferred.reject(null);
@@ -107,51 +107,32 @@ module.exports = function(mongoose,db){
 
 
     function Delete(userId){
-        var userIndex = getUserIndex(userId);
-        if(userIndex == null){
-            return userIndex;
-        }
-        else {
-            mockUsers.splice(userIndex,1);
-            return mockUsers;
-        }
-
+        var deferred = q.defer();
+        userModel.remove({_id:userId},
+            function(err,result){
+                if(err){
+                    deferred.reject(null);
+                } else {
+                    deferred.resolve(result);
+                }
+            });
+        return deferred.promise;
     }
-
-
-    function updateUser(userId, user, callback) {
-        var userIndex = getUserIndex(userId);
-
-        currentUsers[userIndex].userName = user.userName;
-        currentUsers[userIndex].password = user.password;
-        currentUsers[userIndex].id = userId;
-        currentUsers[userIndex].userFname = user.FName;
-        currentUsers[userIndex].userLname = user.LName;
-        currentUsers[userIndex].userEmail = user.email;
-
-        // callback
-        callback(currentUsers[userIndex]);
-    }
-
-    var userSample = [{"id": 123, "firstName": "Alice",
-        "lastName": "Wonderland",
-        "username": "alice",
-        "password": "alice"}];
 
 
     function Update(userId, user){
-        var userIndex = getUserIndex(userId);
-        if(userIndex == null){
-            return userIndex;
-        }
-        else {
-            mockUsers[userIndex].username = user.userName;
-            mockUsers[userIndex].lastName = user.lastName;
-            mockUsers[userIndex].firstName = user.firstName;
-            mockUsers[userIndex].password = user.password;
-            return mockUsers;
-        }
+        var deferred = q.defer();
+        userModel.update({_id: userId}, {$set: user},
+            function(err,result){
+                if(err){
+                    deferred.reject(null);
+                } else {
+                    deferred.resolve(result);
+                }
+            });
+        return deferred.promise;
     }
+
 
     function getUserIndex(userId){
         var userIndex = null;
