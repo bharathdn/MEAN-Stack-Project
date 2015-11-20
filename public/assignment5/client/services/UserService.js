@@ -22,18 +22,7 @@
             //todo: check if username already exists
 
             //todo: check if password and verify password match
-            //console.log("UserService :: new user registration called");
 
-            /*var newUser = {
-                userName: user.userName,
-                password: user.password,
-                //id: createGuid(),
-                userFname: user.Fname,
-                userLname: user.Lname,
-                userEmail: user.email
-            }; */
-            console.log(" User Service says: calling user creation"+ newUser);
-            //console.log(newUser);
             $http.post("/api/assignment/user", user)
                 .success(function (users){
                     deferred.resolve(users);
@@ -44,16 +33,8 @@
 
         function findUserByUsernameAndPassword(user) {
             var deferred = $q.defer();
-            //var username = user.userName;
-            //var password = user.password;
-            console.log("Client UserService : authenticating user:"+user.userName);
-            var searchUser = { username: user.userName,
-                password: user.password };
-
-            //$http.get("/api/assignment/userauth/"+user.userName+"/"+user.password)
-//            $http.get("/api/assignment/user?username=" + username + "&password=" + password)
-
-            $http.get("/api/assignment/user?username="+user.userName+"&password="+user.password)
+            console.log("Client UserService : authenticating user:"+user.username);
+            $http.get("/api/assignment/user?username="+user.username+"&password="+user.password)
                 .success(function (userResponse){
                     deferred.resolve(userResponse);
                 });

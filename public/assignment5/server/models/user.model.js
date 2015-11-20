@@ -23,14 +23,9 @@ module.exports = function(mongoose,db){
     function CreateNewUser(user){
         console.log(user);
 
-        var dbUser = {  username: user.userName,
-                    password: user.password,
-                    email: user.userEmail
-                 };
-        console.log(dbUser);
         var deferred = q.defer();
         //return  mockUsers;
-        userModel.create(dbUser, function(err, result){
+        userModel.create(user, function(err, result){
             if(err){
                 deferred.reject(err);
             } else {
@@ -41,8 +36,35 @@ module.exports = function(mongoose,db){
         return deferred.promise;
     };
 
+    function findUserByCredentials(credentials){
+        var deferred = q.defer();
+        var username = credentials.username;
+        var password = credentials.password;
+        userModel.findOne({username: username, password: password},
+        function(err,result){
+           if(err){
+               deferred.reject(err);
+           } else {
+               //console.log(result);
+               deferred.resolve(result);
+           }
+        });
+
+        return deferred.promise;
+    }
+
+
     function FindAll(){
-        return mockUsers;
+        console.log("findall called");
+        var deferred = q.defer();
+        userModel.find(function(err,result){
+                if(err){
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(result);
+                }
+            });
+        return deferred.promise;
     }
 
     //sample user json
@@ -52,23 +74,35 @@ module.exports = function(mongoose,db){
         "password": "alice"}];
 
 
-    function findUserByUsername(userName){
-        for(user in mockUsers){
-            if(userName == user.username){
-                return user;
-            }
-        }
-        return null;
+    function findUserByUsername(username){
+        var deferred = q.defer();
+        userModel.findOne({username: username},
+            function(err,result){
+                if(err){
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(result);
+                }
+            });
+        return deferred.promise;
     }
 
 
     function FindById(id){
-        for(user in mockUsers) {
-            if (id == user.id) {
-                return user;
-            }
+        var deferred = q.defer();
+        if(!mongoose.Types.ObjectId.isValid(id)){
+            deferred.reject(null);
         }
-        return null;
+        console.log("USer Model : searching for user "+id);
+        userModel.findById({_id: id},
+            function(err,result){
+                if(err){
+                    deferred.reject(null);
+                } else {
+                    deferred.resolve(result);
+                }
+            });
+        return deferred.promise;
     }
 
 
@@ -84,21 +118,6 @@ module.exports = function(mongoose,db){
 
     }
 
-
-    function findUserByCredentials(credentials){
-        var userName = credentials.username;
-        var password = credentials.password;
-
-        for(user in mockUsers){
-            if(mockUsers[user].username == userName){
-                if(mockUsers[user].password == password){
-                    //console.log("user "+user.username+" found");
-                    return user;
-                }
-            }
-        }
-        return null;
-    }
 
     function updateUser(userId, user, callback) {
         var userIndex = getUserIndex(userId);

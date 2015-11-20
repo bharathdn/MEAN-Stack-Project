@@ -7,13 +7,12 @@ module.exports = function(app, model){
     app.delete("/api/assignment/user/:id", RemoveUserByID);
 
     function CreateUser(req,res){
-        console.log("Server USerservice ;creating user "+user);
         var user = req.body;
         console.lgo("inside server user service");
-        console.log(user);
         var users = model.CreateNewUser(user);
         res.json(users);
     }
+
 
     function FindAllUsers(req,res){
         var userName = req.query.username;
@@ -21,33 +20,39 @@ module.exports = function(app, model){
 
         if(!((userName == null) && (password == null))){
             var credentials = {
-                username: userName, //req.params.username,
-                password: password //req.params.password
+                username: userName,
+                password: password
             };
 
-            var user = model.findUserByCredentials(credentials);
-            res.json(user);
+            console.log(credentials);
+            var user = model.findUserByCredentials(credentials)
+                .then(function (user) {
+                    res.json(user);
+                });
+            return;
         }
-        else if(password == null){
-            console.log("searching for userName "+userName);
-            var user = model.findUserByUsername(userName);
-            res.json(user);
+        else if(password == null && userName!= null){
+            model.findUserByUsername(userName)
+                .then(function (user) {
+                    res.json(user);
+                });
+            return;
         }
 
-        var users = model.FindAll();
-        res.json(users);
+        var users = model.FindAll()
+            .then(function (users) {
+                res.json(users);
+            });
     }
 
-    function AuthenticateUser(userName,password){//req,res){
-        //var credentials = req.body;
-
-    }
 
     function FindUserById(req,res){
         var userId = req.params.id;
-        console.log("searching for userID "+userId);
-        var user = model.FindById(userId);
-        res.json(user);
+        model.FindById(userId)
+            .then(function (user) {
+                //console.log(user);
+                res.json(user);
+            });
     }
 
 
