@@ -16,7 +16,7 @@
 					<!--li ng-hide="$location.url().indexOf('profile') != -1"><a href="#/register">Register</a></li-->
 					<li ng-hide="model.registerShow()" class="ng-hide"><a href="#/register">Register</a></li>
 					<li ng-hide="model.loginShow()"><a href="#/login">Login</a></li>
-					<li ng-hide="model.isLogin()"><a href="#/">{{model.username}}</a></li>
+					<li ng-hide="model.isLogin()"><a>{{model.username}}</a></li>
 					<li ng-hide="model.logoutShow()"><a href="" ng-click="model.logoutUser()">Logout</a></li>
 				</ul>
 			</div>

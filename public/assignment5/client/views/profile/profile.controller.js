@@ -17,14 +17,23 @@
 
         function update(user){
             UserService.updateUser(user)
-                .then(function(newUsers) {
-                    //console.log(newUsers);
+                .then(function(updateResult) {
+                    updateCallback(updateResult,user);
                 });
         }
 
-        function updateCallback(user){
-            console.log("Updated user");
-            console.log(user);
+        function updateCallback(updateResult,user){
+            //console.log("Updated user");
+            //console.log(user);
+            if(updateResult.ok == 1) {
+                $rootScope.user = user;
+                $location.url("/home");
+                console.log("user updated successfully");
+            }
+            else{
+                console.log("error in updating user");
+                console.log(updateResult);
+            }
         }
 
         function showUserinfo(){
