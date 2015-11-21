@@ -68,6 +68,8 @@ module.exports = function(db, mongoose){
 
     function findUserByUsername(username){
         var deferred = q.defer();
+        //console.log("finding user");
+        //console.log(username);
         userModel.findOne({username: username},
             function(err,result){
                 if(err){

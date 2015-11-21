@@ -8,31 +8,35 @@ module.exports = function(app, model){
 
     function CreateUser(req,res){
         var user = req.body;
-        console.log("inside server user service");
         var users = model.CreateNewUser(user);
         res.json(users);
     }
 
-
     function FindAllUsers(req,res){
-        var userName = req.query.username;
+        var username = req.query.username;
         var password = req.query.password;
+        //console.log(username);
+        //console.log(password);
 
-        if(!((userName == null) && (password == null))){
+        var count = 0;
+        if(username!= null && password!=null){
+
             var credentials = {
-                username: userName,
+                username: username,
                 password: password
             };
 
-            console.log(credentials);
+            //console.log(credentials);
             var user = model.findUserByCredentials(credentials)
                 .then(function (user) {
                     res.json(user);
                 });
             return;
         }
-        else if(password == null && userName!= null){
-            model.findUserByUsername(userName)
+        else if(password == null  && username != null){
+            console.log("finding user");
+            console.log(username);
+            model.findUserByUsername(username)
                 .then(function (user) {
                     res.json(user);
                 });

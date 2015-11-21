@@ -60,9 +60,9 @@
         }
 
 
-        function findUserByUserName(username) {
+        function findUserByUserName(username,number) {
             var deferred = $q.defer();
-            $http.get("/api/assignment/user/" + username)
+            $http.get("/api/assignment/user?username="+username)
                 .success(function (userResponse) {
                     deferred.resolve(userResponse);
                 });
