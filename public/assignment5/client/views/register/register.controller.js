@@ -12,6 +12,7 @@
 
         function registerNewUser(user){
             // Check if username already exists
+            UserService.
 
 
             //  Check if email already exists
