@@ -48,6 +48,7 @@
 
         function logoutUser(){
             $rootScope.user = null;
+            $location.url("/home");
         }
     }
 

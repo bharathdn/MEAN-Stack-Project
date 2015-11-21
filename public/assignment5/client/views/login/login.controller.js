@@ -22,7 +22,7 @@
             if(user != null){
                 $rootScope.user = user;
                 console.log("user found, login sucessful");
-                $location.url("/");
+                $location.url("/home");
             }
             else
             {
