@@ -3,6 +3,8 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var mongoose = require('mongoose');
 //mongoose.connect('mongodb://localhost/cs5610');
+mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL ||
+                  'mongodb://localhost/cs5610');
 
 var app = express();
 //console.log(mongoose);
@@ -13,13 +15,13 @@ app.use(bodyParser.urlencoded({ extended: true })); //parse application/x-www-fo
 app.use(multer());//parse multipart/form-data
 
 //mongoose.connect('mongodb://localhost/cs5610');
-//var db = mongoose.connection;
+var db = mongoose.connection;
 //console.log(db);
 
 app.use(express.static(__dirname + '/public'));
 
-require("./public/assignment4/server/app.js")(app);
-//require("./public/assignment5/server/app.js")(app,db,mongoose);
+//require("./public/assignment4/server/app.js")(app);
+require("./public/assignment5/server/app.js")(app,db,mongoose);
 
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
