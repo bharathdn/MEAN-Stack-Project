@@ -4,9 +4,10 @@
         .controller("SidebarController", SidebarController);
 
 
-    function SidebarController($scope, $location){
+    function SidebarController($scope, $location, $rootScope){
         $scope.$location = $location;
         $scope.setActive = setActive;
+        $scope.userLoggedIn = userLoggedIn;
 
         function setActive(pageName){
             //console.log("setActive function called by "+pageName);
@@ -15,6 +16,12 @@
             }
             else {
                 return false;
+            }
+        }
+
+        function userLoggedIn(){
+            if($rootScope.user == null){
+                return true;
             }
         }
     }

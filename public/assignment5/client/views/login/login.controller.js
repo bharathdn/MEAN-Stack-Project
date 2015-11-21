@@ -9,19 +9,12 @@
         model.login = login;
 
         function login(user){
-            //console.log(user);
-
-            /*
-            userObj = { "username": user.userName,
-                        "password": user.password }; */
-
-
             UserService.findUserByUsernameAndPassword(user)
                 .then(function(userResponse){
                     //console.log(userResponse);
                     userLoginCallback(userResponse);
                 });
-        };
+        }
 
         function userLoginCallback(user){
             console.log("returned users");
