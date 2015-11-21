@@ -40,7 +40,7 @@
         function updateUser(user) {
             var deferred = $q.defer();
             var userId = user._id;
-            console.log("userID fetched is");
+            console.log("UserService-client, updateuser userID fetched is");
             console.log(userId);
             $http.put("/api/assignment/user/" + userId, user)
                 .success(function (userResponse) {

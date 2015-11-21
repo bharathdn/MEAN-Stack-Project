@@ -34,8 +34,8 @@ module.exports = function(app, model){
             return;
         }
         else if(password == null  && username != null){
-            console.log("finding user");
-            console.log(username);
+            //console.log("finding user only");
+            //console.log(username);
             model.findUserByUsername(username)
                 .then(function (user) {
                     res.json(user);

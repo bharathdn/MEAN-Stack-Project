@@ -27,8 +27,9 @@
 					   placeholder="Password" required/>
 			</div>
 			<div role="alert">
-						<span style="color:red" class="error" ng-show="register.password.$dirty
-						&& register.password.$error.required">Password required</span>
+				{{model.passwordMsg}}
+						<!--span style="color:red" class="error" ng-show="register.password.$dirty
+						&& register.password.$error.required">Password required</span-->
 			</div>
 		</div>
 
@@ -36,7 +37,7 @@
 		<label for="verifypassword" class="col-sm-2 control-label">Verify Password</label>
 			<div class="col-sm-10">
 				<input ng-model="user.verifypassword" name="verifypassword" type="password" class="form-control"
-					   id="verifypassword" placeholder="Verify Password" required compare-to="register.password"/>
+					   id="verifypassword" placeholder="Verify Password" required/>
 			</div>
 			<div role="alert">
 						<span style="color:red" class="error" ng-show="register.verifypassword.$dirty
@@ -54,6 +55,7 @@
 					   placeholder="email" required/>
 			</div>
 			<div role="alert">
+				{{model.emailMsg}}
 				<span style="color:red" ng-show="register.email.$dirty && register.email.$invalid">
 					<span ng-show="register.email.$error.required">Email is required.</span>
   					<span ng-show="register.email.$error.email">Invalid email address.</span>

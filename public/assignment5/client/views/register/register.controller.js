@@ -15,25 +15,43 @@
 
 
         function registerNewUser(user) {
-            UserService.findUserByUserName(username,1)
-                    .then(function (user) {
-                        if(user == null){
-                            model.message("Username already exists, please choose a different username");
-                        }
-                    });
-            if( user.password != user.verifypassword ) {
-                passWordMessage = "Passwords don't match";
-                model.passWordMessage = passWordMessage;
-                registrationFlag = null;
+            console.log(user.password);
+            var registrationPossible = true;
+            var userResult;
+            UserService.findUserByUserName(user.username)
+                .then(function (userResult) {
+                    if (userResult !== null) {
+                        model.message = "Username already exists, please choose a different username";
+                    }
+                });
+
+            console.log(registrationPossible); // = false;
+
+            if(user.password == null || user.password == "undefined"){
+                model.passwordMsg = "Password is mandotory";
+                if (user.password != user.verifypassword) {
+                    registrationPossible = false;
+                    console.log(registrationPossible);
+                    console.log("msg from password check")
+                }
+            }
+            if(user.email == null || user.email == "undefined")
+            {
+                model.emailMsg="Email is mandatory";
+            }
+            if(userResult !== null || ){
+                registrationPossible = false;
             }
 
-                console.log("creating user "+user.username);
+            if(registrationPossible == true) {
+                console.log("creation of user possible: " + user.username);
                 UserService.createUser(user)
                     .then(function (newUsers) {
                         //console.log(newUsers)
                         registerCallback(user)
                     });
-
+            }
+            */
         }
 
         function checkIfRegistrationPossible(user) {
@@ -71,7 +89,7 @@
             //console.log("find user called");
             UserService.findUserByUserName(username,1)
                 .then(function (user) {
-                    console.log(user);
+                    //console.log(user);
                     return user;
                 });
         }
