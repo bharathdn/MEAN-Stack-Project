@@ -6,8 +6,6 @@
 
     function HeaderController($location, $rootScope){
         var model = this;
-        //$scope.$location = $location;
-        //$scope.headerShow = headerShow;
         model.registerShow = registerShow;
         model.isLogin = isLogin;
         model.loginShow = loginShow;
@@ -16,7 +14,6 @@
 
 
         function registerShow(){
-            //console.log("headerShow called");
             if($rootScope.user != null){
                 return true;
             }
