@@ -1,4 +1,4 @@
-module.exports = function(){
+module.exports = function(db, mongoose){
     var mockUsers = require("./user.mock.json");
 
     var api = {
@@ -31,7 +31,7 @@ module.exports = function(){
 
     function findUserByUsername(userName){
         for(user in mockUsers){
-            if(userName == user.username){
+            if(userName == mockUsers[user].username){
                 return user;
             }
         }
@@ -41,8 +41,8 @@ module.exports = function(){
 
     function FindById(id){
         for(user in mockUsers) {
-            if (id == user.id) {
-                return user;
+            if (id == mockUsers[user].id) {
+                return mockUsers[user];
             }
         }
         return null;
@@ -65,7 +65,7 @@ module.exports = function(){
     function findUserByCredentials(credentials){
         var userName = credentials.username;
         var password = credentials.password;
-
+        //console.log("findUserByCredentials got called");
         for(user in mockUsers){
             if(mockUsers[user].username == userName){
                 if(mockUsers[user].password == password){

@@ -16,24 +16,11 @@
         };
         return service;
 
+
         function createUser(user) {
             var deferred = $q.defer();
-
-            //todo: check if username already exists
-
-            //todo: check if password and verify password match
-            console.log("UserService :: new user registration called");
-            var newUser = {
-                userName: user.userName,
-                password: user.password,
-                id: createGuid(),
-                userFname: user.Fname,
-                userLname: user.Lname,
-                userEmail: user.email
-            };
-
-            $http.post("/api/assignment/user", newUser)
-                .success(function (users){
+            $http.post("/api/assignment/user", user)
+                .success(function (users) {
                     deferred.resolve(users);
                 });
             return deferred.promise;
@@ -42,65 +29,63 @@
 
         function findUserByUsernameAndPassword(user) {
             var deferred = $q.defer();
-            //var username = user.userName;
-            //var password = user.password;
-            console.log("Client UserService : authenticating user:"+user.userName);
-            var searchUser = { username: user.userName,
-                password: user.password };
-
-            //$http.get("/api/assignment/userauth/"+user.userName+"/"+user.password)
-//            $http.get("/api/assignment/user?username=" + username + "&password=" + password)
-
-            $http.get("/api/assignment/user?username="+user.userName+"&password="+user.password)
-                .success(function (userResponse){
+            $http.get("/hw4/api/assignment/user?username=" + user.username + "&password=" + user.password)
+                .success(function (userResponse) {
                     deferred.resolve(userResponse);
                 });
             return deferred.promise;
         }
 
 
-        function updateUser(userId, user) {
+        function updateUser(user) {
             var deferred = $q.defer();
-
-            $http.put("/api/assignment/user/"+userId)
-                .success(function(userResponse){
+            var userId = user._id;
+            console.log("UserService-client, updateuser userID fetched is");
+            console.log(userId);
+            $http.put("/hw4/api/assignment/user/" + userId, user)
+                .success(function (userResponse) {
                     deferred.resolve(userResponse);
                 });
             return deferred.promise;
         }
 
-        function findUserById(userId){
 
+        function findUserById(userId) {
+            var deferred = $q.defer();
+            $http.get("/hw4/api/assignment/user/" + userId)
+                .success(function (userResponse) {
+                    deferred.resolve(userResponse);
+                });
+            return deferred.promise;
         }
 
 
-        function findUserByUserName(userName){
-
+        function findUserByUserName(username) {
+            var deferred = $q.defer();
+            $http.get("/hw4/api/assignment/user?username="+username)
+                .success(function (userResponse) {
+                    deferred.resolve(userResponse);
+                });
+            return deferred.promise;
         }
 
 
-        function findAllUsers(callback) {
-            callback(currentUsers);
+        function findAllUsers() {
+            var deferred = $q.defer();
+            $http.get("/hw4/api/assignment/user/")
+                .success(function (userResponse) {
+                    deferred.resolve(userResponse);
+                });
+            return deferred.promise;
         }
 
 
-        function deleteUserById(userId, callback) {
-            var userIndex = getUserIndex(userId);
-            var deletedUser = currentUsers[userIndex];
-            currentUsers.splice(index,1);
-            callback(currentUsers);
+        function deleteUserById(userId) {
+            $http.delete("/hw4/api/assignment/user/"+userId)
+                .success(function (userResponse) {
+                    deferred.resolve(userResponse);
+                });
+            return deferred.promise;
         }
-
     }
-
-    function createGuid() {
-        function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        }
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-            s4() + '-' + s4() + s4() + s4();
-    }
-
 })();

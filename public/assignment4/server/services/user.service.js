@@ -1,75 +1,66 @@
 module.exports = function(app, model){
 
-    app.post("/api/assignment/user", CreateUser);
-    app.get("/api/assignment/user", FindAllUsers);
-    app.get("/api/assignment/user/:id", FindUserById);
-    //app.get("/api/assignment/user?username=username", FindUserByUserName);
-    //app.get("/api/assignment/userauth/:username/:password", AuthenticateUser);
-    //app.get("/api/assignment/user?username=username&password=password", AuthenticateUser);
-    app.put("/api/assignment/user/:id", UpdateUserById);
-    app.delete("/api/assignment/user/:id", RemoveUserByID);
+    app.post("/hw4/api/assignment/user", CreateUser);
+    app.get("/hw4/api/assignment/user", FindAllUsers);
+    app.get("/hw4/api/assignment/user/:id", FindUserById);
+    app.put("/hw4/api/assignment/user/:id", UpdateUserById);
+    app.delete("/hw4/api/assignment/user/:id", RemoveUserByID);
 
     function CreateUser(req,res){
         var user = req.body;
-        //console.log("Server UserService : creating user "+user);
         var users = model.CreateNewUser(user);
         res.json(users);
     }
 
     function FindAllUsers(req,res){
-        var userName = req.query.username;
+        var username = req.query.username;
         var password = req.query.password;
+        console.log(username);
+        console.log(password);
 
-        if(!((userName == null) && (password == null))){
+
+        if(username!= null && password!=null){
+
             var credentials = {
-                username: userName, //req.params.username,
-                password: password //req.params.password
+                username: username,
+                password: password
             };
 
+            //console.log(credentials);
             var user = model.findUserByCredentials(credentials);
             res.json(user);
+            return;
         }
-        else if(password == null){
-            console.log("searching for userName "+userName);
-            var user = model.findUserByUsername(userName);
+        else if(password == null  && username != null){
+            var user = model.findUserByUsername(username);
             res.json(user);
+            return;
         }
 
         var users = model.FindAll();
         res.json(users);
     }
 
-    function AuthenticateUser(userName,password){//req,res){
-        //var credentials = req.body;
-
-    }
 
     function FindUserById(req,res){
         var userId = req.params.id;
-        console.log("searching for userID "+userId);
         var user = model.FindById(userId);
         res.json(user);
     }
 
 
-    function FindUserByUserName(userName){
-        //var userName = req.params.username;
-
-    }
-
-
     function UpdateUserById(req, res){
-        var userId = req.params.id;
         var user = req.body;
-        var users = model.Update(userId,user);
-        res.json(users);
-    }1
+        var userId = req.params.id;
+        var user = model.Update(userId, user);
+        res.json(user);
+    }
 
 
     function RemoveUserByID(req, res){
         var userId = req.params.id;
-        var user = req.body;
-        var users = model.Delete(userId,user);
-        res.json(users);
+        var user = model.Delete(userId);
+        res.json(user);
     }
+
 };

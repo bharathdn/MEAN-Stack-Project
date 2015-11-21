@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function(db, mongoose) {
     var mockForms = require("./form.mock.json");
     var api = {
         Create: Create,

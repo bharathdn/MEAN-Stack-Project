@@ -1,10 +1,12 @@
 module.exports = function(app, model){
 
+    /*
     app.post("/api/assignment/user", CreateUser);
     app.get("/api/assignment/user", FindAllUsers);
     app.get("/api/assignment/user/:id", FindUserById);
     app.put("/api/assignment/user/:id", UpdateUserById);
     app.delete("/api/assignment/user/:id", RemoveUserByID);
+    */
 
     function CreateUser(req,res){
         var user = req.body;
