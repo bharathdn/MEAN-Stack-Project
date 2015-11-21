@@ -26,8 +26,8 @@ module.exports = function(db, mongoose){
                 deferred.reject(null);
             } else {
                 deferred.resolve(result);
-                console.log("added user:");
-                console.log(user);
+                //console.log("added user:");
+                //console.log(result);
             }
         });
         return deferred.promise;

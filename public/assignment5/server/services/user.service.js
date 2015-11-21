@@ -1,6 +1,6 @@
 module.exports = function(app, model){
 
-    
+
     app.post("/api/assignment/user", CreateUser);
     app.get("/api/assignment/user", FindAllUsers);
     app.get("/api/assignment/user/:id", FindUserById);
@@ -10,8 +10,12 @@ module.exports = function(app, model){
 
     function CreateUser(req,res){
         var user = req.body;
-        var users = model.CreateNewUser(user);
-        res.json(users);
+        model.CreateNewUser(user)
+            .then(function (userReturned) {
+                /*console.log("added user obj");
+                console.log(userReturned);*/
+                res.json(userReturned);
+            });
     }
 
     function FindAllUsers(req,res){
@@ -30,8 +34,10 @@ module.exports = function(app, model){
 
             //console.log(credentials);
             var user = model.findUserByCredentials(credentials)
-                .then(function (user) {
-                    res.json(user);
+                .then(function (userReturned) {
+                    //console.log("added user obj");
+                    //console.log(userReturned);
+                    res.json(userReturned);
                 });
             return;
         }

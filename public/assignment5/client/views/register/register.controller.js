@@ -11,7 +11,7 @@
         //model.message = "Hi";
 
         //TODO  Check if email already exists
-
+        console.log($rootScope.user);
 
         function registerNewUser(user) {
             var registrationPossible = true;
@@ -66,6 +66,8 @@
 
         function registerCallback(user){
             $rootScope.user = user;
+            console.log("user obj from reg contr");
+            console.log($rootScope.user);
             $location.url("/profile");
         }
     }

@@ -19,8 +19,12 @@
 
         function createUser(user) {
             var deferred = $q.defer();
+            //console.log("adding user:");
+            //console.log(user);
             $http.post("/api/assignment/user", user)
                 .success(function (users) {
+                    //console.log("added user obj from USerService");
+                     //console.log(users);
                     deferred.resolve(users);
                 });
             return deferred.promise;
