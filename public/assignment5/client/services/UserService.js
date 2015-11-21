@@ -16,13 +16,9 @@
         };
         return service;
 
+
         function createUser(user) {
             var deferred = $q.defer();
-
-            //todo: check if username already exists
-
-            //todo: check if password and verify password match
-
             $http.post("/api/assignment/user", user)
                 .success(function (users){
                     deferred.resolve(users);
@@ -33,7 +29,6 @@
 
         function findUserByUsernameAndPassword(user) {
             var deferred = $q.defer();
-            console.log("Client UserService : authenticating user:"+user.username);
             $http.get("/api/assignment/user?username="+user.username+"&password="+user.password)
                 .success(function (userResponse){
                     deferred.resolve(userResponse);
@@ -43,12 +38,7 @@
 
 
         function updateUser(user) {
-
             var deferred = $q.defer();
-
-
-            //  console.log(user);
-
             var userId = user._id;
             console.log("userID fetched is");
             console.log(userId);
@@ -59,18 +49,39 @@
             return deferred.promise;
         }
 
-        function findUserById(userId){
 
+        function findUserById(userId){
+            var deferred = $q.defer();
+            var userId = user._id;
+            //console.log("userID fetched is");
+            //console.log(userId);
+            $http.get("/api/assignment/user/"+userId)
+                .success(function(userResponse){
+                    deferred.resolve(userResponse);
+                });
+            return deferred.promise;
         }
 
 
         function findUserByUserName(userName){
-
+            var deferred = $q.defer();
+            var username = user.username;
+            $http.get("/api/assignment/user/"+username)
+                .success(function(userResponse){
+                    deferred.resolve(userResponse);
+                });
+            return deferred.promise;
         }
 
 
-        function findAllUsers(callback) {
-            callback(currentUsers);
+        function findAllUsers() {
+            var deferred = $q.defer();
+            var userId = user._id;
+            $http.get("/api/assignment/user/")
+                .success(function(userResponse){
+                    deferred.resolve(userResponse);
+                });
+            return deferred.promise;
         }
 
 
@@ -80,17 +91,5 @@
             currentUsers.splice(index,1);
             callback(currentUsers);
         }
-
     }
-
-    function createGuid() {
-        function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        }
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-            s4() + '-' + s4() + s4() + s4();
-    }
-
 })();

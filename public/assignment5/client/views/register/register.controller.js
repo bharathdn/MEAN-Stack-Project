@@ -11,7 +11,13 @@
         model.registerNewUser = registerNewUser;
 
         function registerNewUser(user){
-            //console.log("Register Controller: new user registration");
+            // Check if username already exists
+
+
+            //  Check if email already exists
+
+
+
             UserService.createUser(user)
                 .then(function(newUsers) {
                     //console.log(newUsers)

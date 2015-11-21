@@ -1,10 +1,8 @@
-var q  = require("q");
 module.exports = function(db, mongoose){
 
-    var mockUsers = require("./user.mock.json");
+    //var mockUsers = require("./user.mock.json");
+    var q  = require("q");
     var userSchema = require("./user.schema.js")(mongoose);
-    //console.log("hello from user model");
-    //console.log(userSchema);
     var userModel = mongoose.model("userModel",userSchema);
 
 
@@ -16,24 +14,22 @@ module.exports = function(db, mongoose){
         Update: Update,
         Delete: Delete,
         findUserByCredentials:findUserByCredentials,
-        getUserIndex : getUserIndex
     };
     return api;
 
 
     function CreateNewUser(user){
-        console.log(user);
-
+        //console.log(user);
         var deferred = q.defer();
-        //return  mockUsers;
         userModel.create(user, function(err, result){
             if(err){
-                deferred.reject(err);
+                deferred.reject(null);
             } else {
-                deferred.resolve(user);
+                deferred.resolve(result);
+                console.log("added user:");
+                console.log(user);
             }
         });
-        console.log("added user:"+ user);
         return deferred.promise;
     };
 
@@ -45,7 +41,7 @@ module.exports = function(db, mongoose){
         userModel.findOne({username: username, password: password},
         function(err,result){
            if(err){
-               deferred.reject(err);
+               deferred.reject(null);
            } else {
                //console.log(result);
                deferred.resolve(result);
@@ -61,7 +57,7 @@ module.exports = function(db, mongoose){
         var deferred = q.defer();
         userModel.find(function(err,result){
                 if(err){
-                    deferred.reject(err);
+                    deferred.reject(null);
                 } else {
                     deferred.resolve(result);
                 }
@@ -70,19 +66,12 @@ module.exports = function(db, mongoose){
     }
 
 
-    //sample user json
-    var userSample = [{"id": 123, "firstName": "Alice",
-        "lastName": "Wonderland",
-        "username": "alice",
-        "password": "alice"}];
-
-
     function findUserByUsername(username){
         var deferred = q.defer();
         userModel.findOne({username: username},
             function(err,result){
                 if(err){
-                    deferred.reject(err);
+                    deferred.reject(null);
                 } else {
                     deferred.resolve(result);
                 }
@@ -131,17 +120,5 @@ module.exports = function(db, mongoose){
                 }
             });
         return deferred.promise;
-    }
-
-
-    function getUserIndex(userId){
-        var userIndex = null;
-        for (var index = 0; index < mockUsers.length; index++) {
-            if (mockUsers[index].id == userId) {
-                userIndex = index;
-                return userIndex;
-            }
-        }
-        return userIndex;
     }
 }

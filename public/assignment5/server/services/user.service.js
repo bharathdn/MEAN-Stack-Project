@@ -56,12 +56,6 @@ module.exports = function(app, model){
     }
 
 
-    function FindUserByUserName(userName){
-        //var userName = req.params.username;
-
-    }
-
-
     function UpdateUserById(req, res){
         var user = req.body;
         var userId = req.params.id;
