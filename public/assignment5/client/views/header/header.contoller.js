@@ -1,22 +1,23 @@
 (function(){
-	angular
-		.module("FormBuilderApp")
-		.controller("HeaderController",HeaderController);
+    angular
+        .module("FormBuilderApp")
+        .controller("HeaderController",HeaderController);
 
 
-	function HeaderController($scope, $location, $rootScope){
+    function HeaderController($location, $rootScope){
+        var model = this;
+        //$scope.$location = $location;
+        //$scope.headerShow = headerShow;
+        model.registerShow = registerShow;
+        model.isLogin = isLogin;
+        model.loginShow = loginShow;
+        model.logoutShow = logoutShow;
+        model.logoutUser = logoutUser;
 
-        $scope.$location = $location;
-        $scope.headerShow = headerShow;
-        $scope.isLogin = isLogin;
-        $scope.loginShow = loginShow;
-        $scope.logoutShow = logoutShow;
-        $scope.logoutUser = logoutUser;
 
-
-        function headerShow(){
-            //console.log("headerShow called")
-            if($location.url().match( /profile|admin|form|fields/ )){
+        function registerShow(){
+            //console.log("headerShow called");
+            if($rootScope.user != null){
                 return true;
             }
             else { return false; }
@@ -30,7 +31,7 @@
             }
             else{
                 var loggedInUser = $rootScope.user.username;
-                $scope.username = loggedInUser[0].toUpperCase() + loggedInUser.slice(1);
+                model.username = loggedInUser[0].toUpperCase() + loggedInUser.slice(1);
             }
         }
 
@@ -51,6 +52,6 @@
         function logoutUser(){
             $rootScope.user = null;
         }
-	}
+    }
 
 })();
