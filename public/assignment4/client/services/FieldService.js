@@ -21,7 +21,7 @@
         function AddFieldIntoForm(formId, field){
             var deferred = $q.defer();
 
-            $http.post("/api/assignment/form/"+formId+"/field",field)
+            $http.post("/hw4/api/assignment/form/"+formId+"/field",field)
                 .success(function (fields){
                     deferred.resolve(fields);
                 });
@@ -32,7 +32,7 @@
         function FindFieldsForFormId(formId){
             var deferred = $q.defer();
             //console.log("feild Service, fecting fields for:"+formId);
-            $http.get("/api/assignment/form/"+formId+"/field")
+            $http.get("/hw4/api/assignment/form/"+formId+"/field")
                 .success(function(fields){
                     deferred.resolve(fields);
                 });
@@ -41,7 +41,7 @@
 
         function DeleteFieldFromForm(fieldId, formId){
             var deferred = $q.defer();
-            $http.delete("/api/assignment/form/"+formId+"/field/"+fieldId)
+            $http.delete("/hw4/api/assignment/form/"+formId+"/field/"+fieldId)
                 .success(function(fields){
                    deferred.resolve(fields);
                 });

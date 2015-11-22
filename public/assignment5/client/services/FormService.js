@@ -18,11 +18,10 @@
         function createFormForUser(userId, form) {
             var deferred = $q.defer();
 
-            //form.id = createGuid();
             form.userId = userId;
             $http.post("/api/assignment/user/"+userId+"/form", form)
                 .success(function (forms) {
-                   deferred.resolve(forms)
+                    deferred.resolve(forms)
                 });
 
             return deferred.promise;

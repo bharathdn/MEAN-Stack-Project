@@ -8,8 +8,13 @@ module.exports = function(app, model) {
 
     function GetFormsByUserId(req,res){
         var userId = req.params.userId;
-        var forms = model.FindFormsByUserId(userId);
-        res.json(forms);
+        console.log(userId);
+        //var forms = model.FindFormsByUserId(userId);
+        model.FindFormsByUserId(userId)
+            .then(function (userForms) {
+                //console.log(userForms);
+                res.json(userForms);
+            })
     }
 
     function GetFormContentsByFormId(req,res){
@@ -29,12 +34,14 @@ module.exports = function(app, model) {
         var userId = req.params.userId;
         var form = req.body;
 
-        form.id = createGuid();
         form.userId = userId;
-
-        var forms = model.Create(form);
+        model.Create(form)
+            .then(function (createdForm) {
+                //console.log("result of form creation")
+                //console.log(createdForm);
+                res.json(createdForm);
+            });
         //var userforms = model.FindFormsByUserId(userId);
-        res.json(forms);
     }
 
 

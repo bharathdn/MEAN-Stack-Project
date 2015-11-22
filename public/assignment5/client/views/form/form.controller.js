@@ -7,8 +7,8 @@
     function FormController($q, $location, $rootScope, FormService){
 
         var model = this;
+        var user = $rootScope.user;
 
-        //var user = $rootScope.user;
 
         model.addForm = addForm;
         model.updateForm = updateForm;
@@ -17,17 +17,19 @@
 
 
         //loading alice user for testing purpose
-        var user = {id: 123}
-        model.userId = 123;
+        //var user = {id: 123}
+        //model.userId = 123;
 
         // call function to render forms for Logged In USer
-        console.log("calling render forms");
+        //console.log("calling render forms");
         renderFormsForUser();
 
         // function to show the forms for logged in User
         function renderFormsForUser(){
+
+            console.log("fetching forms for"+ user._id);
             FormService
-                .findAllFormsForUser(user.id)
+                .findAllFormsForUser(user._id)
                 .then(function (formsForUser){
                     model.forms = formsForUser;
                     //createFormCallback(formsForUser);
@@ -41,10 +43,10 @@
             {
                 return;
             }
-
-            FormService.createFormForUser(user.id,model.form)
+            FormService.createFormForUser(user._id,model.form)
                 .then(function (formResponse){
-                    console.log(formResponse);
+                    //console.log("ctrller:")
+                    //console.log(formResponse);
                     renderFormsForUser();
                 });
         }
@@ -90,5 +92,4 @@
             renderFormsForUser();
         }
     }
-
 })();

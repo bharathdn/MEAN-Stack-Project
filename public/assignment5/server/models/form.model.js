@@ -1,5 +1,10 @@
-module.exports = function(app) {
+module.exports = function(db, mongoose){
+    var q  = require("q");
     var mockForms = require("./form.mock.json");
+
+    var formSchema = require("./form.schema.js")(mongoose);
+    var formModel = mongoose.model("formModel",formSchema);
+
     var api = {
         Create: Create,
         FindAll: FindAll,
@@ -18,9 +23,20 @@ module.exports = function(app) {
     return api;
 
     function Create(form) {
-        form.fields = [];
-        mockForms.push(form);
-        return mockForms;
+        var deferred = q.defer();
+
+        formModel.create(form,
+            function(err,result){
+                if(err){
+                    deferred.reject(null);
+                }
+                else{
+                    //console.log("result of form creation")
+                    //console.log(result);
+                    deferred.resolve(result);
+                }
+            });
+        return deferred.promise;
     }
 
     function CreateFieldForForm(formId,field){
@@ -91,12 +107,20 @@ module.exports = function(app) {
 
     function FindFormsByUserId(userId)
     {
-        var userForms = [];
-        for(formIndex in mockForms){
-            if(mockForms[formIndex].userId == userId){
-                userForms.push(mockForms[formIndex]);
-            }
-        }
-        return userForms;
+        var deferred = q.defer();
+
+        formModel.find({userId: userId},
+            function(err,result){
+               if(err){
+                   deferred.reject(null);
+               }
+                else{
+                   //console.log("forms fecthed for user");
+                   //console.log(result);
+                   deferred.resolve(result);
+               }
+            });
+        return deferred.promise;
     }
+
 }
