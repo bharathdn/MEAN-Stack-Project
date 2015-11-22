@@ -71,6 +71,8 @@ module.exports = function(app, model){
     function UpdateUserById(req, res){
         var user = req.body;
         var userId = req.params.id;
+        console.log("updating user on Server Userservice");
+        console.log(user);
         model.Update(userId, user)
             .then(function (user) {
                 //console.log(user);
