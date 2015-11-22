@@ -114,8 +114,9 @@ module.exports = function(db, mongoose){
 
     function Update(userId, user){
         var deferred = q.defer();
-        var dbUser = userModel.toObject();
-        dbUser.delete("_id");
+        //var dbUser = mongoose.userModel.toObject();
+        //dbUser.delete("_id");
+        delete user._id;
         userModel.update({_id: userId}, {$set: user},
             function(err,result){
                 if(err){
