@@ -53,6 +53,7 @@ module.exports = function(app, model){
         var user = req.body;
         var userId = req.params.id;
         var user = model.Update(userId, user);
+        console.log(user);
         res.json(user);
     }
 

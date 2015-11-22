@@ -70,7 +70,7 @@ module.exports = function(db, mongoose){
             if(mockUsers[user].username == userName){
                 if(mockUsers[user].password == password){
                     //console.log("user "+user.username+" found");
-                    return user;
+                    return mockUsers[user];
                 }
             }
         }
@@ -103,11 +103,13 @@ module.exports = function(db, mongoose){
             return userIndex;
         }
         else {
-            mockUsers[userIndex].username = user.userName;
+            mockUsers.splice(userIndex,1);
+            mockUsers.push(user);
+            /*mockUsers[userIndex].username = user.userName;
             mockUsers[userIndex].lastName = user.lastName;
             mockUsers[userIndex].firstName = user.firstName;
-            mockUsers[userIndex].password = user.password;
-            return mockUsers;
+            mockUsers[userIndex].password = user.password;*/
+            return user;
         }
     }
 

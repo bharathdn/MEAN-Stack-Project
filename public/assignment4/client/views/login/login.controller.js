@@ -9,6 +9,7 @@
         model.login = login;
 
         function login(user){
+            //console.log(user);
             UserService.findUserByUsernameAndPassword(user)
                 .then(function(userResponse){
                     //console.log(userResponse);

@@ -4,7 +4,7 @@
         .controller("ProfileController",ProfileController);
 
 
-    function ProfileController($scope,$location,UserService,$rootScope){
+    function ProfileController($location,UserService,$rootScope){
         //$scope.$location = $location;
         //$scope.update = update;
         var model = this;
@@ -15,28 +15,21 @@
             showUserinfo();
         }
 
-        function update(){
-            var newuser = {
-                userName : model.userName,
-                password : model.password,
-                email : model.eMail,
-                FName: model.fName,
-                LName: model.lName
-            };
-
-            UserService.updateUser(loggedInUser.id,newuser)
-                .then(function(users){
-                    console.log(users);
-                    updateCallback(newuser);
+        function update(user){
+            UserService.updateUser(user)
+                .then(function(updateResult) {
+                    updateCallback(user);
                 });
         }
 
         function updateCallback(user){
-            console.log(user);
+                $rootScope.user = user;
+                $location.url("/home");
+                console.log("user updated successfully");
+
         }
 
         function showUserinfo(){
-            console.log("Profile page: registered user info");
             model.user = loggedInUser;
         }
     }

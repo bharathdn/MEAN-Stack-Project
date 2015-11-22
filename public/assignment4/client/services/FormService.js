@@ -20,7 +20,7 @@
 
             //form.id = createGuid();
             form.userId = userId;
-            $http.post("/hw4//api/assignment/user/"+userId+"/form", form)
+            $http.post("/hw4/api/assignment/user/"+userId+"/form", form)
                 .success(function (forms) {
                    deferred.resolve(forms)
                 });
@@ -32,7 +32,7 @@
         function findAllFormsForUser(userId){
             var deferred = $q.defer();
 
-            $http.get("/hw4//api/assignment/user/"+userId+"/form")
+            $http.get("/hw4/api/assignment/user/"+userId+"/form")
                 .success(function (forms) {
                     deferred.resolve(forms);
                 });
@@ -41,7 +41,7 @@
 
         function deleteFormById(formId){
             var deferred = $q.defer();
-            $http.delete("/hw4//api/assignment/form/"+formId)
+            $http.delete("/hw4/api/assignment/form/"+formId)
                 .success(function (forms){
                     deferred.resolve(forms);
                 });
@@ -50,7 +50,7 @@
 
         function updateFormById(form){
             var deferred = $q.defer();
-            $http.put("/hw4//api/assignment/form/:formId",form)
+            $http.put("/hw4/api/assignment/form/:formId",form)
                 .success(function (forms) {
                     deferred.resolve(forms);
                 });
