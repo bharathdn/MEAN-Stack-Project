@@ -8,6 +8,7 @@
 
         var model = this;
         var user = $rootScope.user;
+        model.selectedForm = null;
 
 
         model.addForm = addForm;
@@ -15,18 +16,14 @@
         model.deleteForm = deleteForm;
         model.selectForm = selectForm;
 
-
-        //loading alice user for testing purpose
-        //var user = {id: 123}
-        //model.userId = 123;
-
         // call function to render forms for Logged In USer
         //console.log("calling render forms");
-        renderFormsForUser();
+        if($rootScope.user != null) {
+            renderFormsForUser();
+        }
 
         // function to show the forms for logged in User
         function renderFormsForUser(){
-
             console.log("fetching forms for"+ user._id);
             FormService
                 .findAllFormsForUser(user._id)
@@ -45,42 +42,54 @@
             }
             FormService.createFormForUser(user._id,model.form)
                 .then(function (formResponse){
+                    createFormCallback(formResponse);
                     //console.log("ctrller:")
                     //console.log(formResponse);
-                    renderFormsForUser();
+                    //renderFormsForUser();
                 });
         }
 
 
         function createFormCallback(forms){
-            //forms.push(form);
-            //model.title= "";
-            //console.log(form);
+            if(forms != null){
+                renderFormsForUser();
+            }else{
+                console.log("unable to add form");
+            }
 
-            //renderFormsForUser();
         }
 
         function selectForm(selectedForm){
+            //console.log(selectedForm);
             model.form = selectedForm;
-            renderFormsForUser();
         }
 
         function updateForm(form){
+            console.log("updating form at controller");
+            console.log(form);
             FormService.updateFormById(form)
                 .then(function (forms) {
-                    console.log(forms);
+                    //console.log(forms);
                     updateCallback(forms);
                 });
         }
 
         function updateCallback(form){
             //console.log(form);
-            renderFormsForUser();
+            if(form.ok == 1) {
+                console.log("form updated successfully");
+                model.form.title.clear;
+                renderFormsForUser();
+            }
+            else{
+                console.log("error in updating user");
+                console.log(form);
+            }
+
         }
 
         function deleteForm(form){
-            formId = form.id;
-            FormService.deleteFormById(formId)
+            FormService.deleteFormById(form._id)
                 .then(function(forms){
                     console.log(forms);
                     formDeleteCallback(forms);

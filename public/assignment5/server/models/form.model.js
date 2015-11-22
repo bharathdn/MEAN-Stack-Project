@@ -57,7 +57,16 @@ module.exports = function(db, mongoose){
     }
 
     function Update(id,form) {
-
+        var deferred = q.defer();
+            formModel.update({_id: id}, {$set: {"title": form.title}},
+            function(err,result){
+                if(err){
+                    deferred.reject(null);
+                } else {
+                    deferred.resolve(result);
+                }
+            });
+        return deferred.promise;
     }
 
     function DeleteFieldByIds(formId,fieldId){
@@ -81,12 +90,17 @@ module.exports = function(db, mongoose){
     }
 
     function Delete(formId) {
-        for(formIndex in mockForms){
-            if(mockForms[formIndex].id == formId){
-                mockForms.splice(formIndex,1);
-            }
-        }
-        return mockForms;
+        var deferred = q.defer();
+        formModel.remove({_id:formId},
+            function(err,result){
+                if(err){
+                    deferred.reject(null);
+                } else {
+                    console.log(result);
+                    deferred.resolve(result);
+                }
+            });
+        return deferred.promise;
     }
 
     function findFormByTitle(title){

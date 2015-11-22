@@ -8,7 +8,7 @@ module.exports = function(app, model) {
 
     function GetFormsByUserId(req,res){
         var userId = req.params.userId;
-        console.log(userId);
+        //console.log(userId);
         //var forms = model.FindFormsByUserId(userId);
         model.FindFormsByUserId(userId)
             .then(function (userForms) {
@@ -25,8 +25,14 @@ module.exports = function(app, model) {
 
     function DeleteFormByFormById(req,res){
         var formId = req.params.formId;
-        var forms = model.Delete(formId);
-        res.json(forms);
+        model.Delete(formId).
+            then(function(err,result){
+                if(err){
+                    res.json(null);
+                }else{
+                    res.json(result);
+                }
+            });
     }
 
 
@@ -41,16 +47,19 @@ module.exports = function(app, model) {
                 //console.log(createdForm);
                 res.json(createdForm);
             });
-        //var userforms = model.FindFormsByUserId(userId);
     }
 
 
     function UpdateFormByFormId(req,res){
         var formId = req.params.formId;
-        var updatedForm = req.body;
+        var form = req.body;
 
-        var forms = model.Update(formId,form);
-        res.json(forms);
+        model.Update(formId,form)
+            .then(function (updatedForm) {
+                console.log("result of form updating")
+                console.log(updatedForm);
+                res.json(updatedForm);
+            });
     }
 
 
