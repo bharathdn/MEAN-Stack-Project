@@ -21,9 +21,9 @@
                 </td>
             </tr>
 
+            
             <tr ng-repeat="form in model.forms">
-                <!--td><a>{{form.title}}</a></td-->
-                <td><a href="#/user/{{model.userId}}/form/{{form.id}}/fields">{{form.title}}</a></td>
+                <td><a href="#/user/{{form.userId}}/form/{{form._id}}/fields">{{form.title}}</a></td>
                 <td>
                     <a ng-click="model.deleteForm(form)" class="glyphicon glyphicon-remove btn btn-primary"></a>
                     <a ng-click="model.selectForm(form)" class="glyphicon glyphicon-pencil btn btn-primary"></a>

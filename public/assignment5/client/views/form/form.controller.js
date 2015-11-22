@@ -15,6 +15,7 @@
         model.updateForm = updateForm;
         model.deleteForm = deleteForm;
         model.selectForm = selectForm;
+        model.selectForm = selectForm;
 
         // call function to render forms for Logged In USer
         //console.log("calling render forms");
