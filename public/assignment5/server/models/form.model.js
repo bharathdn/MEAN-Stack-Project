@@ -39,13 +39,19 @@ module.exports = function(db, mongoose){
         return deferred.promise;
     }
 
-    function CreateFieldForForm(formId,field){
-        for(formIndex in mockForms){
-            if(mockForms[formIndex].id == formId){
-                mockForms[formIndex].fields.push(field);
-                return mockForms[formIndex].fields;
-            }
-        }
+    function CreateFieldForForm(formId,field) {
+        //console.log(user);
+        var deferred = q.defer();
+        formModel.findById(formId, function (err, form) {
+            field._id = mongoose.Types.ObjectId();
+            form.fields.push(field);
+            //console.log("creating into DB, form");
+            //console.log(form);
+            form.save(function (err, fieldResult) {
+                deferred.resolve(fieldResult);
+            });
+        });
+        return deferred.promise;
     }
 
     function FindAll() {
@@ -112,11 +118,17 @@ module.exports = function(db, mongoose){
     }
 
     function GetAllFieldsByFormId(formId){
-        for(formIndex in mockForms){
-            if(mockForms[formIndex].id == formId){
-                return mockForms[formIndex].fields;
-            }
-        }
+        //console.log(formId);
+        var deferred = q.defer();
+        formModel.findById(formId,
+            function (err, form) {
+                if (err) {
+                    deferred.reject(null);
+                } else {
+                    deferred.resolve(form);
+                }
+            });
+        return deferred.promise;
     }
 
     function FindFormsByUserId(userId)

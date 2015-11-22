@@ -7,11 +7,15 @@
         var model = this;
         var userId = $routeParams.userId;
         var formId = $routeParams.formId;
+        //console.log("Route:");
+        //console.log($routeParams);
 
         model.removeField = removeField;
         model.addField = addField;
         //fetch the fields for the user
-        GetFieldsForFormId(formId);
+        if($rootScope.user != null) {
+            GetFieldsForFormId(formId);
+        }
 
         function addField(fieldType) {
             //console.log("add field called with field type "+fieldType)
@@ -19,27 +23,27 @@
             switch(fieldType)
             {
                 case "singlelinetext":
-                    field = {"id": null,
+                    field = {
                         "label": "New Text Field",
                         "type": "TEXT",
                         "placeholder": "New Field"};
                     break;
 
                 case "paragraphtext":
-                    field = {"id": null,
+                    field = {
                         "label": "New Text Field",
                         "type": "TEXTAREA",
                         "placeholder": "New Field"};
                     break;
 
                 case "date":
-                    field = {"id": null,
+                    field = {
                         "label": "New Date Field",
                         "type": "DATE"};
                     break;
 
                 case "dropdown":
-                    field= {"id": null,
+                    field= {
                         "label": "New Dropdown",
                         "type": "OPTIONS",
                         "options": [
@@ -50,7 +54,7 @@
                     break;
 
                 case "checkboxes":
-                    field = {"id": null,
+                    field = {
                         "label": "New Checkboxes",
                         "type": "CHECKBOXES",
                         "options": [
@@ -61,7 +65,7 @@
                     break;
 
                 case "radiobuttons":
-                    field = {"id": null,
+                    field = {
                         "label": "New Radio Buttons",
                         "type": "RADIOS",
                         "options": [
@@ -75,7 +79,8 @@
                     console.log("Err!! cant find field: "+fieldType);
             }
 
-            console.log(field);
+            //console.log(field);
+
             FieldService
                 .AddFieldIntoForm(formId,field)
                 .then(function(fields){
@@ -92,6 +97,7 @@
                 });
         }
 
+
         function removeField(field){
             FieldService
                 .DeleteFieldFromForm(field.id,formId)
@@ -101,16 +107,6 @@
                     model.fields = fields;
                 });
         }
-
-        function renderFormsForUser(){
-            FormService
-                .findAllFormsForUser(user.id)
-                .then(function (formsForUser){
-                    //model.forms = formsForUser;
-                    createFormCallback(formsForUser);
-                });
-        }
-
 
     }
 })();

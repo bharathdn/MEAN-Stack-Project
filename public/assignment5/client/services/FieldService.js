@@ -31,7 +31,7 @@
 
         function FindFieldsForFormId(formId){
             var deferred = $q.defer();
-            //console.log("feild Service, fecting fields for:"+formId);
+            //console.log("feild Service, fetching fields for:"+formId);
             $http.get("/api/assignment/form/"+formId+"/field")
                 .success(function(fields){
                     deferred.resolve(fields);
