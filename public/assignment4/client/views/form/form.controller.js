@@ -36,12 +36,15 @@
 
 
         function addForm(form){
-            //console.log(form.title);
+            console.log("addform controller");
+            console.log(user.id);
             if(angular.isUndefined(model.form))
             {
                 return;
             }
-            FormService.createFormForUser(user._id,model.form)
+            form.userId = user.id;
+            console.log(form);
+            FormService.createFormForUser(form)
                 .then(function (formResponse){
                     createFormCallback(formResponse);
                     //console.log("ctrller:")
@@ -75,10 +78,13 @@
                 });
         }
 
-        function updateCallback(form) {
-            console.log("form updated successfully");
-            model.form.title.clear;
-            renderFormsForUser();
+        function updateCallback(forms) {
+            if(forms != null) {
+                console.log("form updated successfully");
+                //model.form.title.clear;
+                renderFormsForUser();
+                //model.forms = forms;
+            }
         }
 
         function deleteForm(form){

@@ -114,20 +114,14 @@ module.exports = function(db, mongoose){
 
     function Update(userId, user){
         var deferred = q.defer();
-        //var dbUser = mongoose.userModel.toObject();
-        //dbUser.delete("_id");
+
         delete user._id;
         userModel.update({_id: userId}, {$set: user},
             function(err,result){
                 if(err){
-                    console.log("Error: result of Update");
-                    console.log(err);
                     deferred.resolve(err);
                 }else{
-                    console.log("Result: result of Update");
-                    console.log(result);
                     deferred.resolve(result);
-
                 }
             });
         return deferred.promise;

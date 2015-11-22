@@ -9,7 +9,7 @@ module.exports = function(db, mongoose) {
         findFormByTitle: findFormByTitle,
 
         FindFormsByUserId: FindFormsByUserId,
-        FindFormByFormId: FindFormByFormId,
+        FindFormIndexByFormId: FindFormIndexByFormId,
 
         GetAllFieldsByFormId: GetAllFieldsByFormId,
         DeleteFieldByIds: DeleteFieldByIds,
@@ -19,6 +19,8 @@ module.exports = function(db, mongoose) {
 
     function Create(form) {
         form.fields = [];
+        console.log("adding form");
+        console.log(form);
         mockForms.push(form);
         return mockForms;
     }
@@ -41,7 +43,10 @@ module.exports = function(db, mongoose) {
     }
 
     function Update(id,form) {
-
+        var formIndex = FindFormIndexByFormId(id);
+        mockForms.splice(formIndex,1);
+        mockForms.push(form);
+        return mockForms;
     }
 
     function DeleteFieldByIds(formId,fieldId){
@@ -87,6 +92,16 @@ module.exports = function(db, mongoose) {
                 return mockForms[formIndex].fields;
             }
         }
+    }
+
+    function FindFormIndexByFormId(formId)
+    {
+        for(formIndex in mockForms){
+            if(mockForms[formIndex].id == formId){
+                return formIndex;
+            }
+        }
+        return null;
     }
 
     function FindFormsByUserId(userId)

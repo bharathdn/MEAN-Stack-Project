@@ -33,6 +33,7 @@ module.exports = function(app, model) {
         form.userId = userId;
 
         var forms = model.Create(form);
+        console.log(forms);
         //var userforms = model.FindFormsByUserId(userId);
         res.json(forms);
     }
@@ -41,8 +42,9 @@ module.exports = function(app, model) {
     function UpdateFormByFormId(req,res){
         var formId = req.params.formId;
         var updatedForm = req.body;
-
-        var forms = model.Update(formId,form);
+        var forms = model.Update(formId,updatedForm);
+        console.log("updated forms");
+        console.log(forms);
         res.json(forms);
     }
 

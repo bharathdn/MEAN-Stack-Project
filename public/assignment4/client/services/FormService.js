@@ -15,12 +15,12 @@
         };
         return service;
 
-        function createFormForUser(userId, form) {
+        function createFormForUser(form) {
             var deferred = $q.defer();
 
             //form.id = createGuid();
-            form.userId = userId;
-            $http.post("/hw4/api/assignment/user/"+userId+"/form", form)
+            //form.userId = userId;
+            $http.post("/hw4/api/assignment/user/"+form.userId+"/form", form)
                 .success(function (forms) {
                    deferred.resolve(forms)
                 });
@@ -50,7 +50,7 @@
 
         function updateFormById(form){
             var deferred = $q.defer();
-            $http.put("/hw4/api/assignment/form/:formId",form)
+            $http.put("/hw4/api/assignment/form/"+form.id,form)
                 .success(function (forms) {
                     deferred.resolve(forms);
                 });
