@@ -119,6 +119,7 @@ module.exports = function(db, mongoose){
                 if(err){
                     deferred.reject(null);
                 } else {
+                    console.log(result);
                     deferred.resolve(result);
                 }
             });
