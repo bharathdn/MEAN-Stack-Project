@@ -25,8 +25,10 @@ module.exports = function(app, model) {
     function DeleteFieldByIds(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        var fields = model.DeleteFieldByIds(formId, fieldId);
-        res.json(fields);
+        model.DeleteFieldByIds(formId, fieldId)
+            .then(function (fields) {
+                res.json(fields);
+            });
     }
 
     function CreateFieldForFormID(req, res) {

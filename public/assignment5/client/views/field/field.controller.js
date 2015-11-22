@@ -93,7 +93,7 @@
             FieldService
                 .FindFieldsForFormId(formId)
                 .then(function(fields){
-                    console.log(fields);
+                    //console.log(fields);
                     model.fields = fields;
                 });
         }
@@ -101,11 +101,11 @@
 
         function removeField(field){
             FieldService
-                .DeleteFieldFromForm(field.id,formId)
+                .DeleteFieldFromForm(field._id,formId)
                 .then(function(fields){
-                   console.log(fields);
-                   //GetFieldsForFormId;
-                    model.fields = fields;
+                   //console.log(fields);
+                   GetFieldsForFormId();
+                   // model.fields = fields;
                 });
         }
 

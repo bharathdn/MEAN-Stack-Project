@@ -34,7 +34,7 @@
 					controller : "RegisterController as model"
 				})
 				.when("/user/:userId/form/:formId/fields",{
-					templateUrl: "views/field/_field.view.html",
+					templateUrl: "views/field/field.view.html",
 					controller:	"FieldController as model"
 				})
 				.otherwise(

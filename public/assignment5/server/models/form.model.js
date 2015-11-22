@@ -75,25 +75,24 @@ module.exports = function(db, mongoose){
         return deferred.promise;
     }
 
+
     function DeleteFieldByIds(formId,fieldId){
-        for(formIndex in mockForms){
-
-            if(mockForms[formIndex].id == formId)
-            {
-                formFields = mockForms[formIndex].fields;
-
-                for(fieldIndex in formFields){
-
-                    if(formFields[fieldIndex].id == fieldId){
-                        mockForms[formIndex].fields.splice(fieldIndex,1);
-                        //return mockForms;
-                        return mockForms[formIndex].fields;
-                    }
+        console.log(formId);
+        console.log(fieldId);
+        var deferred = q.defer();
+        formModel.findById(formId, function (err, form) {
+            for (fieldIndex in form.fields) {
+                if (form.fields[fieldIndex]._id == fieldId) {
+                    form.fields.splice(fieldIndex, 1);
+                    form.save(function (err, fieldResult) {
+                        deferred.resolve(fieldResult);
+                    });
                 }
             }
-        }
-        return null;
+        });
+        return deferred.promise;
     }
+
 
     function Delete(formId) {
         var deferred = q.defer();
