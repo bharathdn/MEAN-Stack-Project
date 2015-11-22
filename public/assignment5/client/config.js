@@ -22,7 +22,7 @@
 					controller: "FormController as model"
 				})
 				.when("/field",{
-					templateUrl: "views/field/field.view.html",
+					templateUrl: "views/field/_field.view.html",
 					controller:	"FieldController as model"
 				})
 				.when("/login",{

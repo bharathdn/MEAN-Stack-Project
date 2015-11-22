@@ -85,6 +85,7 @@
                 .AddFieldIntoForm(formId,field)
                 .then(function(fields){
                     model.fields = fields;
+                    GetFieldsForFormId();
                 });
         }
 

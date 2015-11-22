@@ -125,7 +125,7 @@ module.exports = function(db, mongoose){
                 if (err) {
                     deferred.reject(null);
                 } else {
-                    deferred.resolve(form);
+                    deferred.resolve(form.fields);
                 }
             });
         return deferred.promise;

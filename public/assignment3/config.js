@@ -20,7 +20,7 @@
 				})
 				/*
 				.when("/form-field",{
-					templateUrl: "form/field.view.html"
+					templateUrl: "form/_field.view.html"
 				})
 				*/
 				.when("/login",{

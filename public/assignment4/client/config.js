@@ -22,7 +22,7 @@
 					controller: "FormController as model"
 				})
 				.when("/field",{
-					templateUrl: "views/field/field.view.html",
+					templateUrl: "views/field/_field.view.html",
 					controller:	"FieldController as model"
 				})
 				.when("/login",{
@@ -34,7 +34,7 @@
 					controller : "RegisterController as model"
 				})
 				.when("/user/:userId/form/:formId/fields",{
-					templateUrl: "views/field/field.view.html",
+					templateUrl: "views/field/_field.view.html",
 					controller:	"FieldController as model"
 				})
 				.otherwise(
