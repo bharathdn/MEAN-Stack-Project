@@ -4,37 +4,41 @@
     <meta charset="utf-8">
     <title>Home</title>
     <!--link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"-->
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/cosmo/bootstrap.min.css" rel="stylesheet">
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
     <!--link href="../../css/bootswatch_paper.min.css" rel="stylesheet"-->
     <!--link href="../../Project/Client/css/bootswatch_paper.min.css" rel="stylesheet"-->
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
 
 
     <script src="app.js"> </script>
     <script src="config.js"> </script>
-    <script src="header/header.contoller.js"></script>
-    <script src="sidebar/sidebar.controller.js"></script>
-    <link  rel="stylesheet" href="css/dashboard.css">
-    <link  rel="stylesheet" href="css/alignment.css">
-    <link  rel="stylesheet" href="css/rating.css">
-    <link  rel="stylesheet" href="css/follow_users.css">
+    <script src="views/header/header.contoller.js"></script>
+    <script src="views/sidebar/sidebar.controller.js"></script>
+    <link  rel="stylesheet" href="views/css/dashboard.css">
+    <link  rel="stylesheet" href="views/css/alignment.css">
+    <link  rel="stylesheet" href="views/css/rating.css">
+    <link  rel="stylesheet" href="views/css/follow_users.css">
+
+
+    <!-- controller scripts -->
+    <script src="views/home/home.controller.js"></script>
 
 </head>
 
 <body>
-<div ng-include="'header/header.view.html'">
+<div ng-include="'views/header/header.view.html'">
 </div>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2 col-xs-0 col-md-2 sidebar">
-            <div ng-include="'sidebar/sidebar.view.html'"></div>
+            <div ng-include="'views/sidebar/sidebar.view.html'"></div>
         </div>
 
         <div ng-view class="col-sm-9  col-sm-offset-3 col-md-8 col-md-offset-2col-md-8 col-md-offset-2 main">

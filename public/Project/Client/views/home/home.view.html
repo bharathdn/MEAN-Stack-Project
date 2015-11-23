@@ -1,0 +1,18 @@
+<h1 class="page-header">Welcome to Breview!</h1>
+<p class="text-justify">
+    Welcome to Breview, the Bibliophile community!
+    A single place to Search and Review.
+</p>
+<br/>
+<div class="form-group input-group-lg has-feedback has-feedback-right">
+    <!--i class="glyphicon glyphicon-search form-control-feedback"></i-->
+    <div class="row">
+        <div class="col-lg-8">
+            <input type="text" class = "form-control" ng-model="model.searchQueryString" placeholder="Enter name of book, author..."/>
+        </div>
+        <div class="col-lg-4">
+            <button class="btn  btn-group-sm" ng-click="model.searchQuery(model.searchQueryString)">Search</button>
+        </div>
+    </div>
+    <!--h3>{{searchQuery}}</h3-->
+</div>
