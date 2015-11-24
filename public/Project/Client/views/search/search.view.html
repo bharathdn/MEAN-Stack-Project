@@ -3,7 +3,11 @@
 <br/>
 <br/>
 <br/>
-<div class="form-group  input-group-lg has-feedback has-feedback-right">
-    <i class="glyphicon glyphicon-search form-control-feedback"></i>
-    <input type="text" class = "form-control" placeholder="Search for a book"/>
+<div class="row">
+    <div class="col-lg-8">
+        <input type="text" class = "form-control" ng-model="model.searchQueryString" placeholder="Enter name of book, author..."/>
+    </div>
+    <div class="col-lg-4">
+        <button class="btn  btn-group-sm" ng-click="model.searchQuery(model.searchQueryString)">Search</button>
+    </div>
 </div>

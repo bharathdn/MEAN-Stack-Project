@@ -16,6 +16,7 @@
                 });
         }
 
+
         function userLoginCallback(user){
             console.log("returned users");
             console.log(user);

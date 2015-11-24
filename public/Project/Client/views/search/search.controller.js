@@ -1,10 +1,10 @@
 (function(){
     angular
         .module("BukReviewApp")
-        .controller("HomeController",HomeController);
+        .controller("SearchController",SearchController);
 
 
-    function HomeController( $rootScope, $location, SearchService){
+    function SearchController( $rootScope, $location, SearchService){
 
         var model = this;
 

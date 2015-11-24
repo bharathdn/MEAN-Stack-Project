@@ -21,10 +21,12 @@
                     templateUrl: "views/register/register.view.html"
                 })
                 .when("/search",{
-                    templateUrl: "views/search/search.view.html"
+                    templateUrl: "views/search/search.view.html",
+                    controller: "SearchController as model"
                 })
                 .when("/search_result",{
-                    templateUrl: "views/search/search_result.view.html"
+                    templateUrl: "views/search/search.results.view.html",
+                    controller: "SearchResultController as model"
                 })
                 .when("/favorites",{
                     templateUrl: "views/favorites/favorites-reviews.view.html"

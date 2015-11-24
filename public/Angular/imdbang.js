@@ -32,9 +32,8 @@
 				$scope.movies = response;
 				}).error(function(){
 					console.log("request failed");
-				});	
-		
-			//$scope.movies = movies;			
+				});
+			//$scope.movies = movies;
 		}
 		}	
 })();

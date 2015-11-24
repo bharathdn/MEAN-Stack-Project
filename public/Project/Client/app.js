@@ -1,4 +1,4 @@
 (function(){
     angular
-        .module("BukReviewApp",[])
+        .module("BukReviewApp",["ngRoute"]);
 })();

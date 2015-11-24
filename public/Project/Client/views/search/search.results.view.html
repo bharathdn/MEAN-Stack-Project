@@ -1,0 +1,31 @@
+<!--<div class="container-fluid">-->
+<div controller="SearchResultController">
+    <h2>Showing result for {{searchQueryString}}</h2>
+    <div class="table">
+        <div ng-repeat="book in model.bookResults">
+            <div class="row">
+                <div class="col-md-3">
+                    <img width="100px" ng-src={{book.volumeInfo.imageLinks.smallThumbnail}}>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="row">
+                        <h3><a ng-href={{book.volumeInfo.infoLinkl}}>
+                            {{book.volumeInfo.title}}</a>
+                        </h3>
+                    </div>
+                    <div class="row">
+                        <a ng-href={{book.volumeInfo.previewLink}}>Preview on Google</a>
+                    </div>
+                </div>
+            </div>
+            &nbsp;
+            <div class="row">
+                <div class="col-md-10 text-justify">
+                    <p class="bookDescPara">{{book.volumeInfo.description}}</p>
+                    <!--p>{{book.searchInfo.textSnippet}}</p-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
