@@ -1,4 +1,4 @@
 (function(){
     angular
-        .module("BukReviewApp",["ngRoute"]);
+        .module("BukReviewApp",["ngRoute","ui.bootstrap"]);
 })();

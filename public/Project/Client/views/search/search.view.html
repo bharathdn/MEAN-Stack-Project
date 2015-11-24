@@ -4,10 +4,12 @@
 <br/>
 <br/>
 <div class="row">
-    <div class="col-lg-8">
-        <input type="text" class = "form-control" ng-model="model.searchQueryString" placeholder="Enter name of book, author..."/>
-    </div>
-    <div class="col-lg-4">
-        <button class="btn  btn-group-sm" ng-click="model.searchQuery(model.searchQueryString)">Search</button>
-    </div>
+    <form ng-submit="model.searchQuery(model.searchQueryString)">
+        <div class="col-lg-8">
+            <input type="text" class = "form-control" ng-model="model.searchQueryString" placeholder="Enter name of book, author..."/>
+        </div>
+        <div class="col-lg-4">
+            <button class="btn  btn-group-sm" ng-click="model.searchQuery(model.searchQueryString)">Search</button>
+        </div>
+    </form>
 </div>

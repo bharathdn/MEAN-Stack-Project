@@ -1,6 +1,15 @@
 <!--<div class="container-fluid">-->
-<div controller="SearchResultController">
-    <h2>Showing result for {{searchQueryString}}</h2>
+<div>
+    <h2>Showing results for {{searchQueryString}}</h2>
+    Stars
+
+    {{model.rate}}
+    {{model.max}}
+    {{model.isReadonly}}
+    <uib-rating ng-model="model.rate" max="{{model.max}}" readonly="{{model.isReadonly}}"
+                aria-labelledby="default-rating"></uib-rating>
+
+
     <div class="table">
         <div ng-repeat="book in model.bookResults">
             <div class="row">
@@ -10,12 +19,18 @@
 
                 <div class="col-md-5">
                     <div class="row">
-                        <h3><a href={{book.volumeInfo.infoLinkl}}>
+                        <h3><a ng-href={{book.volumeInfo.infoLink}}>
                             {{book.volumeInfo.title}}</a>
                         </h3>
                     </div>
                     <div class="row">
                         <a ng-href={{book.volumeInfo.previewLink}}>Preview on Google</a>
+                    </div>
+                    <div class="row">
+                        <h4>Rating</h4>{{book.volumeInfo.averageRating}}
+                        <uib-rating ng-model="model.rating" max="model.maxRating"
+                                    readonly="model.isReadonly" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+                        <!-- book.volumeInfo.averageRatingspan class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="model.isReadonly">{{model.percent}}%</span-->
                     </div>
                 </div>
             </div>

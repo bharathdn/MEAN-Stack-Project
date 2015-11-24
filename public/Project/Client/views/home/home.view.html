@@ -7,12 +7,14 @@
 <div class="form-group input-group-lg has-feedback has-feedback-right">
     <!--i class="glyphicon glyphicon-search form-control-feedback"></i-->
     <div class="row">
+        <form ng-submit="model.searchQuery(model.searchQueryString)">
         <div class="col-lg-8">
             <input type="text" class = "form-control" ng-model="model.searchQueryString" placeholder="Enter name of book, author..."/>
         </div>
         <div class="col-lg-4">
             <button class="btn  btn-group-sm" ng-click="model.searchQuery(model.searchQueryString)">Search</button>
         </div>
+        </form>
     </div>
     <!--h3>{{searchQuery}}</h3-->
 </div>

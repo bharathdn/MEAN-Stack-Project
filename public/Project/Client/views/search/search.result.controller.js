@@ -11,12 +11,23 @@
         model.searchQuery = searchQuery;
 
 
-        model.searchQueryString = $rootScope.searchQueryString;
 
+
+        // Rating code
+        //model.maxRating = 5;
+        //model.isReadonly = true;
+        //end of rating code
+
+        model.rate = 2;
+        model.max = 7;
+        model.isReadonly = true;
+
+        model.searchQueryString = $rootScope.searchQueryString;
         if(!angular.isUndefined(model.searchQueryString)){
             searchQuery(model.searchQueryString);
         }else{
-            $location.url("/search");
+            searchQuery("Godfather");
+            //$location.url("/search");
         }
 
 
@@ -28,8 +39,6 @@
             SearchService.searchGoogleBook(searchQueryString)
                 .then(function (searchResult) {
                     model.bookResults = searchResult.items;
-                    //console.log("reply from Searchservice");
-                    //console.log(searchResult.items);
                 });
             }
         }
