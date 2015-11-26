@@ -12,7 +12,8 @@
                     controller: "HomeController as model"
                 })
                 .when("/profile",{
-                    templateUrl: "views/profile/profile.view.html"
+                    templateUrl: "views/profile/profile.view.html",
+                    controller: "ProfileController as model"
                 })
                 .when("/profile_friends",{
                     templateUrl: "views/profile/profile_friends.view.html"
@@ -36,7 +37,8 @@
                     templateUrl: "views/favorites/favorites-favorite.view.html"
                 })
                 .when("/login",{
-                    templateUrl: "views/login/login.view.html"
+                    templateUrl: "views/login/login.view.html",
+                    controller: "LoginController as model"
                 })
                 .otherwise("/",
                     {redirectTo: "/"
