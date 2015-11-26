@@ -15,6 +15,9 @@
     function ProfileFriendsController(ClientUserService){
         console.log("ProfileFriendsController");
         var model = this;
+        model.addFriend = addFriend;
+        model.unfollowFriend = unfollowFriend;
+        model.removeFollower = removeFollower;
 
         var users = [];
         ClientUserService.findAllUsers()
@@ -26,6 +29,20 @@
                 model.Following = users;
                 model.Followers = users;
             });
+
+        function addFriend(user){
+            console.log("PROFILE FRND CTRL : you chose to add friend "+user.firstName);
+        }
+
+        function unfollowFriend(user){
+            console.log("PROFILE FRND CTRL : you chose to Unfollow "+user.firstName);
+        }
+
+        function removeFollower(user){
+            console.log("PROFILE FRND CTRL : you chose to Block you follower "+user.firstName);
+        }
+
+
     }
 
 })();
