@@ -1,6 +1,6 @@
 (function(){
     angular
-        .module("BukReviewApp")
+        .module("BukReviewApp")//,['ui.bootstrap'])
         .controller("SearchResultController",SearchResultController);
 
 

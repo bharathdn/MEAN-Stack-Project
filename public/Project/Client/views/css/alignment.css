@@ -1,6 +1,6 @@
 /* source internet */
 
-.bookDescPara{
+p.bookDescPara{
     text-overflow:ellipsis;
 }
 
@@ -40,4 +40,41 @@ img{
         width: 12%;
         float: left;
     }
+}
+
+
+p {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+.ellipsis {
+    overflow: hidden;
+    height: 200px;
+    line-height: 25px;
+}
+.ellipsis:before {
+    content:"";
+    float: left;
+    width: 5px;
+    height: 200px;
+}
+
+
+.ellipsis:after {
+    content:"\02026";
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    float: right;
+    position: relative;
+    top: -25px;
+    left: 100%;
+    width: 3em;
+    text-align: left;
+    background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to(white), color-stop(50%, white));
+    background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+    background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+    background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
 }

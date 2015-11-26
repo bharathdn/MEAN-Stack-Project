@@ -27,7 +27,8 @@
     "express": "~3.4.4",
     "q": "^1.4.1",
     "body-parser": "^1.14.1",
-    "multer": "^1.1.0"
+    "multer": "^1.1.0",
+   "passport":" ^0.3.2"
   },
   "devDependencies": {},
   "bundleDependencies": [],

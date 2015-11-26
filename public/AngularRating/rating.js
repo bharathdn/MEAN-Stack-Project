@@ -5,8 +5,8 @@ angular.module('RatingDemoCtrlapp',['ui.bootstrap'])
 
 
         var model = this;
-        model.rate = 2;
-        model.max = 5;
+        model.rate = 3;
+        model.max = 10;
         model.isReadonly = true;
 
         /*model.hoveringOver = function(value) {

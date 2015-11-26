@@ -18,7 +18,8 @@
                     templateUrl: "views/profile/profile_friends.view.html"
                 })
                 .when("/register",{
-                    templateUrl: "views/register/register.view.html"
+                    templateUrl: "views/register/register.view.html",
+                    controller: "RegisterController as model"
                 })
                 .when("/search",{
                     templateUrl: "views/search/search.view.html",

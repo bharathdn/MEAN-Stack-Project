@@ -12,7 +12,7 @@
         return service;
 
         function searchGoogleBook(searchQuery) {
-            console.log("Client Search Service :: Searching for Query -> " + searchQuery);
+            console.log("client Search Service :: Searching for Query -> " + searchQuery);
 
             var url = "https://www.googleapis.com/books/v1/volumes?q=" + searchQuery + "&key=AIzaSyDX4yrNGscA-AsXKxw5mzD6oKxnjaukLT0"
 

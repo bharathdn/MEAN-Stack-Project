@@ -1,14 +1,13 @@
 <!--<div class="container-fluid">-->
 <div>
     <h2>Showing results for {{searchQueryString}}</h2>
-    Stars
+    <!--Stars
 
     {{model.rate}}
     {{model.max}}
     {{model.isReadonly}}
-    <uib-rating ng-model="model.rate" max="{{model.max}}" readonly="{{model.isReadonly}}"
-                aria-labelledby="default-rating"></uib-rating>
-
+    &lt;!&ndash;uib-rating ng-model="model.rate" max="model.max" readonly="model.isReadonly"
+                aria-labelledby="default-rating"></uib-rating&ndash;&gt;-->
 
     <div class="table">
         <div ng-repeat="book in model.bookResults">
@@ -27,7 +26,8 @@
                         <a ng-href={{book.volumeInfo.previewLink}}>Preview on Google</a>
                     </div>
                     <div class="row">
-                        <h4>Rating</h4>{{book.volumeInfo.averageRating}}
+
+                        <div ng-if="book.volumeInfo.averageRating > 0">{{book.volumeInfo.averageRating}}/5</div>
                         <uib-rating ng-model="model.rating" max="model.maxRating"
                                     readonly="model.isReadonly" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
                         <!-- book.volumeInfo.averageRatingspan class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="model.isReadonly">{{model.percent}}%</span-->
@@ -35,12 +35,13 @@
                 </div>
             </div>
             &nbsp;
-            <div class="row">
+            <div class="row ellipsis">
                 <div class="col-md-10 text-justify">
-                    <p class="bookDescPara">{{book.volumeInfo.description}}</p>
+                    <p>{{book.volumeInfo.description}}</p>
                     <!--p>{{book.searchInfo.textSnippet}}</p-->
                 </div>
             </div>
+            &nbsp;
         </div>
     </div>
 </div>

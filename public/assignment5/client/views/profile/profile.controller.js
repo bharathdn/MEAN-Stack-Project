@@ -1,7 +1,7 @@
 "use strict";
 (function(){
     angular
-        .module("FormBuilderApp")
+        .module("BukReviewApp")
         .controller("ProfileController",ProfileController);
 
 
