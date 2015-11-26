@@ -1,7 +1,7 @@
 {
-  "name": "OpenShift-Sample-App",
-  "version": "1.0.0",
-  "description": "OpenShift Sample Application",
+  "name":         "OpenShift-Sample-App",
+  "version":      "1.0.0",
+  "description":  "OpenShift Sample Application",
   "keywords": [
     "OpenShift",
     "Node.js",
@@ -9,26 +9,29 @@
     "openshift"
   ],
   "author": {
-    "name": "OpenShift",
-    "email": "ramr@example.org",
-    "url": "http://www.openshift.com/"
+    "name":       "OpenShift",
+    "email":      "ramr@example.org",
+    "url":        "http://www.openshift.com/"
   },
-  "homepage": "http://www.openshift.com/",
+  "homepage":     "http://www.openshift.com/",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/openshift/origin-server"
+    "type":       "git",
+    "url":        "https://github.com/openshift/origin-server"
   },
   "engines": {
-    "node": ">= 0.6.0",
-    "npm": ">= 1.0.0"
+    "node":       ">= 0.6.0",
+    "npm":        ">= 1.0.0"
   },
   "dependencies": {
-    "mongoose": "~4.2.6",
-    "express": "~3.4.4",
-    "q": "^1.4.1",
-    "body-parser": "^1.14.1",
-    "multer": "^1.1.0",
-   "passport":" ^0.3.2"
+    "mongoose":         "~4.2.6",
+    "express":          "~3.4.4",
+    "q":                "^1.4.1",
+    "body-parser":      "^1.14.1",
+    "multer":           "^1.1.0",
+    "passport":         " ^0.3.2",
+    "express-session":  "^1.12.1",
+    "passport-local":   "^1.0.0",
+    "cookie-parser":    "^1.4.0"
   },
   "devDependencies": {},
   "bundleDependencies": [],
