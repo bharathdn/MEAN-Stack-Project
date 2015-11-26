@@ -12,8 +12,20 @@
 
      */
 
-    function ProfileFriendsController(){
+    function ProfileFriendsController(ClientUserService){
         console.log("ProfileFriendsController");
+        var model = this;
+
+        var users = [];
+        ClientUserService.findAllUsers()
+            .then(function(userResponse){
+                console.log(userResponse);
+                //userLoginCallback(userResponse);
+                users = userResponse;
+                model.FriendUsers = userResponse;
+                model.Following = users;
+                model.Followers = users;
+            });
     }
 
 })();

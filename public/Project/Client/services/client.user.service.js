@@ -75,6 +75,7 @@
 
 
         function findAllUsers() {
+            console.log("CLIENT USER SERVICE: findAllUsers called");
             var deferred = $q.defer();
             $http.get("/rest/api/user/")
                 .success(function (userResponse) {
