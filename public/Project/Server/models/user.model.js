@@ -1,8 +1,8 @@
 module.exports = function(db, mongoose){
 
     var q  = require("q");
-        var userSchema = require("./user.schema.js")(mongoose);
-        var userModel = mongoose.model("userModel",userSchema);
+        var breUserSchema = require("./user.schema.js")(mongoose);
+        var breUserModel = mongoose.model("breUserModel",breUserSchema);
 
 
     var api = {
@@ -20,7 +20,7 @@ module.exports = function(db, mongoose){
     function CreateNewUser(user){
         //console.log(user);
         var deferred = q.defer();
-        userModel.create(user, function(err, result){
+        breUserModel.create(user, function(err, result){
             if(err){
                 deferred.reject(null);
             } else {
@@ -37,7 +37,7 @@ module.exports = function(db, mongoose){
         var deferred = q.defer();
         var username = credentials.username;
         var password = credentials.password;
-        userModel.findOne({username: username, password: password},
+        breUserModel.findOne({username: username, password: password},
         function(err,result){
            if(err){
                deferred.reject(null);
@@ -54,7 +54,7 @@ module.exports = function(db, mongoose){
     function FindAll(){
         console.log("findall called");
         var deferred = q.defer();
-        userModel.find(function(err,result){
+        breUserModel.find(function(err,result){
                 if(err){
                     deferred.reject(null);
                 } else {
@@ -67,9 +67,9 @@ module.exports = function(db, mongoose){
 
     function findUserByUsername(username){
         var deferred = q.defer();
-        //console.log("usermodel sent user");
+        //console.log("brebreUserModel sent user");
         //console.log(username);
-        userModel.findOne({username: username},
+        breUserModel.findOne({username: username},
             function(err,result){
                 if(err){
                     deferred.reject(null);
@@ -84,7 +84,7 @@ module.exports = function(db, mongoose){
     function FindById(id){
         var deferred = q.defer();
         console.log("USER MODEL: findbyID called");
-        userModel.findById(id,
+        breUserModel.findById(id,
             function(err,result){
                 if(err){
                     deferred.reject(null);
@@ -98,7 +98,7 @@ module.exports = function(db, mongoose){
 
     function Delete(userId){
         var deferred = q.defer();
-        userModel.remove({_id:userId},
+        breUserModel.remove({_id:userId},
             function(err,result){
                 if(err){
                     deferred.reject(null);
@@ -115,7 +115,7 @@ module.exports = function(db, mongoose){
         var deferred = q.defer();
 
         delete user._id;
-        userModel.update({_id: userId}, {$set: user},
+        breUserModel.update({_id: userId}, {$set: user},
             function(err,result){
                 if(err){
                     deferred.resolve(err);

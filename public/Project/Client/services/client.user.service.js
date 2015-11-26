@@ -19,9 +19,9 @@
 
         function createUser(user) {
             var deferred = $q.defer();
-            //console.log("adding user:");
-            //console.log(user);
-            $http.post("/api/assignment/user", user)
+            console.log("Client user Service : Create adding user:");
+            console.log(user);
+            $http.post("/rest/api/user", user)
                 .success(function (users) {
                     //console.log("added user obj from USerService");
                      //console.log(users);
@@ -33,7 +33,7 @@
 
         function findUserByUsernameAndPassword(user) {
             var deferred = $q.defer();
-            $http.get("/api/assignment/user?username=" + user.username + "&password=" + user.password)
+            $http.get("/rest/api/user?username=" + user.username + "&password=" + user.password)
                 .success(function (userResponse) {
                     deferred.resolve(userResponse);
                 });
@@ -46,7 +46,7 @@
             var userId = user._id;
             console.log("UserService-Client, updating user");
             console.log(user);
-            $http.put("/api/assignment/user/" + userId, user)
+            $http.put("/rest/api/user/" + userId, user)
                 .success(function (userResponse) {
                     deferred.resolve(userResponse);
                 });
@@ -56,7 +56,7 @@
 
         function findUserById(userId) {
             var deferred = $q.defer();
-            $http.get("/api/assignment/user/" + userId)
+            $http.get("/rest/api/user/" + userId)
                 .success(function (userResponse) {
                     deferred.resolve(userResponse);
                 });
@@ -66,7 +66,7 @@
 
         function findUserByUserName(username) {
             var deferred = $q.defer();
-            $http.get("/api/assignment/user?username="+username)
+            $http.get("/rest/api/user?username="+username)
                 .success(function (userResponse) {
                     deferred.resolve(userResponse);
                 });
@@ -76,7 +76,7 @@
 
         function findAllUsers() {
             var deferred = $q.defer();
-            $http.get("/api/assignment/user/")
+            $http.get("/rest/api/user/")
                 .success(function (userResponse) {
                     deferred.resolve(userResponse);
                 });
@@ -85,7 +85,7 @@
 
 
         function deleteUserById(userId) {
-            $http.delete("/api/assignment/user/"+userId)
+            $http.delete("/rest/api/user/"+userId)
                 .success(function (userResponse) {
                     deferred.resolve(userResponse);
                 });

@@ -1,11 +1,11 @@
 module.exports = function(app, model){
 
 
-    app.post("/rest/api/assignment/user", CreateUser);
-    app.get("/rest/api/assignment/user", FindAllUsers);
-    app.get("/rest/api/assignment/user/:id", FindUserById);
-    app.put("/rest/api/assignment/user/:id", UpdateUserById);
-    app.delete("/rest/api/assignment/user/:id", RemoveUserByID);
+    app.post("/rest/api/user", CreateUser);
+    app.get("/rest/api/user", FindAllUsers);
+    app.get("/rest/api/user/:id", FindUserById);
+    app.put("/rest/api/user/:id", UpdateUserById);
+    app.delete("/rest/api/user/:id", RemoveUserByID);
 
 
     function CreateUser(req,res){
