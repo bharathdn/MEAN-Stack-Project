@@ -4,7 +4,7 @@
         .controller("SearchResultController",SearchResultController);
 
 
-    function SearchResultController($rootScope, $location, SearchService){
+    function SearchResultController($rootScope, $location, ClientSearchService){
 
         var model = this;
 
@@ -36,7 +36,7 @@
             console.log("func called");
             console.log(searchQueryString);
             if(!angular.isUndefined(searchQueryString)){
-            SearchService.searchGoogleBook(searchQueryString)
+                ClientSearchService.searchGoogleBooks(searchQueryString)
                 .then(function (searchResult) {
                     model.bookResults = searchResult.items;
                 });

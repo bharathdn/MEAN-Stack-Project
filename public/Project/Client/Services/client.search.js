@@ -2,16 +2,16 @@
 
     angular
         .module("BukReviewApp")
-        .factory("SearchService",SearchService);
+        .factory("ClientSearchService",ClientSearchService);
 
-    function SearchService($http,$q) {
+    function ClientSearchService($http,$q) {
 
         var service = {
-            searchGoogleBook: searchGoogleBook
+            searchGoogleBooks: searchGoogleBooks
         };
         return service;
 
-        function searchGoogleBook(searchQuery) {
+        function searchGoogleBooks(searchQuery) {
             console.log("client Search Service :: Searching for Query -> " + searchQuery);
 
             var url = "https://www.googleapis.com/books/v1/volumes?q=" + searchQuery + "&key=AIzaSyDX4yrNGscA-AsXKxw5mzD6oKxnjaukLT0"
