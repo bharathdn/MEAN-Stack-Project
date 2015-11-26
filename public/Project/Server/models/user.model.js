@@ -83,7 +83,7 @@ module.exports = function(db, mongoose){
 
     function FindById(id){
         var deferred = q.defer();
-
+        console.log("USER MODEL: findbyID called");
         userModel.findById(id,
             function(err,result){
                 if(err){

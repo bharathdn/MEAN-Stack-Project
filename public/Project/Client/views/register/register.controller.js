@@ -14,9 +14,9 @@
 
         //TODO  Check if email already exists
         //console.log($rootScope.user);
-
+        console.log("Register Controller!!!!!");
         function registerNewUser(user) {
-            //console.log("Register called");
+            console.log("Register called");
             console.log(user);
             var registrationPossible = true;
             var userResult;
@@ -31,6 +31,7 @@
                 ClientUserService.findUserByUserName(user.username)
                     .then(function (userResult) {
                         if (userResult !== null) {
+                            registrationPossible = false;
                             model.message = "Username already exists, please choose a different username";
                         }
                     });
@@ -49,7 +50,9 @@
                 registrationPossible = false;
             }
 
-             if(userResult !== null ||
+            console.log(registrationPossible);
+
+             if(user.email == "undefined" ||
              user.email == "undefined" ||
              user.password == "undefined" ||
              user.verifypassword == "undefined"
@@ -57,6 +60,7 @@
              model.message = "All fields are mandatory";
              registrationPossible = false;
              }
+
 
             if(registrationPossible == true) {
                 console.log("creation of user possible: " + user.username);
