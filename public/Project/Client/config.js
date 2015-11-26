@@ -16,7 +16,8 @@
                     controller: "ProfileController as model"
                 })
                 .when("/profile_friends",{
-                    templateUrl: "views/profile/profile_friends.view.html"
+                    templateUrl: "views/profile/profile.friends.view.html",
+                    controller: "ProfileFriendsController as model"
                 })
                 .when("/register",{
                     templateUrl: "views/register/register.view.html",
