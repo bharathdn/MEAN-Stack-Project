@@ -12,7 +12,7 @@
 
      */
 
-    function ProfileFriendsController(ClientUserService){
+    function ProfileFriendsController($rootScope,ClientUserService){
         console.log("ProfileFriendsController");
         var model = this;
         model.addFriend = addFriend;
@@ -30,8 +30,16 @@
                 model.Followers = users;
             });
 
-        function addFriend(user){
-            console.log("PROFILE FRND CTRL : you chose to add friend "+user.firstName);
+        function addFriend(friend){
+            console.log("PROFILE FRND CTRL : you chose to add friend "+friend.firstName);
+            console.log("Logged In USER");
+            console.log($rootScope.user);
+            console.log("Friend USER");
+            console.log(friend);
+            ClientUserService.AddFriendForUserId($rootScope.user._id,friend._id)
+                .then(function(userFriendObj){
+                    console.log(userFriendObj);
+                });
         }
 
         function unfollowFriend(user){

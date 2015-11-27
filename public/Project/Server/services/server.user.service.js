@@ -7,6 +7,21 @@ module.exports = function(app, model){
     app.put("/rest/api/user/:id", UpdateUserById);
     app.delete("/rest/api/user/:id", RemoveUserByID);
 
+    // user Friends APIS
+
+    app.post("/rest/api/friend/:userId/:friendId" , AddFriendForUserId);
+
+
+    function AddFriendForUserId(req,res){
+        var userId = req.params.userId;
+        var friendId = req.params.friendId;
+
+        console.log("SERVER USER SERVICE: Adding user"+friendId+" as friend to "+userId);
+        model.AddFriendForUserId(userId,friendId)
+            .then(function (userFriendObj) {
+                res.json(userFriendObj);
+            });
+    }
 
     function CreateUser(req,res){
         var user = req.body;

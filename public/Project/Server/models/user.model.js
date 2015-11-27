@@ -1,21 +1,64 @@
 module.exports = function(db, mongoose){
 
     var q  = require("q");
-        var breUserSchema = require("./user.schema.js")(mongoose);
-        var breUserModel = mongoose.model("breUserModel",breUserSchema);
+    var breUserSchema = require("./schemas/user.schema.js")(mongoose);
+    var breUserModel = mongoose.model("breUserModel",breUserSchema);
+
+    var breUserFriendsSchema = require("./schemas/user.friends.schema")(mongoose);
+    var breUserFriendsModel = mongoose.model("breUserFriendsSchema",breUserFriendsSchema);
+
 
 
     var api = {
-        CreateNewUser: CreateNewUser,
-        FindAll: FindAll,
-        FindById: FindById,
-        findUserByUsername:findUserByUsername,
-        Update: Update,
-        Delete: Delete,
-        findUserByCredentials:findUserByCredentials,
+        CreateNewUser           : CreateNewUser,
+        FindAll                 : FindAll,
+        FindById                : FindById,
+        findUserByUsername      : findUserByUsername,
+        Update                  : Update,
+        Delete                  : Delete,
+        findUserByCredentials   : findUserByCredentials,
+
+        //userFriends Functions
+        AddFriendForUserId      : AddFriendForUserId,
+        //RemoveFriendForUserId   : RemoveFriendForUserId,
+        //FollowUserById          : FollowUserById
     };
     return api;
 
+/*
+        userId      :  String,
+        friends     : [String],
+        followers   : [String]
+
+*/
+
+    function AddFriendForUserId(userId, friendId){
+        console.log("SERVER USER MODEL: Adding user"+friendId+" as friend to "+userId);
+        //return "Hello";
+        //  x adds y as friend
+
+        var deferred = q.defer();
+        // add y to x's friend list
+        breUserFriendsModel.findOne({userId: userId},
+            function(err,result){
+               if(err){
+                   console.log("Error");
+                   console.log(err);
+                   deferred.reject(err);
+               }else{
+                   console.log("Result");
+                   console.log(result);
+                   deferred.resolve(result);
+               }
+            });
+
+
+        // add x to y's follower list
+
+        return deferred.promise;
+    }
+
+    // User Friend Functions above |^|
 
     function CreateNewUser(user){
         //console.log(user);

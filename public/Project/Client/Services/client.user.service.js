@@ -6,16 +6,33 @@
 
     function ClientUserService($rootScope, $http, $q) {
         var service = {
-            createUser: createUser,
-            findUserById: findUserById,
-            findUserByUserName: findUserByUserName,
-            findUserByUsernameAndPassword: findUserByUsernameAndPassword,
-            findAllUsers: findAllUsers,
-            deleteUserById: deleteUserById,
-            updateUser: updateUser
+            createUser                      : createUser,
+            findUserById                    : findUserById,
+            findUserByUserName              : findUserByUserName,
+            findUserByUsernameAndPassword   : findUserByUsernameAndPassword,
+            findAllUsers                    : findAllUsers,
+            deleteUserById                  : deleteUserById,
+            updateUser                      : updateUser,
+
+
+            // USER FRIEND FUNCTIONS
+            AddFriendForUserId              : AddFriendForUserId
         };
         return service;
 
+
+
+
+        function AddFriendForUserId(userId, friendId){
+            var deffered = $q.defer();
+
+            console.log("CLIENT USER SERVICE: Adding user"+friendId+" as friend to "+userId);
+            $http.post("/rest/api/friend/"+userId+"/"+friendId)
+                .success(function(userFriendObj){
+                    deffered.resolve(userFriendObj);
+                });
+            return deffered.promise;
+        }
 
         function createUser(user) {
             var deferred = $q.defer();
