@@ -48,6 +48,12 @@ module.exports = function(db, mongoose){
                }else{
                    console.log("Result");
                    console.log(result);
+                   // if resulst is null,, there is no object for user for friends
+
+                   if(result == null){
+
+                   }
+
                    deferred.resolve(result);
                }
             });
