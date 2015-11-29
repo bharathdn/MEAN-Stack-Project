@@ -49,18 +49,51 @@ module.exports = function(db, mongoose){
                    console.log("Result");
                    console.log(result);
                    // if resulst is null,, there is no object for user for friends
-
+                   // create one
                    if(result == null){
-
+                       console.log("user does not have friends, creating now")
+                        breUserFriendsModel.create({userId: userId, friends: [friendId]},
+                            function(err,result){
+                                console.log("created friend Obj for"+userId);
+                                console.log(result);
+                            });
+                   }
+                   else{
+                       console.log("user HAS friends, updating now")
+                       breUserFriendsModel.findOne({userId: userId},
+                       function(err, userObj){
+                           userObj.friends.push(friendId);
+                           userObj.save(function(err,result){
+                               console.log(result);
+                           });
+                       });
                    }
 
+                   //add userId to friendId's followers list
+                   //check if friend already has an object
+                   breUserFriendsModel.findOne({friendId: friendId},
+                       function(err, result){
+                           if(result == null){
+                               breUserFriendsModel.create({userId: friendId ,followers: [userId]},
+                                   function(err,result){
+                                       console.log("user's friend has no followers, creating now")
+                                       console.log(result);
+                                   });
+                           }else{
+                               breUserFriendsModel.findOne({userId: friendId},
+                                   function(err, userObj){
+                                       console.log("user's friend has followers, updating now")
+                                       userObj.friends.push(userId);
+                                       userObj.save(function(err,result){
+                                           console.log(result);
+                                       });
+                                   });
+                           }
+                           deferred.resolve("1");
+                       });
                    deferred.resolve(result);
                }
             });
-
-
-        // add x to y's follower list
-
         return deferred.promise;
     }
 
