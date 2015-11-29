@@ -65,8 +65,11 @@
             if(registrationPossible == true) {
                 console.log("creation of user possible: " + user.username);
                 ClientUserService.createUser(user)
-                    .then(function (user) {
-                        registerCallback(user)
+                    .then(function (retuser) {
+                        if(retuser != null) {
+                            console.log(retuser.user);
+                            registerCallback(retuser.user);
+                        }
                     });
             }
         }

@@ -39,10 +39,10 @@
             console.log("Client user Service : Create adding user:");
             console.log(user);
             $http.post("/rest/api/user", user)
-                .success(function (users) {
+                .success(function (user) {
                     //console.log("added user obj from USerService");
                      //console.log(users);
-                    deferred.resolve(users);
+                    deferred.resolve(user);
                 });
             return deferred.promise;
         }
