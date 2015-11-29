@@ -16,11 +16,22 @@
 
 
             // USER FRIEND FUNCTIONS
-            AddFriendForUserId              : AddFriendForUserId
+            AddFriendForUserId              : AddFriendForUserId,
+            findFriendsAndFollowersForId    : findFriendsAndFollowersForId
         };
         return service;
 
 
+        function findFriendsAndFollowersForId(userId){
+            var deferred = $q.defer();
+
+            console.log("finding Friends and Followers for "+userId);
+            $http.get("/rest/api/friends/"+userId)
+                .success(function (friendsFollowersObj) {
+                    deferred.resolve(friendsFollowersObj);
+                });
+            return deferred.promise;
+        }
 
 
         function AddFriendForUserId(userId, friendId){

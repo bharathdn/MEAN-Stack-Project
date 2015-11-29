@@ -10,16 +10,17 @@ module.exports = function(db, mongoose){
 
 
     var api = {
-        CreateNewUser           : CreateNewUser,
-        FindAll                 : FindAll,
-        FindById                : FindById,
-        findUserByUsername      : findUserByUsername,
-        Update                  : Update,
-        Delete                  : Delete,
-        findUserByCredentials   : findUserByCredentials,
+        CreateNewUser                   : CreateNewUser,
+        FindAll                         : FindAll,
+        FindById                        : FindById,
+        findUserByUsername              : findUserByUsername,
+        Update                          : Update,
+        Delete                          : Delete,
+        findUserByCredentials           : findUserByCredentials,
 
         //userFriends Functions
-        AddFriendForUserId      : AddFriendForUserId,
+        AddFriendForUserId              : AddFriendForUserId,
+        findFriendsAndFollowersForId    : findFriendsAndFollowersForId
         //RemoveFriendForUserId   : RemoveFriendForUserId,
         //FollowUserById          : FollowUserById
     };
@@ -31,6 +32,48 @@ module.exports = function(db, mongoose){
         followers   : [String]
 
 */
+    function findFriendsAndFollowersForId(userId){
+        var deferred = q.defer();
+
+        var resFriends = [];
+        var resFollowers = [];
+        var finalRes = {};
+        this.resFriends = resFriends;
+        breUserFriendsModel.findOne({userId: userId},
+            function (err, result) {
+                if(result != null){
+                    if(result.friends.length > 0){
+                        for(var i=0; i<result.friends.length; i++){
+                            FindById(result.friends[i])
+                                .then(function(user){
+                                    //console.log(user);
+                                    resFriends.push(user);
+                                });
+                            //resFriends.push(userRes);
+                            console.log("resFriends");
+                            console.log(this.resFriends);
+                        }
+                        finalRes.friends = resFriends;
+                        console.log("Added Friends ");
+                        console.log(resFriends);
+                    }else{ finalRes.friends = null;  }
+
+                    if(result.followers.length > 0){
+                        for(follwerIndex in result.followers){
+                            console.log(result.followers[follwerIndex]);
+                            console.log(FindById(result.followers[follwerIndex]));
+                        }
+                        console.log("Added Followers");
+                        console.log(resFollowers);
+                        finalRes.followers = resFollowers;
+                    }else{  finalRes.followers = null;  }
+                }
+                deferred.resolve(finalRes);
+                //console.log(finalRes);
+            });
+        return deferred.promise;
+    }
+
 
     function AddFriendForUserId(userId, friendId){
         console.log("SERVER USER MODEL: Adding user"+friendId+" as friend to "+userId);
@@ -139,7 +182,7 @@ module.exports = function(db, mongoose){
 
     function FindById(id){
         var deferred = q.defer();
-        console.log("USER MODEL: findbyID called");
+        console.log("USER MODEL: findbyID called "+ id);
         breUserModel.findById(id,
             function(err,result){
                 if(err){

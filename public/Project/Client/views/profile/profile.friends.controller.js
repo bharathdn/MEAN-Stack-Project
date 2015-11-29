@@ -22,12 +22,20 @@
         var users = [];
         ClientUserService.findAllUsers()
             .then(function(userResponse){
-                console.log(userResponse);
+                //console.log(userResponse);
                 //userLoginCallback(userResponse);
                 users = userResponse;
                 model.FriendUsers = userResponse;
-                model.Following = users;
-                model.Followers = users;
+                //model.Friends = users;
+                //model.Followers = users;
+            });
+
+        // find followers for userID
+        ClientUserService.findFriendsAndFollowersForId($rootScope.user._id)
+            .then(function(friendsObj){
+                console.log(friendsObj.friends);
+                model.Friends = friendsObj.friends;
+                model.Followers = friendsObj.followers;
             });
 
         function addFriend(friend){

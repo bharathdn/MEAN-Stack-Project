@@ -8,8 +8,16 @@ module.exports = function(app, model){
     app.delete("/rest/api/user/:id", RemoveUserByID);
 
     // user Friends APIS
-
     app.post("/rest/api/friend/:userId/:friendId" , AddFriendForUserId);
+    app.get("/rest/api/friends/:userId", findFriendsAndFollowersForId);
+
+
+    function findFriendsAndFollowersForId(req,res){
+        model.findFriendsAndFollowersForId(req.params.userId)
+            .then(function(userFriendFollowerObj){
+               res.json(userFriendFollowerObj);
+            });
+    }
 
 
     function AddFriendForUserId(req,res){
