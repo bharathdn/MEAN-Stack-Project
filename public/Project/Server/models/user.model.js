@@ -126,44 +126,6 @@ module.exports = function(app, db, mongoose, passport){
             });
         return deferred.promise;
     }
-    /*
-        breUserFriendsModel.findOne({userId : userId},
-        function (err, result) {
-                var resFriends = [];
-                for(var i=0; i<result.friends.length; i++)(function (i) {
-                    //finalRes.friends.push(FindById(result.friends[i])
-                    resFriends.push(FindById(result.friends[i])
-                        .then(function (userRes){
-                            resFriends.push(userRes);
-                            return resFriends;
-                        }));
-                })(i);
-                console.log(resFriends);
-                return q.all(resFriends);
-
-        });*!/
-
-
-
-       /!* breUserFriendsModel.findOne({userId: userId},
-            function (err, result) {
-                if(result.friends.length > 0){
-                    //var resFriends = [];
-                    for(var i=0; i<result.friends.length; i++){
-                        FindById(result.friends[i])
-                            .then(function(user){
-                                /!*console.log("user")
-                                console.log(user);*!/
-                                resFriends.push("user");
-                                //console.log(resFriends);
-                            });
-                    }
-                }else{ finalRes.friends = null;  }
-                deferred.resolve(finalRes);
-            });
-        console.log(resFriends);
-        return deferred.promise;*!/
-    }*/
 
 
     function AddFriendForUserId(userId, friendId){
@@ -273,11 +235,11 @@ module.exports = function(app, db, mongoose, passport){
 
     function FindById(id){
         var deferred = q.defer();
-        console.log("USER MODEL: findbyID called "+ id);
+        //console.log("USER MODEL: findbyID called "+ id);
         breUserModel.findById(id,
             function(err,result){
                 if(err){
-                    deferred.reject(null);
+                    deferred.reject(err);
                 } else {
                     deferred.resolve(result);
                 }

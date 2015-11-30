@@ -15,8 +15,14 @@ module.exports = function(app, model, mongoose, passport){
     app.get("/rest/api/friends/:userId", findFriendsAndFollowersForId);
 
     app.post("/rest/api/login", passport.authenticate('local'), loginUser);
+    app.post("/rest/api/logout", logOutUser);
 
 
+    function logOutUser(req, res){
+        console.log("Logging out");
+        req.logOut();
+        res.send(200);
+    }
 
     // PASSPORT JS AUTH
     passport.use(new LocalStrategy(
@@ -33,22 +39,13 @@ module.exports = function(app, model, mongoose, passport){
                 }, function(err){
                     return done(err);
                 });
-            //breUserModel.findOne({username: username, password: password},
-            //    function (err,user) {
-            //        if(err){
-            //            return done(err);
-            //        }
-            //        if(!user){
-            //            return done(null,false);
-            //        }
-            //        return done(null,user);
-            //    })
         }
     ));
 
     function loginUser(req,res){
         var user = req.user;
-        console.log(user);
+        //console.log("USER SERVICE: Login USER -> ");
+        //console.log(user);
         res.json(user);
     }
 
@@ -57,9 +54,16 @@ module.exports = function(app, model, mongoose, passport){
     });
 
     passport.deserializeUser(function(user,done){
-        model.breUserModel.findById(user._id,
-            function(err,result){
-                done(err, user);
+        model
+            .FindById(user._id)
+            //.then(function(err,user){
+            .then(function(user){
+                //done(err,user)
+                console.log("deserializer");
+                console.log(user);
+                done(null, user);
+            }, function(err){
+                done(err);
             });
     });
 
@@ -70,7 +74,7 @@ module.exports = function(app, model, mongoose, passport){
         }else{
             next();
         }
-    }
+    };
 
     /*function ensureAuthenticated(req, res, next) {
         if (req.isAuthenticated())

@@ -4,7 +4,7 @@
         .controller("HeaderController",HeaderController);
 
 
-    function HeaderController($location, $rootScope){
+    function HeaderController($location, $rootScope, ClientUserService){
         var model = this;
         model.registerShow = registerShow;
         model.isLogin = isLogin;
@@ -49,8 +49,11 @@
         }
 
         function logoutUser(){
-            $rootScope.user = null;
-            $location.url("/home");
+            ClientUserService.LogOutUser()
+                .then(function(userResponse){
+                    $rootScope.user = null;
+                    $location.url("/home");
+                });
         }
     }
 

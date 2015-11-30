@@ -14,12 +14,23 @@
             deleteUserById                  : deleteUserById,
             updateUser                      : updateUser,
             LoginUser                       : LoginUser,
+            LogOutUser                      : LogOutUser,
 
             // USER FRIEND FUNCTIONS
             AddFriendForUserId              : AddFriendForUserId,
             findFriendsAndFollowersForId    : findFriendsAndFollowersForId
         };
         return service;
+
+        function LogOutUser(){
+            var deferred = $q.defer();
+            //console.log(user);
+            $http.post("/rest/api/logout")
+                .success(function (userObj){
+                    deferred.resolve(userObj);
+                });
+            return deferred.promise;
+        }
 
 
         function LoginUser(user){
