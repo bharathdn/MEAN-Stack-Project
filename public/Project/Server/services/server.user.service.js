@@ -1,4 +1,4 @@
-module.exports = function(app, model, mongoose, passport, breUserModel){
+module.exports = function(app, model, mongoose, passport){
 
     //var breUserSchema = require("../models/schemas/user.schema.js")(mongoose);
     //var breUserModel = mongoose.model("breUserModel",breUserSchema);
@@ -14,24 +14,35 @@ module.exports = function(app, model, mongoose, passport, breUserModel){
     app.post("/rest/api/friend/:userId/:friendId" , AddFriendForUserId);
     app.get("/rest/api/friends/:userId", findFriendsAndFollowersForId);
 
-    //app.post("/rest/api/login", passport.authenticate('local'), loginUser);
+    app.post("/rest/api/login", passport.authenticate('local'), loginUser);
 
 
 
     // PASSPORT JS AUTH
-   /* passport.use(new LocalStrategy(
+    passport.use(new LocalStrategy(
         function(username, password, done)
         {
-            breUserModel.findOne({username: username, password: password},
-                function (err,user) {
-                    if(err){
-                        return done(err);
-                    }
+            var credentials = {username: username, password: password};
+            model
+                .findUserByCredentials(credentials)
+                .then(function(user){
                     if(!user){
-                        return done(null,false);
+                        return done(null, false);
                     }
-                    return done(null,user);
-                })
+                    return done(null, user);
+                }, function(err){
+                    return done(err);
+                });
+            //breUserModel.findOne({username: username, password: password},
+            //    function (err,user) {
+            //        if(err){
+            //            return done(err);
+            //        }
+            //        if(!user){
+            //            return done(null,false);
+            //        }
+            //        return done(null,user);
+            //    })
         }
     ));
 
@@ -59,7 +70,7 @@ module.exports = function(app, model, mongoose, passport, breUserModel){
         }else{
             next();
         }
-    }*/
+    }
 
     /*function ensureAuthenticated(req, res, next) {
         if (req.isAuthenticated())
@@ -72,15 +83,15 @@ module.exports = function(app, model, mongoose, passport, breUserModel){
 
 
     function findFriendsAndFollowersForId(req,res){
-        /*model.findFriendsAndFollowersForId(req.params.userId)
+        model.findFriendsAndFollowersForId(req.params.userId)
             .then(function(userFriendFollowerObj){
                 console.log(userFriendFollowerObj);
                 res.json(userFriendFollowerObj);
-            });*/
+            });
 
         //var users = model.findFriendsAndFollowersForId(req.params.userId);
-        console.log("SERVER USER SERVICE:");
-        console.log(users);
+        /*console.log("SERVER USER SERVICE:");
+        console.log(users);*/
     }
 
 

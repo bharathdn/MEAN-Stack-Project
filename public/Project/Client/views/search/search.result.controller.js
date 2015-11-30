@@ -8,12 +8,10 @@
 
         var model = this;
 
-        model.searchQuery = searchQuery;
-        model.addFav = addFav;
-        model.isLogin = isLogin;
-
-
-
+        model.searchQuery           = searchQuery;
+        model.addFav                = addFav;
+        model.isLogin               = isLogin;
+        model.getBookDetails        = getBookDetails;
 
         // Rating code
         //model.maxRating = 5;
@@ -32,7 +30,11 @@
             //$location.url("/search");
         }
 
-
+        function getBookDetails(book){
+            console.log(book);
+            $rootScope.book = book;
+            $location.url("/bookdetail");
+        }
 
         function searchQuery(searchQueryString) {
             console.log("func called");

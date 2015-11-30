@@ -6,7 +6,8 @@
 
     function LoginController($location,ClientUserService,$rootScope){
         var model = this;
-        model.login = login;
+        model.login         =   login;
+        model.loginPass     =   loginPass;
 
         console.log("Login ctrlr");
 

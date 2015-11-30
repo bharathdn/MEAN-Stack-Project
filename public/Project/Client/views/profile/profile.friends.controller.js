@@ -26,17 +26,18 @@
                 //userLoginCallback(userResponse);
                 users = userResponse;
                 model.FriendUsers = userResponse;
-                model.Friends = users;
-                model.Followers = users;
+                //model.Friends = users;
+                //model.Followers = users;
             });
 
         // find followers for userID
-        /*ClientUserService.findFriendsAndFollowersForId($rootScope.user._id)
+        ClientUserService.findFriendsAndFollowersForId($rootScope.user._id)
             .then(function(friendsObj){
-                console.log(friendsObj.friends);
+                console.log(friendsObj);
+                /*console.log(friendsObj.friends);
                 model.Friends = friendsObj.friends;
-                model.Followers = friendsObj.followers;
-            });*/
+                model.Followers = friendsObj.followers;*/
+            });
 
         function addFriend(friend){
             console.log("PROFILE FRND CTRL : you chose to add friend "+friend.firstName);

@@ -1,4 +1,4 @@
-module.exports = function(db, mongoose, passport){
+module.exports = function(app, db, mongoose, passport){
 
     var q  = require("q");
     //var flow = require("finally");
@@ -20,53 +20,113 @@ module.exports = function(db, mongoose, passport){
         findUserByCredentials           : findUserByCredentials,
 
         //userFriends Functions
-        AddFriendForUserId              : AddFriendForUserId
-        //findFriendsAndFollowersForId    : findFriendsAndFollowersForId
+        AddFriendForUserId              : AddFriendForUserId,
+        findFriendsAndFollowersForId    : findFriendsAndFollowersForId
         //RemoveFriendForUserId   : RemoveFriendForUserId,
         //FollowUserById          : FollowUserById
     };
     return api;
 
+    //app.post("/rest/api/login", passport.authenticate('local'), loginUser);
+    /*app.post("/rest/api/login", loginUser);
 
-/*
-        userId      :  String,
-        friends     : [String],
-        followers   : [String]
+    function loginUser(req,res){
+        //var user = req.user;
+        console.log(user);
+        //res.json(user);
+    }
 
-*/
-    /*function findFriendsAndFollowersForId(userId){
+    // PASSPORT JS AUTH
+     passport.use(new LocalStrategy(
+     function(username, password, done)
+     {
+     breUserModel.findOne({username: username, password: password},
+        function (err,user) {
+            if(err){
+                return done(err);
+            }
+            if(!user){
+                return done(null,false);
+            }
+            return done(null,user);
+            });
+     }
+     ));
+
+     function loginUser(req,res){
+        var user = req.user;
+        console.log(user);
+        res.json(user);
+     }
+
+     passport.serializeUser(function(user,done){
+        done(null, user);
+     });
+
+     passport.deserializeUser(function(user,done){
+        model.breUserModel.findById(user._id,
+        function(err,result){
+            done(err, user);
+        });
+     });
+
+     var auth = function (req, res, next) {
+        if(!req.isAuthenticated())
+        {
+            res.send(401);
+        }else{
+        next();
+        }
+     }*/
+
+    /*function ensureAuthenticated(req, res, next) {
+     if (req.isAuthenticated())
+     return next();
+     else{
+     //TODO
+     }
+     // Return error content: res.jsonp(...) or redirect: res.redirect('/login')
+     }*/
+
+
+    /*
+            userId      :  String,
+            friends     : [String],
+            followers   : [String]
+
+    */
+    function findFriendsAndFollowersForId(userId) {
         var deferred = q.defer();
 
         var resFriends = [];
         var resFollowers = [];
         var finalRes = {friends: []};
 
-        /!*theFunction()
-            .then(function(data) {
-                var result = [];
-                for (var i = 0; i < data.length; i++) (function (i) {
-                    result.push(secondFunc(data[i].item)
-                        .then(function (data2) {
-                            data[i].more = data2.item;
-                            return data[i];
-                        }));
-                })(i); // avoid the closure loop problem
-                return Q.all(result)
-        });*!/
-
-
-
         breUserFriendsModel.findOne({userId: userId},
-            function (err, result) {
-                return q.all(result.friends.map(function(item){
-                        console.log("item");
-                        console.log(item);
-                        return(FindById(item));
-                    }));
+            function (err, user) {
+
+                console.log(user);
+
+                console.log(user.friends);
+                console.log(user.followers);
+
+                breUserModel.find({$or: [{_id : {$in: user.friends}}, {_id: {$in: user.followers}}]}, function(err, users){
+                    console.log("USER MODEL: FRIENDS FOLLOWERS OBJ");
+                    console.log(users);
+                    deferred.resolve(users);
+                });
+
+                //return q.all(result.friends.map(function (item) {
+                //    console.log("item");
+                //    console.log(item);
+                //    return (FindById(item));
+                //}));
+
                 //return deferred.promise;
             });
-        //return deferred.promise;
-/!*
+        return deferred.promise;
+    }
+    /*
         breUserFriendsModel.findOne({userId : userId},
         function (err, result) {
                 var resFriends = [];

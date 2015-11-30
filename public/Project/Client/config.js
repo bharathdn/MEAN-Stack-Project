@@ -31,6 +31,10 @@
                     templateUrl: "views/search/search.results.view.html",
                     controller: "SearchResultController as model"
                 })
+                .when("/bookdetail",{
+                    templateUrl: "views/search/book.detail.view.html",
+                    controller: "BookDetailController as model"
+                })
                 .when("/favorites",{
                     templateUrl: "views/favorites/favorites-reviews.view.html"
                 })

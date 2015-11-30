@@ -1,5 +1,9 @@
 /* code from https://css-tricks.com/star-ratings/ */
 
+a {
+    cursor: pointer;
+}
+
 .rating {
     unicode-bidi: bidi-override;
     direction: rtl;

@@ -1,6 +1,6 @@
 module.exports = function(app,db,mongoose,passport){
 
-    var userModel = require("./models/user.model.js")(db, mongoose, passport);
+    var userModel = require("./models/user.model.js")(app, db, mongoose, passport);
     //var breUserSchema = require("./models/user.model.js")(db, mongoose);
     //var formModel = require("./models/form.model.js")(db, mongoose);
     //var userSchema = require("./models/user.schema.js")();
