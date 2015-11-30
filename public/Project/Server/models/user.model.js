@@ -1,6 +1,7 @@
 module.exports = function(db, mongoose){
 
     var q  = require("q");
+    var flow = require("finally");
     var breUserSchema = require("./schemas/user.schema.js")(mongoose);
     var breUserModel = mongoose.model("breUserModel",breUserSchema);
 
@@ -35,43 +36,60 @@ module.exports = function(db, mongoose){
     function findFriendsAndFollowersForId(userId){
         var deferred = q.defer();
 
-        var resFriends = [];
+        //var resFriends = [];
         var resFollowers = [];
-        var finalRes = {};
-        this.resFriends = resFriends;
-        breUserFriendsModel.findOne({userId: userId},
-            function (err, result) {
-                if(result != null){
-                    if(result.friends.length > 0){
-                        for(var i=0; i<result.friends.length; i++){
-                            FindById(result.friends[i])
-                                .then(function(user){
-                                    //console.log(user);
-                                    resFriends.push(user);
-                                });
-                            //resFriends.push(userRes);
-                            console.log("resFriends");
-                            console.log(this.resFriends);
-                        }
-                        finalRes.friends = resFriends;
-                        console.log("Added Friends ");
-                        console.log(resFriends);
-                    }else{ finalRes.friends = null;  }
+        var finalRes = {friends: []};
 
-                    if(result.followers.length > 0){
-                        for(follwerIndex in result.followers){
-                            console.log(result.followers[follwerIndex]);
-                            console.log(FindById(result.followers[follwerIndex]));
-                        }
-                        console.log("Added Followers");
-                        console.log(resFollowers);
-                        finalRes.followers = resFollowers;
-                    }else{  finalRes.followers = null;  }
-                }
+        /*theFunction()
+            .then(function(data) {
+                var result = [];
+                for (var i = 0; i < data.length; i++) (function (i) {
+                    result.push(secondFunc(data[i].item)
+                        .then(function (data2) {
+                            data[i].more = data2.item;
+                            return data[i];
+                        }));
+                })(i); // avoid the closure loop problem
+                return Q.all(result)
+        });*/
+
+
+        breUserFriendsModel.findOne({userId : userId},
+        function (err, result) {
+                var resFriends = [];
+                for(var i=0; i<result.friends.length; i++)(function (i) {
+                    //finalRes.friends.push(FindById(result.friends[i])
+                    resFriends.push(FindById(result.friends[i])
+                        .then(function (userRes){
+                            resFriends.push(userRes);
+                            return resFriends;
+                        }));
+                })(i);
+                console.log(resFriends);
+                return q.all(resFriends);
+
+        });
+
+
+
+       /* breUserFriendsModel.findOne({userId: userId},
+            function (err, result) {
+                if(result.friends.length > 0){
+                    //var resFriends = [];
+                    for(var i=0; i<result.friends.length; i++){
+                        FindById(result.friends[i])
+                            .then(function(user){
+                                /!*console.log("user")
+                                console.log(user);*!/
+                                resFriends.push("user");
+                                //console.log(resFriends);
+                            });
+                    }
+                }else{ finalRes.friends = null;  }
                 deferred.resolve(finalRes);
-                //console.log(finalRes);
             });
-        return deferred.promise;
+        console.log(resFriends);
+        return deferred.promise;*/
     }
 
 
@@ -224,4 +242,6 @@ module.exports = function(db, mongoose){
             });
         return deferred.promise;
     }
+
+
 }
