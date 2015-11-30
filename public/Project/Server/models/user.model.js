@@ -1,4 +1,4 @@
-module.exports = function(db, mongoose){
+module.exports = function(db, mongoose, passport){
 
     var q  = require("q");
     //var flow = require("finally");
@@ -20,12 +20,13 @@ module.exports = function(db, mongoose){
         findUserByCredentials           : findUserByCredentials,
 
         //userFriends Functions
-        AddFriendForUserId              : AddFriendForUserId,
+        AddFriendForUserId              : AddFriendForUserId
         //findFriendsAndFollowersForId    : findFriendsAndFollowersForId
         //RemoveFriendForUserId   : RemoveFriendForUserId,
         //FollowUserById          : FollowUserById
     };
     return api;
+
 
 /*
         userId      :  String,
@@ -33,14 +34,14 @@ module.exports = function(db, mongoose){
         followers   : [String]
 
 */
-    function findFriendsAndFollowersForId(userId){
+    /*function findFriendsAndFollowersForId(userId){
         var deferred = q.defer();
 
         var resFriends = [];
         var resFollowers = [];
         var finalRes = {friends: []};
 
-        /*theFunction()
+        /!*theFunction()
             .then(function(data) {
                 var result = [];
                 for (var i = 0; i < data.length; i++) (function (i) {
@@ -51,7 +52,7 @@ module.exports = function(db, mongoose){
                         }));
                 })(i); // avoid the closure loop problem
                 return Q.all(result)
-        });*/
+        });*!/
 
 
 
@@ -65,7 +66,7 @@ module.exports = function(db, mongoose){
                 //return deferred.promise;
             });
         //return deferred.promise;
-/*
+/!*
         breUserFriendsModel.findOne({userId : userId},
         function (err, result) {
                 var resFriends = [];
@@ -80,11 +81,11 @@ module.exports = function(db, mongoose){
                 console.log(resFriends);
                 return q.all(resFriends);
 
-        });*/
+        });*!/
 
 
 
-       /* breUserFriendsModel.findOne({userId: userId},
+       /!* breUserFriendsModel.findOne({userId: userId},
             function (err, result) {
                 if(result.friends.length > 0){
                     //var resFriends = [];
@@ -101,8 +102,8 @@ module.exports = function(db, mongoose){
                 deferred.resolve(finalRes);
             });
         console.log(resFriends);
-        return deferred.promise;*/
-    }
+        return deferred.promise;*!/
+    }*/
 
 
     function AddFriendForUserId(userId, friendId){
@@ -169,7 +170,7 @@ module.exports = function(db, mongoose){
         breUserModel.findOne({username: username, password: password},
         function(err,result){
            if(err){
-               deferred.reject(null);
+               deferred.reject(err);
            } else {
                //console.log(result);
                deferred.resolve(result);

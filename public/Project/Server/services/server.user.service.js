@@ -1,6 +1,9 @@
-module.exports = function(app, model){
+module.exports = function(app, model, mongoose, passport, breUserModel){
 
+    //var breUserSchema = require("../models/schemas/user.schema.js")(mongoose);
+    //var breUserModel = mongoose.model("breUserModel",breUserSchema);
 
+    var LocalStrategy = require('passport-local').Strategy;
     app.post("/rest/api/user", CreateUser);
     app.get("/rest/api/user", FindAllUsers);
     app.get("/rest/api/user/:id", FindUserById);
@@ -10,6 +13,62 @@ module.exports = function(app, model){
     // user Friends APIS
     app.post("/rest/api/friend/:userId/:friendId" , AddFriendForUserId);
     app.get("/rest/api/friends/:userId", findFriendsAndFollowersForId);
+
+    app.post("/rest/api/login", passport.authenticate('local'), loginUser);
+
+
+
+    // PASSPORT JS AUTH
+    passport.use(new LocalStrategy(
+        function(username, password, done)
+        {
+            breUserModel.findOne({username: username, password: password},
+                function (err,user) {
+                    if(err){
+                        return done(err);
+                    }
+                    if(!user){
+                        return done(null,false);
+                    }
+                    return done(null,user);
+                })
+        }
+    ));
+
+    function loginUser(req,res){
+        var user = req.user;
+        console.log(user);
+        res.json(user);
+    }
+
+    passport.serializeUser(function(user,done){
+        done(null, user);
+    });
+
+    passport.deserializeUser(function(user,done){
+        model.breUserModel.findById(user._id,
+            function(err,result){
+                done(err, user);
+            });
+    });
+
+    var auth = function (req, res, next) {
+        if(!req.isAuthenticated())
+        {
+            res.send(401);
+        }else{
+            next();
+        }
+    }
+
+    /*function ensureAuthenticated(req, res, next) {
+        if (req.isAuthenticated())
+            return next();
+        else{
+            //TODO
+        }
+        // Return error content: res.jsonp(...) or redirect: res.redirect('/login')
+    }*/
 
 
     function findFriendsAndFollowersForId(req,res){

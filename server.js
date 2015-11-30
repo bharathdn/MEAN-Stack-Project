@@ -32,11 +32,11 @@ var db = mongoose.connection;
 
 
 //require("./public/assignment4/server/app.js")(app);
-require("./public/assignment5/server/app.js")(app,db,mongoose);
 require("./public/assignment4/server/app.js")(app,db,mongoose);
+require("./public/assignment5/server/app.js")(app,db,mongoose);
 
 
-require("./public/Project/Server/app.js")(app,db,mongoose);
+require("./public/Project/Server/app.js")(app,db,mongoose,passport);
 
 
 /*

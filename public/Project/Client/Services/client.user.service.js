@@ -13,13 +13,24 @@
             findAllUsers                    : findAllUsers,
             deleteUserById                  : deleteUserById,
             updateUser                      : updateUser,
-
+            LoginUser                       : LoginUser,
 
             // USER FRIEND FUNCTIONS
             AddFriendForUserId              : AddFriendForUserId,
             findFriendsAndFollowersForId    : findFriendsAndFollowersForId
         };
         return service;
+
+
+        function LoginUser(user){
+            var deferred = $q.defer();
+            console.log(user);
+            $http.post("/rest/api/login",user)
+                .success(function (userObj){
+                    deferred.resolve(userObj);
+                });
+            return deferred.promise;
+        }
 
 
         function findFriendsAndFollowersForId(userId){
