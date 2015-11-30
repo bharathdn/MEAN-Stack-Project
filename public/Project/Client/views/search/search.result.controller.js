@@ -9,6 +9,8 @@
         var model = this;
 
         model.searchQuery = searchQuery;
+        model.addFav = addFav;
+        model.isLogin = isLogin;
 
 
 
@@ -40,6 +42,23 @@
                 .then(function (searchResult) {
                     model.bookResults = searchResult.items;
                 });
+            }
+        }
+
+        function addFav(book){
+            console.log("You marked the book as favorite :"+ book.volumeInfo.title);
+        }
+
+        function isLogin(){
+            //console.log("checking if user is logged in");
+            //console.log($rootScope.user);
+            if($rootScope.user == null)
+            {
+                return true;
+            }
+            else{
+                var loggedInUser = $rootScope.user.username;
+                model.username = loggedInUser[0].toUpperCase() + loggedInUser.slice(1);
             }
         }
     }

@@ -10,15 +10,16 @@
 
         console.log("Login ctrlr");
 
-        /*function login(user){
+        function login(user){
             ClientUserService.findUserByUsernameAndPassword(user)
                 .then(function(userResponse){
                     //console.log(userResponse);
                     userLoginCallback(userResponse);
                 });
-        }*/
+        }
 
-        function login(user){
+        // passport JS login
+        function loginPass(user){
             ClientUserService.LoginUser(user)
                 .then(function(userResponse){
                     //console.log(userResponse);

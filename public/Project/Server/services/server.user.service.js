@@ -14,12 +14,12 @@ module.exports = function(app, model, mongoose, passport, breUserModel){
     app.post("/rest/api/friend/:userId/:friendId" , AddFriendForUserId);
     app.get("/rest/api/friends/:userId", findFriendsAndFollowersForId);
 
-    app.post("/rest/api/login", passport.authenticate('local'), loginUser);
+    //app.post("/rest/api/login", passport.authenticate('local'), loginUser);
 
 
 
     // PASSPORT JS AUTH
-    passport.use(new LocalStrategy(
+   /* passport.use(new LocalStrategy(
         function(username, password, done)
         {
             breUserModel.findOne({username: username, password: password},
@@ -59,7 +59,7 @@ module.exports = function(app, model, mongoose, passport, breUserModel){
         }else{
             next();
         }
-    }
+    }*/
 
     /*function ensureAuthenticated(req, res, next) {
         if (req.isAuthenticated())
