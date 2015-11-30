@@ -15,11 +15,12 @@ module.exports = function(app, model){
     function findFriendsAndFollowersForId(req,res){
         /*model.findFriendsAndFollowersForId(req.params.userId)
             .then(function(userFriendFollowerObj){
-               res.json(userFriendFollowerObj);
+                console.log(userFriendFollowerObj);
+                res.json(userFriendFollowerObj);
             });*/
 
-        var users = model.findFriendsAndFollowersForId(req.params.userId);
-        //console.log("SERVER USER SERVICE:");
+        //var users = model.findFriendsAndFollowersForId(req.params.userId);
+        console.log("SERVER USER SERVICE:");
         console.log(users);
     }
 

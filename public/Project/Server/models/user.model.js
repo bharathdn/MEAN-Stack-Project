@@ -1,7 +1,7 @@
 module.exports = function(db, mongoose){
 
     var q  = require("q");
-    var flow = require("finally");
+    //var flow = require("finally");
     var breUserSchema = require("./schemas/user.schema.js")(mongoose);
     var breUserModel = mongoose.model("breUserModel",breUserSchema);
 
@@ -21,7 +21,7 @@ module.exports = function(db, mongoose){
 
         //userFriends Functions
         AddFriendForUserId              : AddFriendForUserId,
-        findFriendsAndFollowersForId    : findFriendsAndFollowersForId
+        //findFriendsAndFollowersForId    : findFriendsAndFollowersForId
         //RemoveFriendForUserId   : RemoveFriendForUserId,
         //FollowUserById          : FollowUserById
     };
@@ -36,7 +36,7 @@ module.exports = function(db, mongoose){
     function findFriendsAndFollowersForId(userId){
         var deferred = q.defer();
 
-        //var resFriends = [];
+        var resFriends = [];
         var resFollowers = [];
         var finalRes = {friends: []};
 
@@ -54,6 +54,18 @@ module.exports = function(db, mongoose){
         });*/
 
 
+
+        breUserFriendsModel.findOne({userId: userId},
+            function (err, result) {
+                return q.all(result.friends.map(function(item){
+                        console.log("item");
+                        console.log(item);
+                        return(FindById(item));
+                    }));
+                //return deferred.promise;
+            });
+        //return deferred.promise;
+/*
         breUserFriendsModel.findOne({userId : userId},
         function (err, result) {
                 var resFriends = [];
@@ -68,7 +80,7 @@ module.exports = function(db, mongoose){
                 console.log(resFriends);
                 return q.all(resFriends);
 
-        });
+        });*/
 
 
 
