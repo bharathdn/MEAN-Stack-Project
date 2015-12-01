@@ -33,10 +33,10 @@
         // find followers for userID
         ClientUserService.findFriendsAndFollowersForId($rootScope.user._id)
             .then(function(friendsObj){
-                console.log(friendsObj);
-                /*console.log(friendsObj.friends);
+                //console.log(friendsObj);
+                //console.log(friendsObj.friends);
                 model.Friends = friendsObj.friends;
-                model.Followers = friendsObj.followers;*/
+                model.Followers = friendsObj.followers;
             });
 
         function addFriend(friend){

@@ -17,73 +17,7 @@ module.exports = function(app, model, mongoose, passport){
     app.post("/rest/api/login", passport.authenticate('local'), loginUser);
     app.post("/rest/api/logout", logOutUser);
 
-
-    function logOutUser(req, res){
-        console.log("Logging out");
-        req.logOut();
-        res.send(200);
-    }
-
-    // PASSPORT JS AUTH
-    passport.use(new LocalStrategy(
-        function(username, password, done)
-        {
-            var credentials = {username: username, password: password};
-            model
-                .findUserByCredentials(credentials)
-                .then(function(user){
-                    if(!user){
-                        return done(null, false);
-                    }
-                    return done(null, user);
-                }, function(err){
-                    return done(err);
-                });
-        }
-    ));
-
-    function loginUser(req,res){
-        var user = req.user;
-        //console.log("USER SERVICE: Login USER -> ");
-        //console.log(user);
-        res.json(user);
-    }
-
-    passport.serializeUser(function(user,done){
-        done(null, user);
-    });
-
-    passport.deserializeUser(function(user,done){
-        model
-            .FindById(user._id)
-            //.then(function(err,user){
-            .then(function(user){
-                //done(err,user)
-                console.log("deserializer");
-                console.log(user);
-                done(null, user);
-            }, function(err){
-                done(err);
-            });
-    });
-
-    var auth = function (req, res, next) {
-        if(!req.isAuthenticated())
-        {
-            res.send(401);
-        }else{
-            next();
-        }
-    };
-
-    /*function ensureAuthenticated(req, res, next) {
-        if (req.isAuthenticated())
-            return next();
-        else{
-            //TODO
-        }
-        // Return error content: res.jsonp(...) or redirect: res.redirect('/login')
-    }*/
+    app.get("/rest/api/loggedin", loggedIn);
 
 
     function findFriendsAndFollowersForId(req,res){
@@ -191,5 +125,73 @@ module.exports = function(app, model, mongoose, passport){
                 res.json(user);
             });
     }
+
+    function loggedIn(req, res){
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+
+    function logOutUser(req, res){
+        console.log("Logging out");
+        req.logOut();
+        res.send(200);
+    }
+
+    // PASSPORT JS AUTH
+    passport.use(new LocalStrategy(
+        function(username, password, done)
+        {
+            var credentials = {username: username, password: password};
+            model
+                .findUserByCredentials(credentials)
+                .then(function(user){
+                    if(!user){
+                        return done(null, false);
+                    }
+                    return done(null, user);
+                }, function(err){
+                    return done(err);
+                });
+        }
+    ));
+
+    function loginUser(req,res){
+        var user = req.user;
+        //console.log("USER SERVICE: Login USER -> ");
+        //console.log(user);
+        res.json(user);
+    }
+
+    passport.serializeUser(function(user,done){
+        done(null, user);
+    });
+
+    passport.deserializeUser(function(user,done){
+        model
+            .FindById(user._id)
+            .then(function(user){
+                done(null, user);
+            }, function(err){
+                done(err);
+            });
+    });
+
+    var auth = function (req, res, next) {
+        if(!req.isAuthenticated())
+        {
+            res.send(401);
+        }else{
+            next();
+        }
+    };
+
+    /*function ensureAuthenticated(req, res, next) {
+     if (req.isAuthenticated())
+     return next();
+     else{
+     //TODO
+     }
+     // Return error content: res.jsonp(...) or redirect: res.redirect('/login')
+     }*/
 
 };

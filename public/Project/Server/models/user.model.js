@@ -27,67 +27,6 @@ module.exports = function(app, db, mongoose, passport){
     };
     return api;
 
-    //app.post("/rest/api/login", passport.authenticate('local'), loginUser);
-    /*app.post("/rest/api/login", loginUser);
-
-    function loginUser(req,res){
-        //var user = req.user;
-        console.log(user);
-        //res.json(user);
-    }
-
-    // PASSPORT JS AUTH
-     passport.use(new LocalStrategy(
-     function(username, password, done)
-     {
-     breUserModel.findOne({username: username, password: password},
-        function (err,user) {
-            if(err){
-                return done(err);
-            }
-            if(!user){
-                return done(null,false);
-            }
-            return done(null,user);
-            });
-     }
-     ));
-
-     function loginUser(req,res){
-        var user = req.user;
-        console.log(user);
-        res.json(user);
-     }
-
-     passport.serializeUser(function(user,done){
-        done(null, user);
-     });
-
-     passport.deserializeUser(function(user,done){
-        model.breUserModel.findById(user._id,
-        function(err,result){
-            done(err, user);
-        });
-     });
-
-     var auth = function (req, res, next) {
-        if(!req.isAuthenticated())
-        {
-            res.send(401);
-        }else{
-        next();
-        }
-     }*/
-
-    /*function ensureAuthenticated(req, res, next) {
-     if (req.isAuthenticated())
-     return next();
-     else{
-     //TODO
-     }
-     // Return error content: res.jsonp(...) or redirect: res.redirect('/login')
-     }*/
-
 
     /*
             userId      :  String,
@@ -100,29 +39,37 @@ module.exports = function(app, db, mongoose, passport){
 
         var resFriends = [];
         var resFollowers = [];
-        var finalRes = {friends: []};
+        var finalRes = {};
 
         breUserFriendsModel.findOne({userId: userId},
             function (err, user) {
 
-                console.log(user);
+                //console.log(user);
 
-                console.log(user.friends);
-                console.log(user.followers);
+                //console.log(user.friends);
+                //console.log(user.followers);
 
-                breUserModel.find({$or: [{_id : {$in: user.friends}}, {_id: {$in: user.followers}}]}, function(err, users){
-                    console.log("USER MODEL: FRIENDS FOLLOWERS OBJ");
-                    console.log(users);
-                    deferred.resolve(users);
+
+                breUserModel.find({$or: [ {_id : {$in: user.friends}} ]},
+                    function(err, friends){
+                        if(err){
+                            deferred.reject(err);
+                        }
+                        else {
+                            //deferred.resolve(users);
+                            finalRes.friends = friends;
+                            breUserModel.find({$or: [{_id: {$in: user.followers}}]},
+                                function(err, followers){
+                                    if(err){
+                                        deferred.reject(err);
+                                    }
+                                    else{
+                                        finalRes.followers = followers;
+                                        deferred.resolve(finalRes);
+                                    }
+                                });
+                        }
                 });
-
-                //return q.all(result.friends.map(function (item) {
-                //    console.log("item");
-                //    console.log(item);
-                //    return (FindById(item));
-                //}));
-
-                //return deferred.promise;
             });
         return deferred.promise;
     }
@@ -165,12 +112,8 @@ module.exports = function(app, db, mongoose, passport){
         var finalResult={};
         breUserModel.create(user, function(err, result){
             if(err){
-                deferred.reject(null);
+                deferred.reject(err);
             } else {
-                //deferred.resolve(result);
-                //console.log("added user:");
-                //console.log(result);
-                // add friend userobject for the user
                 //TODO, resolve both user obj and user friend obj to verify
                 finalResult.user = result;
                 breUserFriendsModel.create({userId: result._id, friends: [], followers: []},
