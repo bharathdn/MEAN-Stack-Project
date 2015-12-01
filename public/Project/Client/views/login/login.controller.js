@@ -1,3 +1,4 @@
+"use strict";
 (function(){
     angular
         .module("BukReviewApp")
@@ -21,17 +22,22 @@
 
         // passport JS login
         function loginPass(user){
-            ClientUserService.LoginUser(user)
-                .then(function(userResponse){
-                    //console.log(userResponse);
-                    userLoginCallback(userResponse);
-                });
+            if(!angular.isObject(user)) {
+                model.message = "All fields are mandatory!";
+                return;
+            }else {
+                ClientUserService.LoginUser(user)
+                    .then(function (userResponse) {
+                        //console.log(userResponse);
+                        userLoginCallback(userResponse);
+                    });
+            }
         }
 
 
         function userLoginCallback(user){
-            console.log("returned users");
-            console.log(user);
+            //console.log("returned users");
+            //console.log(user);
             if(user != null){
                 $rootScope.user = user;
                 console.log("user found, login sucessful");

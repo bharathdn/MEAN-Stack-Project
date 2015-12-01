@@ -33,10 +33,7 @@
                 })
                 .when("/register",{
                     templateUrl: "views/register/register.view.html",
-                    controller: "RegisterController as model",
-                    resolve: {
-                        loggedin: checkLoggedIn
-                    }
+                    controller: "RegisterController as model"
                 })
                 .when("/search",{
                     templateUrl: "views/search/search.view.html",

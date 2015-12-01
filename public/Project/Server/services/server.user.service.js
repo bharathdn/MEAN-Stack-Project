@@ -4,32 +4,38 @@ module.exports = function(app, model, mongoose, passport){
     //var breUserModel = mongoose.model("breUserModel",breUserSchema);
 
     var LocalStrategy = require('passport-local').Strategy;
-    app.post("/rest/api/user", CreateUser);
-    app.get("/rest/api/user", FindAllUsers);
-    app.get("/rest/api/user/:id", FindUserById);
-    app.put("/rest/api/user/:id", UpdateUserById);
-    app.delete("/rest/api/user/:id", RemoveUserByID);
+    app.post("/rest/api/user",                  CreateUser);
+    app.get("/rest/api/user",                   FindAllUsers);
+    app.get("/rest/api/user/:id",               FindUserById);
+    app.put("/rest/api/user/:id",               UpdateUserById);
+    app.delete("/rest/api/user/:id",            RemoveUserByID);
 
     // user Friends APIS
     app.post("/rest/api/friend/:userId/:friendId" , AddFriendForUserId);
-    app.get("/rest/api/friends/:userId", findFriendsAndFollowersForId);
+    app.get("/rest/api/friends/:userId",            FindFriendsAndFollowersForId);
+    app.delete("/rest/api/friend/:userId/:friendId",  RemoveFriendorFollower);
 
+
+    // Login APIs
     app.post("/rest/api/login", passport.authenticate('local'), loginUser);
-    app.post("/rest/api/logout", logOutUser);
+    app.post("/rest/api/logout",                                logOutUser);
+    app.get("/rest/api/loggedin",                               loggedIn);
 
-    app.get("/rest/api/loggedin", loggedIn);
 
-
-    function findFriendsAndFollowersForId(req,res){
-        model.findFriendsAndFollowersForId(req.params.userId)
+    function RemoveFriendorFollower(req,res){
+        model.RemoveFriendorFollower(req.params.userId,req.params.friendId)
             .then(function(userFriendFollowerObj){
                 console.log(userFriendFollowerObj);
                 res.json(userFriendFollowerObj);
             });
+    }
 
-        //var users = model.findFriendsAndFollowersForId(req.params.userId);
-        /*console.log("SERVER USER SERVICE:");
-        console.log(users);*/
+    function FindFriendsAndFollowersForId(req,res){
+        model.findFriendsAndFollowersForId(req.params.userId)
+            .then(function(userFriendFollowerObj){
+                //console.log(userFriendFollowerObj);
+                res.json(userFriendFollowerObj);
+            });
     }
 
 
@@ -126,6 +132,10 @@ module.exports = function(app, model, mongoose, passport){
             });
     }
 
+
+
+    // PASSPORT JS AUTH
+
     function loggedIn(req, res){
         res.send(req.isAuthenticated() ? req.user : '0');
     }
@@ -137,7 +147,6 @@ module.exports = function(app, model, mongoose, passport){
         res.send(200);
     }
 
-    // PASSPORT JS AUTH
     passport.use(new LocalStrategy(
         function(username, password, done)
         {

@@ -35,14 +35,14 @@
 
     <div>
         <div>
-            <h3>Friends:</h3>
+            <h3>Users you follow:</h3>
             <div class="container">
                 <ul class="thumbnails list-inline">
-                    <li class="span4" ng-repeat="user in model.Friends">
+                    <li ng-repeat="friend in model.Friends">
                         <div class="thumbnail">
-                            <a style="color:#7000FF" class="close" href="" ng-click="model.unfollowFriend(user)">x</a>
+                            <a style="color:#7000FF" class="close" href="" ng-click="model.removeFriend(friend)">x</a>
                             <img src="//placehold.it/80x80">
-                            <p>{{user.firstName}} {{user.lastName}}</p>
+                            <p>{{friend.firstName}} {{friend.lastName}}</p>
                         </div>
                     </li>
                 </ul>
@@ -50,14 +50,14 @@
 
         </div>
         <div>
-            <h3>Followers:</h3>
+            <h3>USer who follow you:</h3>
             <div class="container">
                 <ul class="thumbnails list-inline">
-                    <li class="span4" ng-repeat="user in model.Followers">
+                    <li ng-repeat="friend in model.Followers">
                         <div class="thumbnail">
-                            <a style="color:#7000FF" class="close" href="" ng-click="model.removeFollower(user)">x</a>
+                            <a style="color:#7000FF" class="close" href="" ng-click="model.removeFollower(friend)">x</a>
                             <img src="//placehold.it/80x80">
-                            <p>{{user.firstName}} {{user.lastName}}</p>
+                            <p>{{friend.firstName}} {{friend.lastName}}</p>
                         </div>
                     </li>
                 </ul>

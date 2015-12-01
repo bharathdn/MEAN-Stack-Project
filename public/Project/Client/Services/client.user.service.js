@@ -18,7 +18,8 @@
 
             // USER FRIEND FUNCTIONS
             AddFriendForUserId              : AddFriendForUserId,
-            findFriendsAndFollowersForId    : findFriendsAndFollowersForId
+            findFriendsAndFollowersForId    : findFriendsAndFollowersForId,
+            removeFriendorFollower          : removeFriendorFollower
         };
         return service;
 
@@ -58,13 +59,23 @@
 
         function AddFriendForUserId(userId, friendId){
             var deffered = $q.defer();
-
-            console.log("CLIENT USER SERVICE: Adding user"+friendId+" as friend to "+userId);
+            return deffered.promise;
+            //console.log("CLIENT USER SERVICE: Adding user"+friendId+" as friend to "+userId);
             $http.post("/rest/api/friend/"+userId+"/"+friendId)
                 .success(function(userFriendObj){
                     deffered.resolve(userFriendObj);
                 });
-            return deffered.promise;
+        }
+
+        function removeFriendorFollower(userId, friendId){
+            console.log("calling remove friend for "+userId+" on friend"+friendId);
+
+            var deferred = $q.defer();
+            $http.delete("/rest/api/friend/"+userId+"/"+friendId)
+                .success(function (userObj){
+                    deferred.resolve(userObj);
+                });
+            return deferred.promise;
         }
 
         function createUser(user) {

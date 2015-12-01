@@ -4,7 +4,7 @@
         .controller("ProfileFriendsController",ProfileFriendsController);
 
 
-    /*
+    /* from Internet
         code for adding and removing friends
      $('.close').click(function(){
      $(this).parents('li').remove();
@@ -15,50 +15,56 @@
     function ProfileFriendsController($rootScope,ClientUserService){
         console.log("ProfileFriendsController");
         var model = this;
-        model.addFriend = addFriend;
-        model.unfollowFriend = unfollowFriend;
-        model.removeFollower = removeFollower;
-
+        model.addFriend                 = addFriend;
+        //model.unfollowFriend            = unfollowFriend;
+        //model.removeFollower            = removeFollower;
+        model.renderAllUSers            = renderAllUSers;
+        model.renderFriendsFollowers    = renderFriendsFollowers;
+        model.removeFriend              = removeFriend;
+        model.removeFollower            = removeFollower;
         var users = [];
-        ClientUserService.findAllUsers()
-            .then(function(userResponse){
-                //console.log(userResponse);
-                //userLoginCallback(userResponse);
-                users = userResponse;
-                model.FriendUsers = userResponse;
-                //model.Friends = users;
-                //model.Followers = users;
-            });
 
-        // find followers for userID
-        ClientUserService.findFriendsAndFollowersForId($rootScope.user._id)
-            .then(function(friendsObj){
-                //console.log(friendsObj);
-                //console.log(friendsObj.friends);
-                model.Friends = friendsObj.friends;
-                model.Followers = friendsObj.followers;
-            });
 
-        function addFriend(friend){
-            console.log("PROFILE FRND CTRL : you chose to add friend "+friend.firstName);
-            console.log("Logged In USER");
-            console.log($rootScope.user);
-            console.log("Friend USER");
-            console.log(friend);
-            ClientUserService.AddFriendForUserId($rootScope.user._id,friend._id)
-                .then(function(userFriendObj){
-                    console.log(userFriendObj);
+        renderAllUSers();
+        renderFriendsFollowers();
+
+        function renderAllUSers() {
+            ClientUserService.findAllUsers()
+                .then(function (userResponse) {
+                    users = userResponse;
+                    model.FriendUsers = userResponse;
                 });
         }
 
-        function unfollowFriend(user){
-            console.log("PROFILE FRND CTRL : you chose to Unfollow "+user.firstName);
+        function renderFriendsFollowers() {
+            // find followers for userID
+            ClientUserService.findFriendsAndFollowersForId($rootScope.user._id)
+                .then(function (friendsObj) {
+                    model.Friends = friendsObj.friends;
+                    model.Followers = friendsObj.followers;
+                });
         }
 
-        function removeFollower(user){
-            console.log("PROFILE FRND CTRL : you chose to Block you follower "+user.firstName);
+        function addFriend(friend){
+            ClientUserService.AddFriendForUserId($rootScope.user._id,friend._id)
+                .then(function(userFriendObj){
+                    renderFriendsFollowers();
+                });
         }
 
+        function removeFriend(friend){
+            ClientUserService.removeFriendorFollower($rootScope.user._id, friend._id)
+                .then(function(userFriendObj){
+                    renderFriendsFollowers();
+                });
+        }
+
+        function removeFollower(friend){
+            ClientUserService.removeFriendorFollower(friend._id, $rootScope.user._id)
+                .then(function(userFriendObj){
+                    renderFriendsFollowers();
+                });
+        }
 
     }
 

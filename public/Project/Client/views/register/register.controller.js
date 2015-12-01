@@ -40,8 +40,8 @@
                 model.passwordMsg = "Password is mandotory";
                 if (user.password != user.verifypassword) {
                     registrationPossible = false;
-                    console.log(registrationPossible);
-                    console.log("msg from password check")
+                    //console.log(registrationPossible);
+                    //console.log("msg from password check")
                 }
             }
             if(user.email == null || user.email == "undefined")
@@ -63,7 +63,7 @@
 
 
             if(registrationPossible == true) {
-                console.log("creation of user possible: " + user.username);
+                //console.log("creation of user possible: " + user.username);
                 ClientUserService.createUser(user)
                     .then(function (retuser) {
                         if(retuser != null) {
@@ -79,7 +79,11 @@
             $rootScope.user = user;
             console.log("user obj from reg contr");
             console.log($rootScope.user);
-            $location.url("/profile");
+            ClientUserService.LoginUser(user)
+                .then(function(user){
+                    $rootScope.user = user;
+                    $location.url("/profile");
+                });
         }
     }
 

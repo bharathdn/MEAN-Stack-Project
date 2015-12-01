@@ -21,8 +21,8 @@ module.exports = function(app, db, mongoose, passport){
 
         //userFriends Functions
         AddFriendForUserId              : AddFriendForUserId,
-        findFriendsAndFollowersForId    : findFriendsAndFollowersForId
-        //RemoveFriendForUserId   : RemoveFriendForUserId,
+        findFriendsAndFollowersForId    : findFriendsAndFollowersForId,
+        RemoveFriendorFollower          : RemoveFriendorFollower
         //FollowUserById          : FollowUserById
     };
     return api;
@@ -34,13 +34,48 @@ module.exports = function(app, db, mongoose, passport){
             followers   : [String]
 
     */
+
+    function RemoveFriendorFollower(userId, friendId){
+        var deferred = q.defer();
+        breUserFriendsModel.findOne({userId: userId},
+            function( err, user){
+                if(err){
+                    deferred.reject(err);
+                }else{
+                    user.friends.splice(user.friends.indexOf(friendId),1);
+                    user.save(function(err, friends){
+                        if(err){
+                            deferred.reject(err);
+                        }else{
+                            // remove userId from friend's Obj
+                            breUserFriendsModel.findOne({userId: friendId},
+                            function(err, friendUser){
+                                if(err){
+                                    deferred.reject(err);
+                                }else{
+                                    // remove userId from friendUser's followers
+                                    friendUser.followers.splice(friendUser.followers.indexOf(userId),1);
+                                    friendUser.save(function(err, result){
+                                        if(err){
+                                            deferred.reject(err);
+                                        }else{
+                                            deferred.resolve(result);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        return deferred.promise;
+    }
+
+
     function findFriendsAndFollowersForId(userId) {
         var deferred = q.defer();
 
-        var resFriends = [];
-        var resFollowers = [];
         var finalRes = {};
-
         breUserFriendsModel.findOne({userId: userId},
             function (err, user) {
 
