@@ -22,9 +22,20 @@
             removeFriendorFollower          : removeFriendorFollower,
 
             //User Book Functions
-            addFavBookForUser               : addFavBookForUser
+            addFavBookForUser               : addFavBookForUser,
+            GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser
         };
         return service;
+
+
+        function GetFavBooksForCurrentUser(userId){
+            var deferred = $q.defer();
+            $http.get("/rest/api/bookfavs/"+userId)
+                .success(function (userFavs){
+                    deferred.resolve(userFavs);
+                });
+            return deferred.promise;
+        }
 
 
         function addFavBookForUser(userId,book){

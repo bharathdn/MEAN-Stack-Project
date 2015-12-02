@@ -19,9 +19,7 @@ module.exports = function(app, db, mongoose, passport){
 
     //Book Review
     var breBookReviewSchema         = require("./schemas/book.review.schema")(mongoose);
-    var breBookFavSchema            = mongoose.model("breBookFavSchema", breBookReviewSchema);
-
-
+    var breBookReviewModel            = mongoose.model("breBookFavSchema", breBookReviewSchema);
 
 
     var api = {
@@ -39,8 +37,8 @@ module.exports = function(app, db, mongoose, passport){
         RemoveFriendorFollower          : RemoveFriendorFollower,
 
         //User Book Functions
-        AddFavBookForUser               : AddFavBookForUser
-
+        AddFavBookForUser               : AddFavBookForUser,
+        GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser
     };
     return api;
 
@@ -55,13 +53,43 @@ module.exports = function(app, db, mongoose, passport){
 
     // isbn for book Obj
     //book.volumeInfo. industryIdentifiers[1].identifier
+
+    function GetFavBooksForCurrentUser(userId){
+        var deferred = q.defer();
+        breBookFavModel.findOne({userId: userId},
+            function(err, favBookObj){
+                if(err){
+                    deferred.reject(err);
+                }
+                else{
+                    if(favBookObj.bookIds.length == 0){
+                        deferred.resolve(null);
+                    }
+                    breBookModel.find({$or: [{ISBN_13: {$in: favBookObj.bookIds}}]},
+                        function(err, favBooks){
+                           if(err){
+                               deferred.reject(err);
+                           }
+                           else
+                           {
+                               //console.log(favBooks);
+                               deferred.resolve(favBooks);
+                           }
+                        });
+                }
+            });
+        return deferred.promise;
+    }
+
+
     function AddFavBookForUser(userId, book){
         var deferred = q.defer();
         breBookFavModel.findOne({userId: userId},
             function(err, favBookObj){
                 if(err){
                     deferred.reject(err);
-                }else{
+                }
+                else{
                     favBookObj.bookIds.push(book.volumeInfo. industryIdentifiers[1].identifier);
                     favBookObj.save(function(err, favBookAddedObj){
                         if(err){
@@ -111,23 +139,7 @@ module.exports = function(app, db, mongoose, passport){
             })
         return deferred.promise;
     }
-    /*
-     breBookModel.create({   ISBN_13             : book.volumeInfo. industryIdentifiers[1].identifier,
-     title               : book.volumeInfo.title,
-     authors             : book.volumeInfo.authors,
-     thumbnailUrl        : book.volumeInfo.imageLinks.smallThumbnail,
-     description         : book.volumeInfo.description,
-     googlePreviewLink   : book.volumeInfo.previewLink,
-     breViewRating       : book.volumeInfo.averageRating,
-     sentimentRating     : book.volumeInfo.averageRating * 20
-     },function(err,bookObj){
-     if(err){
-     deferred.reject(err);
-     }else{
-     deferred.resolve(bookObj);
-     }
-     });
-     */
+
 
     function RemoveFriendorFollower(userId, friendId){
         var deferred = q.defer();

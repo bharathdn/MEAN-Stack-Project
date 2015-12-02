@@ -23,7 +23,15 @@ module.exports = function(app, model, mongoose, passport){
 
     //User BOOK APIs
     app.post("/rest/api/bookfav/:userId",        addFavBookForUser);
+    app.get("/rest/api/bookfavs/:userId",        GetFavBooksForCurrentUser);
 
+
+    function GetFavBooksForCurrentUser(req, res){
+        model.GetFavBooksForCurrentUser(req.params.userId)
+            .then(function (userFavs) {
+                res.json(userFavs);
+            });
+    }
 
     function addFavBookForUser(req, res){
         model.AddFavBookForUser(req.params.userId, req.body)

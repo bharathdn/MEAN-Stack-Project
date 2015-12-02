@@ -64,6 +64,7 @@
                 })
                 .when("/favorite_books",{
                     templateUrl: "views/favorites/favorites-favorite.view.html",
+                    controller: "FavFavController as model",
                     resolve: {
                         loggedin: checkLoggedIn
                     }
