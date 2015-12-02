@@ -36,8 +36,11 @@ module.exports = function(app, db, mongoose, passport){
         //userFriends Functions
         AddFriendForUserId              : AddFriendForUserId,
         findFriendsAndFollowersForId    : findFriendsAndFollowersForId,
-        RemoveFriendorFollower          : RemoveFriendorFollower
-        //FollowUserById          : FollowUserById
+        RemoveFriendorFollower          : RemoveFriendorFollower,
+
+        //User Book Functions
+        AddFavBookForUser               : AddFavBookForUser
+
     };
     return api;
 
@@ -48,6 +51,36 @@ module.exports = function(app, db, mongoose, passport){
             followers   : [String]
 
     */
+
+
+    // isbn for book Obj
+    //book.volumeInfo. industryIdentifiers[1].identifier
+    function AddFavBookForUser(userId, book){
+        var deferred = q.defer();
+        breBookFavModel.findOne({userId: userId},
+            function(err, favBookObj){
+                if(err){
+                    deferred.reject(err);
+                }else{
+                    favBookObj.push(book.volumeInfo. industryIdentifiers[1].identifier);
+                    favBookObj.save(function(err, friends){
+                        if(err){
+                            deferred.reject(err);
+                        }else{
+                            // add the book to bookDetails schema
+                        }
+                    })
+                }
+            });
+    }
+
+    function StoreBookDetails(book){
+        var deferred = q.defer();
+        breBookModel.create({ISBN_13        : book.volumeInfo. industryIdentifiers[1].identifier,
+                             title          : book.volumeInfo.title,
+                             author         : })
+    }
+
 
     function RemoveFriendorFollower(userId, friendId){
         var deferred = q.defer();

@@ -49,6 +49,17 @@
 
         function addFav(book){
             console.log("You marked the book as favorite :"+ book.volumeInfo.title);
+            console.log(book);
+            ClientSearchService.addFavBookForUser($rootScope.user._id,book)
+                .then(function (favAddResult){
+                    if(favAddResult != null) {
+                        console.log("Book " + book.volumeInfo.title + " added to User Fav");
+                        //TODO: once user has added a book as fav,
+                        // dont show fav icon for that user again
+                    }else{
+                        console.log("user has already added this book as fav");
+                    }
+                    });
         }
 
         function isLogin(){

@@ -13,7 +13,7 @@ module.exports = function(app, model, mongoose, passport){
     // user Friends APIS
     app.post("/rest/api/friend/:userId/:friendId" , AddFriendForUserId);
     app.get("/rest/api/friends/:userId",            FindFriendsAndFollowersForId);
-    app.delete("/rest/api/friend/:userId/:friendId",  RemoveFriendorFollower);
+    app.delete("/rest/api/friend/:userId/:friendId",  RemoveFriendOrFollower);
 
 
     // Login APIs
@@ -21,14 +21,26 @@ module.exports = function(app, model, mongoose, passport){
     app.post("/rest/api/logout",                                logOutUser);
     app.get("/rest/api/loggedin",                               loggedIn);
 
+    //User BOOK APIs
+    app.post("/rest/api/bookfav/:userId",        addFavBookForUser);
 
-    function RemoveFriendorFollower(req,res){
+
+    function addFavBookForUser(req, res){
+        model.AddFavBookForUser(req.params.userId, req.body)
+            .then(function (userFavObj) {
+                res.json(userFavObj);
+            });
+    }
+
+
+    function RemoveFriendOrFollower(req,res){
         model.RemoveFriendorFollower(req.params.userId,req.params.friendId)
             .then(function(userFriendFollowerObj){
                 console.log(userFriendFollowerObj);
                 res.json(userFriendFollowerObj);
             });
     }
+
 
     function FindFriendsAndFollowersForId(req,res){
         model.findFriendsAndFollowersForId(req.params.userId)
@@ -50,6 +62,7 @@ module.exports = function(app, model, mongoose, passport){
             });
     }
 
+
     function CreateUser(req,res){
         var user = req.body;
         model.CreateNewUser(user)
@@ -59,6 +72,7 @@ module.exports = function(app, model, mongoose, passport){
                 res.json(userReturned);
             });
     }
+
 
     function FindAllUsers(req,res){
         var username = req.query.username;

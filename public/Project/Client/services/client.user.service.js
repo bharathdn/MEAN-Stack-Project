@@ -19,9 +19,22 @@
             // USER FRIEND FUNCTIONS
             AddFriendForUserId              : AddFriendForUserId,
             findFriendsAndFollowersForId    : findFriendsAndFollowersForId,
-            removeFriendorFollower          : removeFriendorFollower
+            removeFriendorFollower          : removeFriendorFollower,
+
+            //User Book Functions
+            addFavBookForUser               : addFavBookForUser
         };
         return service;
+
+
+        function addFavBookForUser(userId,book){
+            var deferred = $q.defer();
+            $http.post("/rest/api/bookfav/"+userId, book)
+                .success(function (userFavObj) {
+                   deferred.resolve(userFavObj);
+                });
+            return deferred.promise;
+        }
 
         function LogOutUser(){
             var deferred = $q.defer();
@@ -36,7 +49,7 @@
 
         function LoginUser(user){
             var deferred = $q.defer();
-            console.log(user);
+            //console.log(user);
             $http.post("/rest/api/login",user)
                 .success(function (userObj){
                     deferred.resolve(userObj);
@@ -67,6 +80,7 @@
                 });
         }
 
+
         function removeFriendorFollower(userId, friendId){
             console.log("calling remove friend for "+userId+" on friend"+friendId);
 
@@ -77,6 +91,7 @@
                 });
             return deferred.promise;
         }
+
 
         function createUser(user) {
             var deferred = $q.defer();
