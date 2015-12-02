@@ -4,7 +4,7 @@
         .controller("SearchResultController",SearchResultController);
 
 
-    function SearchResultController($rootScope, $location, ClientSearchService){
+    function SearchResultController($rootScope, $location, ClientSearchService, ClientUserService){
 
         var model = this;
 
@@ -50,7 +50,7 @@
         function addFav(book){
             console.log("You marked the book as favorite :"+ book.volumeInfo.title);
             console.log(book);
-            ClientSearchService.addFavBookForUser($rootScope.user._id,book)
+            ClientUserService.addFavBookForUser($rootScope.user._id,book)
                 .then(function (favAddResult){
                     if(favAddResult != null) {
                         console.log("Book " + book.volumeInfo.title + " added to User Fav");

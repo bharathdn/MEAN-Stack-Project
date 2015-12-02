@@ -62,25 +62,72 @@ module.exports = function(app, db, mongoose, passport){
                 if(err){
                     deferred.reject(err);
                 }else{
-                    favBookObj.push(book.volumeInfo. industryIdentifiers[1].identifier);
-                    favBookObj.save(function(err, friends){
+                    favBookObj.bookIds.push(book.volumeInfo. industryIdentifiers[1].identifier);
+                    favBookObj.save(function(err, favBookAddedObj){
                         if(err){
                             deferred.reject(err);
                         }else{
                             // add the book to bookDetails schema
+                            StoreBookDetails(book)
+                            deferred.resolve(favBookAddedObj);
                         }
                     })
                 }
             });
+        return deferred.promise;
     }
+
 
     function StoreBookDetails(book){
         var deferred = q.defer();
-        breBookModel.create({ISBN_13        : book.volumeInfo. industryIdentifiers[1].identifier,
-                             title          : book.volumeInfo.title,
-                             author         : })
+        // check if book exists
+        breBookModel.findOne({ISBN_13: book.volumeInfo. industryIdentifiers[1].identifier},
+            function(err,result){
+                if(err){
+                    deferred.reject(err);
+                }else{
+                    if(result != null){
+                        console.log("")
+                        deferred.resolve(1);
+                    }else{
+                        breBookModel.create({
+                            ISBN_13             : book.volumeInfo. industryIdentifiers[1].identifier,
+                            title               : book.volumeInfo.title,
+                            authors             : book.volumeInfo.authors,
+                            thumbnailUrl        : book.volumeInfo.imageLinks.smallThumbnail,
+                            description         : book.volumeInfo.description,
+                            googlePreviewLink   : book.volumeInfo.previewLink,
+                            breViewRating       : book.volumeInfo.averageRating,
+                            sentimentRating     : book.volumeInfo.averageRating * 20
+                        },function(err,bookObj){
+                            if(err){
+                                deferred.reject(err);
+                            }else{
+                                deferred.resolve(1);
+                            }
+                        });
+                    }
+                }
+            })
+        return deferred.promise;
     }
-
+    /*
+     breBookModel.create({   ISBN_13             : book.volumeInfo. industryIdentifiers[1].identifier,
+     title               : book.volumeInfo.title,
+     authors             : book.volumeInfo.authors,
+     thumbnailUrl        : book.volumeInfo.imageLinks.smallThumbnail,
+     description         : book.volumeInfo.description,
+     googlePreviewLink   : book.volumeInfo.previewLink,
+     breViewRating       : book.volumeInfo.averageRating,
+     sentimentRating     : book.volumeInfo.averageRating * 20
+     },function(err,bookObj){
+     if(err){
+     deferred.reject(err);
+     }else{
+     deferred.resolve(bookObj);
+     }
+     });
+     */
 
     function RemoveFriendorFollower(userId, friendId){
         var deferred = q.defer();
