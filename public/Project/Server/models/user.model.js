@@ -181,7 +181,7 @@ module.exports = function(app, db, mongoose, passport){
                         //console.log(friendResult);
                         finalResult.friend = friendResult;
                         //create BookFav object for UserID
-                        breBookFavModel.create({userId: newUser, bookIds: []},
+                        breBookFavModel.create({userId: newUser._id, bookIds: []},
                             function(err, bookFavObj){
                                if(err){
                                    deferred.reject(err);
