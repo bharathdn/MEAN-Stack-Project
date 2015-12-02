@@ -16,12 +16,11 @@
         console.log("ProfileFriendsController");
         var model = this;
         model.addFriend                 = addFriend;
-        //model.unfollowFriend            = unfollowFriend;
-        //model.removeFollower            = removeFollower;
         model.renderAllUSers            = renderAllUSers;
         model.renderFriendsFollowers    = renderFriendsFollowers;
         model.removeFriend              = removeFriend;
         model.removeFollower            = removeFollower;
+        //TODO: implement user search
         var users = [];
 
 
@@ -39,6 +38,7 @@
         function renderFriendsFollowers() {
             // find followers for userID
             ClientUserService.findFriendsAndFollowersForId($rootScope.user._id)
+                //TODO : filter current user from USER LIST
                 .then(function (friendsObj) {
                     model.Friends = friendsObj.friends;
                     model.Followers = friendsObj.followers;

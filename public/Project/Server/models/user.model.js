@@ -2,11 +2,25 @@ module.exports = function(app, db, mongoose, passport){
 
     var q  = require("q");
     //var flow = require("finally");
-    var breUserSchema = require("./schemas/user.schema.js")(mongoose);
-    var breUserModel = mongoose.model("breUserModel",breUserSchema);
+    var breUserSchema               = require("./schemas/user.schema.js")(mongoose);
+    var breUserModel                = mongoose.model("breUserModel",breUserSchema);
 
-    var breUserFriendsSchema = require("./schemas/user.friends.schema")(mongoose);
-    var breUserFriendsModel = mongoose.model("breUserFriendsSchema",breUserFriendsSchema);
+    //user Friend Schema
+    var breUserFriendsSchema        = require("./schemas/user.friends.schema")(mongoose);
+    var breUserFriendsModel         = mongoose.model("breUserFriendsSchema",breUserFriendsSchema);
+
+    //Book Details Schema
+    var breBookSchema               = require("./schemas/book.schema")(mongoose);
+    var breBookModel                = mongoose.model("breBookModel",breBookSchema);
+
+    //Book Fav
+    var breBookFavSchema            = require("./schemas/book.fav.schema")(mongoose);
+    var breBookFavModel             = mongoose.model("breBookFavModel", breBookFavSchema);
+
+    //Book Review
+    var breBookReviewSchema         = require("./schemas/book.review.schema")(mongoose);
+    var breBookFavSchema          = mongoose.model("breBookFavSchema", breBookReviewSchema);
+
 
 
 
@@ -141,21 +155,42 @@ module.exports = function(app, db, mongoose, passport){
 
     // User Friend Functions above |^|
 
+    /*
+    While creating new user,
+    Also create the follwing collections
+    -- UserFriends with array of Friends and Followers as empty
+    -- BookFav collection with user Id and array of BookIds as empty
+     */
+
+
     function CreateNewUser(user){
         //console.log(user);
         var deferred = q.defer();
         var finalResult={};
-        breUserModel.create(user, function(err, result){
+        breUserModel.create(user, function(err, newUser){
             if(err){
                 deferred.reject(err);
             } else {
                 //TODO, resolve both user obj and user friend obj to verify
-                finalResult.user = result;
-                breUserFriendsModel.create({userId: result._id, friends: [], followers: []},
+                finalResult.user = newUser;
+                breUserFriendsModel.create({userId: newUser._id, friends: [], followers: []},
                 function(err, friendResult){
-                    console.log(friendResult);
-                    finalResult.friend = friendResult;
-                    deferred.resolve(finalResult);
+                    if(err){
+                        deferred.reject(err);
+                    }else {
+                        //console.log(friendResult);
+                        finalResult.friend = friendResult;
+                        //create BookFav object for UserID
+                        breBookFavModel.create({userId: newUser, bookIds: []},
+                            function(err, bookFavObj){
+                               if(err){
+                                   deferred.reject(err);
+                               }else{
+                                   finalResult.bookFav = bookFavObj;
+                                   deferred.resolve(finalResult);
+                               }
+                            });
+                    }
                 });
             }
         });
