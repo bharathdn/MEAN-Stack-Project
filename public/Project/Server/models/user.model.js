@@ -19,7 +19,7 @@ module.exports = function(app, db, mongoose, passport){
 
     //Book Review
     var breBookReviewSchema         = require("./schemas/book.review.schema")(mongoose);
-    var breBookFavSchema          = mongoose.model("breBookFavSchema", breBookReviewSchema);
+    var breBookFavSchema            = mongoose.model("breBookFavSchema", breBookReviewSchema);
 
 
 
