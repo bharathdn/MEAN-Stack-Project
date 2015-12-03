@@ -1,14 +1,6 @@
 <!--<div class="container-fluid">-->
 <div>
     <h2>Showing results for {{searchQueryString}}</h2>
-    <!--Stars
-
-    {{model.rate}}
-    {{model.max}}
-    {{model.isReadonly}}
-    &lt;!&ndash;uib-rating ng-model="model.rate" max="model.max" readonly="model.isReadonly"
-                aria-labelledby="default-rating"></uib-rating&ndash;&gt;-->
-
     <div class="table">
         <div ng-repeat="book in model.bookResults">
             <div class="row">
@@ -17,11 +9,6 @@
                 </div>
 
                 <div class="col-md-5">
-                    <!--div class="row">
-                        <h3><a ng-href={{book.volumeInfo.infoLink}}>
-                            {{book.volumeInfo.title}}</a>
-                        </h3>
-                    </div-->
                     <div class="row">
                         <h3><a ng-click="model.getBookDetails(book)">
                             {{book.volumeInfo.title}}</a>
@@ -29,6 +16,22 @@
                     </div>
                     <div class="row">
                         <a ng-href={{book.volumeInfo.previewLink}}>Preview on Google</a>
+                    </div>
+
+                    <div ng-if="book.volumeInfo.averageRating > 0" class="row">
+                        <h4>User Sentiment Rating</h4>
+                    </div>
+                    <div class="row" >
+                        <div ng-if="book.volumeInfo.averageRating > 0" class="progress-bar"
+                             ng-class = "{'progress-bar-success'  : ((book.volumeInfo.averageRating >= 3.5) && (book.volumeInfo.averageRating < 5)),
+                                          'progress-bar-info'     : ((book.volumeInfo.averageRating >= 2.5) && (book.volumeInfo.averageRating < 3.5)),
+                                          'progress-bar-warning'  : ((book.volumeInfo.averageRating >= 1.5) && (book.volumeInfo.averageRating < 2.5)),
+                                          'progress-bar-danger'   : ((book.volumeInfo.averageRating >= 0 ) && (book.volumeInfo.averageRating < 1.5))}"
+                             role="progressbar"
+                             aria-valuenow="book.volumeInfo.averageRating * 20" aria-valuemin="0" aria-valuemax="100"
+                             style="width:{{book.volumeInfo.averageRating * 20}}%">
+                            {{book.volumeInfo.averageRating * 20}}
+                        </div>
                     </div>
 
                     <div class="row">

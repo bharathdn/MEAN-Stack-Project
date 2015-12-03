@@ -29,13 +29,13 @@
                     </div>
                     <div class="row">
                         <!--div ng-class="apt.name.length >= 15 ? 'col-md-12' : (apt.name.length >= 10 ? 'col-md-6' : 'col-md-4')"-->
+                        <!--div class="progress-bar" -->
                         <div class="progress-bar"
-
-                        class = "favbook.sentimentRating >= 75 ? 'progress-bar-success' :
-                                 (favbook.sentimentRating >= 51 ? 'progress-bar-info') :
-                                 (favbook.sentimentRating >= 31 ? 'progress-bar-warning') :
-                                 (favbook.sentimentRating >= 0 ? 'progress-bar-danger')"
-                             role="progressbar"
+                        ng-class = "{'progress-bar-success'  : ((favbook.sentimentRating >= 75) && (favbook.sentimentRating < 100)),
+                                     'progress-bar-info'     : ((favbook.sentimentRating >= 51) && (favbook.sentimentRating < 75)),
+                                     'progress-bar-warning'  : ((favbook.sentimentRating >= 31) && (favbook.sentimentRating < 51)),
+                                     'progress-bar-danger'   : ((favbook.sentimentRating >= 0 ) && (favbook.sentimentRating < 31))}"
+                        role="progressbar"
                              aria-valuenow="favbook.sentimentRating" aria-valuemin="0" aria-valuemax="100"
                              style="width:{{favbook.sentimentRating}}%">
                             {{favbook.sentimentRating}}
