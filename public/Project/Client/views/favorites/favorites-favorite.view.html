@@ -1,4 +1,4 @@
-<div-->
+<div>
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="#/favorites">Your Reviews</a></li>
         <li role="presentation" class=active><a href="#/favorite_books">Favorites</a></li>
@@ -13,40 +13,40 @@
     <div class="container" ng-repeat="favbook in model.favbooks">
         <div class="text-nowrap">
         <div class="row">
-        <div class ="col-md-3">
-            <img class="img" width="100px" ng-src={{favbook.thumbnailUrl}}>
-        </div>
-        <div class ="col-md-4 col-xs-2">
-            <div class="col">
-                <h3><a href="">
-                    {{favbook.title}}
-                </a></h3>
+            <div class ="col-md-2">
+                <img class="img" width="100px" ng-src={{favbook.thumbnailUrl}}>
             </div>
-            <br/>
-            <div class="col">
-                <h4>User Sentiment Rating</h4>
+            <div class ="col-md-5 col-xs-4">
+
+                    <div class="row">
+                        <h3><a href="">
+                            {{favbook.title}}
+                        </a></h3>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <h4>User Sentiment Rating</h4>
+                    </div>
+                    <div class="row">
+                        <!--div ng-class="apt.name.length >= 15 ? 'col-md-12' : (apt.name.length >= 10 ? 'col-md-6' : 'col-md-4')"-->
+                        <div class="progress-bar"
+
+                        class = "favbook.sentimentRating >= 75 ? 'progress-bar-success' :
+                                 (favbook.sentimentRating >= 51 ? 'progress-bar-info') :
+                                 (favbook.sentimentRating >= 31 ? 'progress-bar-warning') :
+                                 (favbook.sentimentRating >= 0 ? 'progress-bar-danger')"
+                             role="progressbar"
+                             aria-valuenow="favbook.sentimentRating" aria-valuemin="0" aria-valuemax="100"
+                             style="width:{{favbook.sentimentRating}}%">
+                            {{favbook.sentimentRating}}
+                        </div>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <div class="row">
+                        <a ng-href={{favbook.googlePreviewLink}}>Preview on Google</a>
+                    </div>
             </div>
-            <div class="col">
-                <a ng-href="favbook.googlePreviewLink">Preview on Google</a>
-            </div>
-        </div>
-        <div class ="col-md-3 col-xs-2">
-            <div class="col">
-                <!--div class="rating">
-                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                </div-->
-            </div>
-            <br/>
-            <br/>
-            <div class="progress">
-                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                     aria-valuenow="favbook.sentimentRating" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                    {{favbook.sentimentRating}}
-                </div>
-            </div>
-        </div>
-        </div>
-        <br/>
         </div>
     </div>
     <br/>

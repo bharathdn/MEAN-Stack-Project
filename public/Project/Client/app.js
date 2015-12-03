@@ -1,4 +1,4 @@
 (function(){
     angular
-        .module("BukReviewApp",["ngRoute", "ui.bootstrap"]);
+        .module("BukReviewApp",['ngRoute']); //, 'ngAnimate', 'ui.bootstrap']);
 })();
