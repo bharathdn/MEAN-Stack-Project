@@ -52,7 +52,7 @@
         }
 
         function addFriend(friend){
-            console.log("CLIENT USER SERVICE: Adding user"+friend._id+" as friend to "+$rootScope.user._id);
+            console.log("PROFILE CONTROLLER : Adding user"+friend._id+" as friend to "+$rootScope.user._id);
             ClientUserService.AddFriendForUserId($rootScope.user._id,friend._id)
                 .then(function(userFriendObj){
                     renderFriendsFollowers();

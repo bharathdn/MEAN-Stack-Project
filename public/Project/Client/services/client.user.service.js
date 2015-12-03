@@ -83,13 +83,13 @@
 
         function AddFriendForUserId(userId, friendId){
             var deffered = $q.defer();
-            return deffered.promise;
             //console.log("CLIENT USER SERVICE: Adding user"+friendId+" as friend to "+userId);
             $http.post("/rest/api/friend/"+userId+"/"+friendId)
                 .success(function(userFriendObj){
-                    console.log("RESULT:::++CLIENT USER SERVICE: Adding user"+friendId+" as friend to "+userId);
+                    //console.log("RESULT:::++CLIENT USER SERVICE: Adding user"+friendId+" as friend to "+userId);
                     deffered.resolve(userFriendObj);
                 });
+            return deffered.promise;
         }
 
 
