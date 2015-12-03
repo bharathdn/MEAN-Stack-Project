@@ -87,6 +87,7 @@
             //console.log("CLIENT USER SERVICE: Adding user"+friendId+" as friend to "+userId);
             $http.post("/rest/api/friend/"+userId+"/"+friendId)
                 .success(function(userFriendObj){
+                    console.log("RESULT:::++CLIENT USER SERVICE: Adding user"+friendId+" as friend to "+userId);
                     deffered.resolve(userFriendObj);
                 });
         }
@@ -162,7 +163,7 @@
 
 
         function findAllUsers() {
-            console.log("CLIENT USER SERVICE: findAllUsers called");
+            //console.log("CLIENT USER SERVICE: findAllUsers called");
             var deferred = $q.defer();
             $http.get("/rest/api/user/")
                 .success(function (userResponse) {

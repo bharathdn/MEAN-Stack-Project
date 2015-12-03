@@ -22,7 +22,7 @@
             <div class="container">
                 <ul class="thumbnails list-inline">
                     <li class="span4" ng-repeat="user in model.FriendUsers">
-                        <div class="thumbnail">
+                        <div class="thumbnail" ng-hide=model.isCurrentUser(user)>
                             <a style="color:#7000FF" class="close" href="" ng-click="model.addFriend(user)">+</a>
                             <img src="//placehold.it/80x80">
                             <p>{{user.firstName}} {{user.lastName}}</p>

@@ -20,12 +20,18 @@
         model.renderFriendsFollowers    = renderFriendsFollowers;
         model.removeFriend              = removeFriend;
         model.removeFollower            = removeFollower;
+        model.isCurrentUser             = isCurrentUser;
         //TODO: implement user search
         var users = [];
 
 
         renderAllUSers();
         renderFriendsFollowers();
+
+
+        function isCurrentUser(user){
+            return $rootScope.user.username == user.username;
+        }
 
         function renderAllUSers() {
             ClientUserService.findAllUsers()
@@ -46,6 +52,7 @@
         }
 
         function addFriend(friend){
+            console.log("CLIENT USER SERVICE: Adding user"+friend._id+" as friend to "+$rootScope.user._id);
             ClientUserService.AddFriendForUserId($rootScope.user._id,friend._id)
                 .then(function(userFriendObj){
                     renderFriendsFollowers();
