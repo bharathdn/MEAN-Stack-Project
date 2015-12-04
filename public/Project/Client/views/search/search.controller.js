@@ -4,7 +4,7 @@
         .controller("SearchController",SearchController);
 
 
-    function SearchController( $rootScope, $location, ClientSearchService){
+    function SearchController($window ,$rootScope, $location, ClientSearchService){
 
         var model = this;
 
@@ -17,7 +17,8 @@
             console.log("func called");
             console.log(searchQueryString);
             if(!angular.isUndefined(searchQueryString)){
-                $rootScope.searchQueryString = searchQueryString;
+                $window.sessionStorage.searchQueryString = searchQueryString;
+                //$rootScope.searchQueryString = searchQueryString;
                 $location.url("/search_result");
             }
 

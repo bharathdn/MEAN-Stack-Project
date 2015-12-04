@@ -4,15 +4,14 @@
         .controller("BookDetailController",BookDetailController);
 
 
-    function BookDetailController($rootScope, $location, ClientSearchService){
+    function BookDetailController($window, $rootScope, $location, ClientSearchService){
 
         var model = this;
 
         //model.searchQuery = searchQuery;
         model.addFav = addFav;
         model.isLogin = isLogin;
-
-        var book = $rootScope.book;
+        model.book =JSON.parse($window.sessionStorage.getItem("currentBook"));
 
         function addFav(book){
             console.log("You marked the book as favorite :"+ book.volumeInfo.title);
@@ -31,5 +30,4 @@
             }
         }
     }
-
 })();

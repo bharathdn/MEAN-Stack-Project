@@ -4,7 +4,7 @@
         .controller("HomeController",HomeController);
 
 
-    function HomeController($rootScope, $location){
+    function HomeController($window, $rootScope, $location){
 
         var model = this;
 
@@ -15,8 +15,8 @@
             //console.log("func called");
             //console.log(searchQueryString);
             if(!angular.isUndefined(searchQueryString)){
-                $rootScope.searchQueryString = searchQueryString;
-                $cookies.put('searchQueryString',searchQueryString);
+                //$rootScope.searchQueryString = searchQueryString;
+                $window.sessionStorage.searchQueryString = searchQueryString;
                 $location.url("/search_result");
             }
         }

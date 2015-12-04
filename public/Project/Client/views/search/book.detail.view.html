@@ -1,19 +1,15 @@
-<h2>Deatils page for {{book.volumeInfo.title}}</h2>
+<h2>Deatils page for {{model.book.volumeInfo.title}}</h2>
 <div class="table">
     <div class="row">
         <div class="col-md-3">
-            <img width="100px" ng-src={{book.volumeInfo.imageLinks.smallThumbnail}}>
+            <img width="100px" ng-src={{model.book.volumeInfo.imageLinks.smallThumbnail}}>
         </div>
 
         <div class="col-md-5">
             <div class="row">
                 <h3><a ng-href={{book.volumeInfo.infoLink}}>
-                    {{book.volumeInfo.title}}</a>
+                    {{model.book.volumeInfo.title}}</a>
                 </h3>
-            </div>
-
-            <div class="row">
-                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
             </div>
 
             <div class="row">
@@ -31,21 +27,17 @@
                 </div>
             </div>
             <div class="row">
-                <a ng-href={{book.volumeInfo.previewLink}}>Preview on Google</a>
+                <a ng-href={{model.book.volumeInfo.previewLink}}>Preview on Google</a>
             </div>
             <div class="row">
-
-                <div ng-if="book.volumeInfo.averageRating > 0">{{book.volumeInfo.averageRating}}/5</div>
-                <uib-rating ng-model="model.rating" max="model.maxRating"
-                            readonly="model.isReadonly" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
-                <!-- book.volumeInfo.averageRatingspan class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="model.isReadonly">{{model.percent}}%</span-->
+                <div ng-if="model.book.volumeInfo.averageRating > 0">{{model.book.volumeInfo.averageRating}}/5</div>
             </div>
         </div>
     </div>
     &nbsp;
     <div class="row">
         <div class="col-md-10 text-justify">
-            <p>{{book.volumeInfo.description}}</p>
+            <p>{{model.book.volumeInfo.description}}</p>
         </div>
     </div>
     &nbsp;

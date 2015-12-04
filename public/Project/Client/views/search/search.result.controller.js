@@ -4,7 +4,7 @@
         .controller("SearchResultController",SearchResultController);
 
 
-    function SearchResultController($rootScope, $location, ClientSearchService,
+    function SearchResultController($window,$rootScope, $location, ClientSearchService,
                                      ClientUserService){
 
         var model = this;
@@ -19,21 +19,28 @@
         //model.isReadonly = true;
         //end of rating code
 
-        model.rate = 2;
+        /*model.rate = 2;
         model.max = 7;
-        model.isReadonly = true;
+        model.isReadonly = true;*/
 
-        model.searchQueryString = $rootScope.searchQueryString;
+        //model.searchQueryString = $rootScope.searchQueryString;
+
+        model.searchQueryString = $window.sessionStorage.searchQueryString;
+        console.log(model.searchQueryString);
+        console.log($window.sessionStorage.searchQueryString);
+
         if(!angular.isUndefined(model.searchQueryString)){
             searchQuery(model.searchQueryString);
         }else{
-            searchQuery("Godfather");
-            //$location.url("/search");
+            //searchQuery("Godfather");
+            $location.url("/search");
         }
 
         function getBookDetails(book){
-            console.log(book);
+            //console.log(book);
             $rootScope.book = book;
+            $window.sessionStorage.setItem("currentBook",angular.toJson(book));
+
             $location.url("/bookdetail");
         }
 
