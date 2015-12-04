@@ -16,7 +16,7 @@
         //console.log($rootScope.user);
         console.log("Register Controller!!!!!");
         function registerNewUser(user) {
-            console.log("Register called");
+            console.log("Register called with following details");
             console.log(user);
             var registrationPossible = true;
             var userResult;
@@ -25,7 +25,6 @@
                 registrationPossible = false;
                 return;
             }
-
 
             if(user.username != null) {
                 ClientUserService.findUserByUserName(user.username)
@@ -36,6 +35,7 @@
                         }
                     });
             }
+
             if(user.password == null || user.password == "undefined"){
                 model.passwordMsg = "Password is mandotory";
                 if (user.password != user.verifypassword) {

@@ -4,6 +4,11 @@ module.exports = function(mongoose) {
             userId      :  String,
             friends     : [String],
             followers   : [String]
+            /*friends     : {type: [String], unique : true},
+            followers   : {type: [String], unique : true}*/
+
+            /*friends     : {type: [String], unique: true},
+            followers   : {type: [String], unique: true}*/
         },
         {collection: "bukreview.test.friends"});
 

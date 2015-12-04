@@ -75,8 +75,8 @@ module.exports = function(app, model, mongoose, passport){
         var user = req.body;
         model.CreateNewUser(user)
             .then(function (userReturned) {
-                console.log("added user obj");
-                console.log(userReturned);
+                //console.log("CLIENT USER SERVICE: Created user obj");
+                //console.log(userReturned);
                 res.json(userReturned);
             });
     }

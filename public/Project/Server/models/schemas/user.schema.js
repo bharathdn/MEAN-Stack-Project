@@ -7,7 +7,7 @@ module.exports = function(mongoose) {
             lastName    : String,
             username    : String,
             password    : String,
-            email       : String,
+            email       : String
             //authType: String
 
         },

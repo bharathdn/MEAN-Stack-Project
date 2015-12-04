@@ -6,20 +6,20 @@ module.exports = function(app, db, mongoose, passport){
     var breUserModel                = mongoose.model("breUserModel",breUserSchema);
 
     //user Friend Schema
-    var breUserFriendsSchema        = require("./schemas/user.friends.schema")(mongoose);
-    var breUserFriendsModel         = mongoose.model("breUserFriendsSchema",breUserFriendsSchema);
+    var breUserFriendsSchema        = require("./schemas/user.friends.schema.js")(mongoose);
+    var breUserFriendsModel         = mongoose.model("breUserFriendsModel",breUserFriendsSchema);
 
     //Book Details Schema
-    var breBookSchema               = require("./schemas/book.schema")(mongoose);
+    var breBookSchema               = require("./schemas/book.schema.js")(mongoose);
     var breBookModel                = mongoose.model("breBookModel",breBookSchema);
 
     //Book Fav
-    var breBookFavSchema            = require("./schemas/book.fav.schema")(mongoose);
+    var breBookFavSchema            = require("./schemas/book.fav.schema.js")(mongoose);
     var breBookFavModel             = mongoose.model("breBookFavModel", breBookFavSchema);
 
     //Book Review
-    var breBookReviewSchema         = require("./schemas/book.review.schema")(mongoose);
-    var breBookReviewModel            = mongoose.model("breBookFavSchema", breBookReviewSchema);
+    var breBookReviewSchema         = require("./schemas/book.review.schema.js")(mongoose);
+    var breBookReviewModel          = mongoose.model("breBookReviewModel", breBookReviewSchema);
 
 
     var api = {
@@ -90,7 +90,8 @@ module.exports = function(app, db, mongoose, passport){
                     deferred.reject(err);
                 }
                 else{
-                    favBookObj.bookIds.push(book.volumeInfo. industryIdentifiers[1].identifier);
+                    //console.log(book);
+                    favBookObj.bookIds.push(book.volumeInfo.industryIdentifiers[0].identifier);
                     favBookObj.save(function(err, favBookAddedObj){
                         if(err){
                             deferred.reject(err);
@@ -256,29 +257,35 @@ module.exports = function(app, db, mongoose, passport){
 
 
     function CreateNewUser(user){
+        //console.log("USER MODEL CREATE USER START");
         //console.log(user);
         var deferred = q.defer();
         var finalResult={};
         breUserModel.create(user, function(err, newUser){
             if(err){
+                console.log(err);
                 deferred.reject(err);
             } else {
                 //TODO, resolve both user obj and user friend obj to verify
+                console.log("USER MODEL: CREATED USER");
+                console.log(newUser);
                 finalResult.user = newUser;
                 breUserFriendsModel.create({userId: newUser._id, friends: [], followers: []},
                 function(err, friendResult){
                     if(err){
+                        console.log(err);
                         deferred.reject(err);
                     }else {
-                        //console.log(friendResult);
+                        console.log(friendResult);
                         finalResult.friend = friendResult;
-                        //create BookFav object for UserID
                         breBookFavModel.create({userId: newUser._id, bookIds: []},
                             function(err, bookFavObj){
                                if(err){
                                    deferred.reject(err);
                                }else{
+                                   //console.log(friendResult);
                                    finalResult.bookFav = bookFavObj;
+                                   //console.log("USER MODEL CREATE END");
                                    deferred.resolve(finalResult);
                                }
                             });
