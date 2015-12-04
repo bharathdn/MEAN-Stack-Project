@@ -1,41 +1,46 @@
-<h2>Deatils page for {{model.book.volumeInfo.title}}</h2>
+<h2 class="text-nowrap">{{model.book.volumeInfo.title}}</h2>
 <div class="table">
-    <div class="row">
+
+    <div class="row text-nowrap">
         <div class="col-md-3">
             <img width="100px" ng-src={{model.book.volumeInfo.imageLinks.smallThumbnail}}>
         </div>
 
         <div class="col-md-5">
-            <div class="row">
-                <h3><a ng-href={{book.volumeInfo.infoLink}}>
+            <div class="row text-nowrap">
+                <h3><a ng-href={{model.book.volumeInfo.canonicalVolumeLink}}>
                     {{model.book.volumeInfo.title}}</a>
                 </h3>
             </div>
-
-            <div class="row">
-                <div class="col">
-                    <h4>User Sentiment Rating</h4>
-                </div>
-                <!--TODO make this dynamic -->
-                <div class="col">
-                    <div class="progress">
-                        <div class="progress-bar active" role="progressbar" aria-valuenow="70"
-                             aria-valuemin="0" aria-valuemax="100" style="width:78%">
-                            <span class="sr-only">70% Complete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+            <div class="row text-nowrap">
                 <a ng-href={{model.book.volumeInfo.previewLink}}>Preview on Google</a>
             </div>
-            <div class="row">
-                <div ng-if="model.book.volumeInfo.averageRating > 0">{{model.book.volumeInfo.averageRating}}/5</div>
+
+            <div ng-if="model.book.volumeInfo.averageRating > 0" class="row text-nowrap">
+                <h4>User Sentiment Rating</h4>
+            </div>
+            <div class="row text-nowrap" >
+                <div ng-if="model.book.volumeInfo.averageRating > 0" class="progress-bar"
+                     ng-class = "{'progress-bar-success'  : ((model.book.volumeInfo.averageRating >= 3.5) && (model.book.volumeInfo.averageRating < 5)),
+                                      'progress-bar-info'     : ((model.book.volumeInfo.averageRating >= 2.5) && (model.book.volumeInfo.averageRating < 3.5)),
+                                      'progress-bar-warning'  : ((model.book.volumeInfo.averageRating >= 1.5) && (model.book.volumeInfo.averageRating < 2.5)),
+                                      'progress-bar-danger'   : ((model.book.volumeInfo.averageRating >= 0 ) && (model.book.volumeInfo.averageRating < 1.5))}"
+                     role="progressbar"
+                     aria-valuenow="model.book.volumeInfo.averageRating * 20" aria-valuemin="0" aria-valuemax="100"
+                     style="width:{{model.book.volumeInfo.averageRating * 20}}%">
+                    {{model.book.volumeInfo.averageRating * 20}}
+                </div>
+            </div>
+            <div class="row text-nowrap" ng-hide="model.isLogin()">
+                <a ng-click="addFav(book)"><span style="color:red" class="glyphicon glyphicon-heart"></span></a>
             </div>
         </div>
     </div>
     &nbsp;
-    <div class="row">
+    <div class="row ellipsis">
+        <div class="col-md-10 text-justify">
+            <h5>Description:</h5>
+        </div>
         <div class="col-md-10 text-justify">
             <p>{{model.book.volumeInfo.description}}</p>
         </div>
@@ -43,12 +48,18 @@
     &nbsp;
     <div class="row">
         <div class="col-md-6">
-            <h5>Write Your Review</h5>
+            <h5>Write Your Review:</h5>
         </div>
     </div>
     <div class="row">
         <div class="col-md-10">
-            <textarea class="form-control"> </textarea>
+            <textarea ng-model="model.userReview" class="form-control"> </textarea>
+        </div>
+    </div>
+    &nbsp;
+    <div class="row">
+        <div class="col-md-10 text-right">
+            <button ng-click="model.submitReview(model.userReview)" type="button" class="btn btn-primary btn-sm btn-block">Submit Review</button>
         </div>
     </div>
 </div>
