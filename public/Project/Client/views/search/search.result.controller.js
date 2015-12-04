@@ -4,7 +4,8 @@
         .controller("SearchResultController",SearchResultController);
 
 
-    function SearchResultController($rootScope, $location, ClientSearchService, ClientUserService){
+    function SearchResultController($rootScope, $location, ClientSearchService,
+                                     ClientUserService){
 
         var model = this;
 

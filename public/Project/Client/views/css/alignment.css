@@ -5,21 +5,22 @@ p.bookDescPara{
 }
 
 .vertical-center {
-    min-height: 60%;
-    min-height: 60vh;
-    display: flex;
+    /*min-height: 60%;
+    min-height: 60vh;*/
+    /*display: flex;*/
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    display: -webkit-flex; /* For Safari */
+    /*justify-content: center;
+    flex-direction: column;*/
+    /*display: -webkit-flex; /!* For Safari *!/*/
     -webkit-justify-content: center; /* For Safari */
     -webkit-align-items: center; /* For Safari */
 }
 
 img{
-    padding-top: 15%;
-
+    padding-top: 1%;
+    align-items: center;
 }
+
 
 @media screen and (min-width: 900px) {
     .col-md-3 {

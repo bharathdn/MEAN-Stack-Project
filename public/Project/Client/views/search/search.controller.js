@@ -14,8 +14,8 @@
 
 
         function searchQuery(searchQueryString){
-            //console.log("func called");
-            //console.log(searchQueryString);
+            console.log("func called");
+            console.log(searchQueryString);
             if(!angular.isUndefined(searchQueryString)){
                 $rootScope.searchQueryString = searchQueryString;
                 $location.url("/search_result");

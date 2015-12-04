@@ -1,4 +1,4 @@
 (function(){
     angular
-        .module("BukReviewApp",['ngRoute']); //, 'ngAnimate', 'ui.bootstrap']);
+        .module("BukReviewApp",['ngRoute','ngCookies']); //, 'ngAnimate', 'ui.bootstrap']);
 })();

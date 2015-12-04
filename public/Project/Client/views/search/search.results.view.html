@@ -1,27 +1,26 @@
-<!--<div class="container-fluid">-->
 <div>
-    <h2>Showing results for {{searchQueryString}}</h2>
+    <h2>Showing results for "{{searchQueryString}}"</h2>
     <div class="table">
         <div ng-repeat="book in model.bookResults">
-            <div class="row">
+            <div class="row text-nowrap">
                 <div class="col-md-3">
                     <img width="100px" ng-src={{book.volumeInfo.imageLinks.smallThumbnail}}>
                 </div>
 
                 <div class="col-md-5">
-                    <div class="row">
+                    <div class="row text-nowrap">
                         <h3><a ng-click="model.getBookDetails(book)">
                             {{book.volumeInfo.title}}</a>
                         </h3>
                     </div>
-                    <div class="row">
+                    <div class="row text-nowrap">
                         <a ng-href={{book.volumeInfo.previewLink}}>Preview on Google</a>
                     </div>
 
-                    <div ng-if="book.volumeInfo.averageRating > 0" class="row">
+                    <div ng-if="book.volumeInfo.averageRating > 0" class="row text-nowrap">
                         <h4>User Sentiment Rating</h4>
                     </div>
-                    <div class="row" >
+                    <div class="row text-nowrap" >
                         <div ng-if="book.volumeInfo.averageRating > 0" class="progress-bar"
                              ng-class = "{'progress-bar-success'  : ((book.volumeInfo.averageRating >= 3.5) && (book.volumeInfo.averageRating < 5)),
                                           'progress-bar-info'     : ((book.volumeInfo.averageRating >= 2.5) && (book.volumeInfo.averageRating < 3.5)),
@@ -33,7 +32,7 @@
                             {{book.volumeInfo.averageRating * 20}}
                         </div>
                     </div>
-                    <div class="row" ng-hide="model.isLogin()">
+                    <div class="row text-nowrap" ng-hide="model.isLogin()">
                         <a ng-click="model.addFav(book)"><span style="color:red" class="glyphicon glyphicon-heart"></span></a>
                     </div>
                 </div>
@@ -42,7 +41,6 @@
             <div class="row ellipsis">
                 <div class="col-md-10 text-justify">
                     <p>{{book.volumeInfo.description}}</p>
-                    <!--p>{{book.searchInfo.textSnippet}}</p-->
                 </div>
             </div>
             &nbsp;

@@ -1,15 +1,15 @@
-<h1 class="page-header">Search from books here</h1>
+<h1 class="page-header">Search books here</h1>
 <br/>
 <br/>
 <br/>
 <br/>
-<div class="row">
-    <form ng-submit="model.searchQuery(model.searchQueryString)">
-        <div class="col-lg-8">
-            <input type="text" class = "form-control" ng-model="model.searchQueryString" placeholder="Enter name of book, author..."/>
+<div class="input-group">
+        <input type="text" class="form-control" placeholder="Enter name of book, author..."
+               ng-model="model.searchQueryString"
+               ng-keyup="$event.keyCode == 13 ? model.searchQuery(model.searchQueryString) : null">
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                    ng-click="model.searchQuery(model.searchQueryString)">
+                Search </button>
         </div>
-        <div class="col-lg-4">
-            <button class="btn  btn-group-sm" ng-click="model.searchQuery(model.searchQueryString)">Search</button>
-        </div>
-    </form>
 </div>

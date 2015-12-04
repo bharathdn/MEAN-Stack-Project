@@ -12,17 +12,7 @@
         model.addFav = addFav;
         model.isLogin = isLogin;
 
-        // Rating code
-        //model.maxRating = 5;
-        //model.isReadonly = true;
-        //end of rating code
-
-        model.rate = 2;
-        model.max = 7;
-        model.isReadonly = true;
-
-        book = $rootScope.book;
-
+        var book = $rootScope.book;
 
         function addFav(book){
             console.log("You marked the book as favorite :"+ book.volumeInfo.title);

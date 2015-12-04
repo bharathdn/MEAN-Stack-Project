@@ -116,7 +116,7 @@ module.exports = function(app, db, mongoose, passport){
                     deferred.reject(err);
                 }else{
                     if(result != null){
-                        console.log("")
+                        //console.log("")
                         deferred.resolve(1);
                     }else{
                         breBookModel.create({
@@ -230,12 +230,12 @@ module.exports = function(app, db, mongoose, passport){
                    function(err, userObj){
                        userObj.friends.push(friendId);
                        userObj.save(function(err,result){
-                           console.log(result);
+                           //console.log(result);
                        });
                    });
                  breUserFriendsModel.findOne({userId: friendId},
                    function(err, userObj){
-                       console.log("user's friend has followers, updating now");
+                       //console.log("user's friend has followers, updating now");
                        userObj.followers.push(userId);
                        userObj.save(function(err,result){
                            //TODO, resolve both user obj and user friend obj to verify
