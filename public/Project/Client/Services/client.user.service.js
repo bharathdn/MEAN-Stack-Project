@@ -23,10 +23,22 @@
 
             //User Book Functions
             addFavBookForUser               : addFavBookForUser,
-            GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser
+            GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser,
+            submitReview                    : submitReview
         };
         return service;
 
+
+        function submitReview(bookISBN, userId, userReview){
+            var reviewObj = { review: userReview };
+            console.log(bookISBN);
+            var deferred = $q.defer();
+            $http.post("/rest/api/bookReview/"+bookISBN+"/"+ userId, reviewObj)
+                .success(function (reviewRes){
+                    deferred.resolve(reviewRes);
+                });
+            return deferred.promise;
+        }
 
         function GetFavBooksForCurrentUser(userId){
             var deferred = $q.defer();

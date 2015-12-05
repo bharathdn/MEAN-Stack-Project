@@ -38,7 +38,8 @@ module.exports = function(app, db, mongoose, passport){
 
         //User Book Functions
         AddFavBookForUser               : AddFavBookForUser,
-        GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser
+        GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser,
+        SubmitReview                    : SubmitReview
     };
     return api;
 
@@ -54,32 +55,41 @@ module.exports = function(app, db, mongoose, passport){
     // isbn for book Obj
     //book.volumeInfo. industryIdentifiers[1].identifier
 
+
+    function SubmitReview(bookISBN,userId, reviewObj){
+        console.log("Adding review as \n\n"+reviewObj.review+" \n\nfor the book "+ bookISBN
+        +" by userID "+userId);
+        //return("Book Review Submitted");
+
+        breBookReviewModel.create
+    }
+
     function GetFavBooksForCurrentUser(userId){
         var deferred = q.defer();
         breBookFavModel.findOne({userId: userId},
             function(err, favBookObj){
 
                 if(err){
-                    console.log("USER MODEL: GET FAVBOOKS error fetching user bookids");
+                    //console.log("USER MODEL: GET FAVBOOKS error fetching user bookids");
                     deferred.reject(err);
                 }
                 else{
-                    console.log("USER MODEL: GET FAVBOOKS bookids");
-                    console.log(favBookObj);
+                    //console.log("USER MODEL: GET FAVBOOKS bookids");
+                    //console.log(favBookObj);
                     if(favBookObj.bookIds.length == 0){
                         deferred.resolve(null);
                     }
                     breBookModel.find({$or: [{ISBN_13: {$in: favBookObj.bookIds}}]},
                         function(err, favBooks){
                            if(err){
-                               console.log("USER MODEL: GET FAVBOOKS error fetching user fav books");
+                               //console.log("USER MODEL: GET FAVBOOKS error fetching user fav books");
                                deferred.reject(err);
                            }
                            else
                            {
                                //console.log(favBooks);
-                               console.log("USER MODEL: GET FAVBOOKS ")
-                               console.log(favBooks);
+                               /*console.log("USER MODEL: GET FAVBOOKS ")
+                               console.log(favBooks);*/
                                deferred.resolve(favBooks);
                            }
                         });
@@ -293,7 +303,7 @@ module.exports = function(app, db, mongoose, passport){
                                }else{
                                    finalResult.bookFav = bookFavObj;
                                    //console.log("USER MODEL CREATE END");
-                                   //deferred.resolve(finalResult);
+                                   deferred.resolve(finalResult);
                                    breBookReviewModel.create({userId: newUser._id,
                                                               username: newUser.username},
                                         function(err, bookReviewObj){

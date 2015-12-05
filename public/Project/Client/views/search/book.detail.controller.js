@@ -4,7 +4,7 @@
         .controller("BookDetailController",BookDetailController);
 
 
-    function BookDetailController($window, $rootScope, $location, ClientSearchService, $q,$http){
+    function BookDetailController($window, $rootScope, $location, ClientSearchService, ClientUserService){
 
         var model = this;
 
@@ -14,17 +14,25 @@
         model.isLogin           = isLogin;
         model.submitReview      = submitReview;
 
+        model.book = JSON.parse($window.sessionStorage.getItem("currentBook"));
+        //console.log(model.book);
+
 
         function submitReview(userReview){
+            var bookISBN = model.book.volumeInfo. industryIdentifiers[0].identifier;
             console.log("the Submitted Review: \n"+userReview);
-
             ClientSearchService.analyseReview(userReview)
                 .then(function(sentimentResponse){
                     if(sentimentResponse.status == "OK") {
                         displayReviewFeedback(sentimentResponse.docSentiment);
                         console.log(sentimentResponse.docSentiment);
+                        ClientUserService.submitReview(bookISBN, $rootScope.user._id,userReview)
+                            .then(function(reviewSubmitResult){
+                                console.log(reviewSubmitResult);
+                            });
                     }
                     else{
+                        console.log("error in sentiment analysis api result");
                         return;
                         }
                 });
@@ -52,12 +60,9 @@
                                                             model.alert_class = "alert-danger";}
 
             model.sentimentMsg = "Your review was "+positivity+" and scored "+centScore.toFixed(0)+ "% upon sentiment analysis";
+            return;
         }
 
-
-
-        model.book =JSON.parse($window.sessionStorage.getItem("currentBook"));
-        //console.log(model.book);
 
         function addFav(book){
             console.log("You marked the book as favorite :"+ book.volumeInfo.title);
