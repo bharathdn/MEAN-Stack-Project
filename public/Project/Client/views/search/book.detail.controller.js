@@ -19,7 +19,6 @@
 
 
         function submitReview(userReview){
-            console.log("the Submitted Review: \n"+userReview);
             ClientSearchService.analyseReview(userReview)
                 .then(function(sentimentResponse){
                     if(sentimentResponse.status == "OK") {
@@ -29,6 +28,7 @@
                         ClientUserService.submitReview(model.book, $rootScope.user,userReview, centScore)
                             .then(function(reviewSubmitResult){
                                 console.log(reviewSubmitResult);
+                                clearTextArea();
                             });
                     }
                     else{
@@ -36,6 +36,10 @@
                         return;
                         }
                 });
+        }
+
+        function clearTextArea(){
+            model.userReview = "";
         }
 
         function getcentScore(score){
@@ -70,13 +74,15 @@
                                                             model.alert_class = "alert-info"}
             else if(centScore >= 31 && centScore < 50)  { positivity = "moderatly Negative";
                                                             model.alert_class = "alert-warning"}
-            else if(centScore >=  0 && centScore < 31)  { if(centScore < 0){
+            else if(centScore < 31)  { if(centScore < 0){
                                                                 centScore = 5;
                                                             }
+
                                                             positivity = "Negative";
                                                             model.alert_class = "alert-danger";}
 
-            model.sentimentMsg = "Your review was "+positivity+" and scored "+centScore.toFixed(0)+ "% upon sentiment analysis";
+            model.sentimentMsg = "Review Submitted!  Your review was "+positivity+" and " +
+                "scored "+centScore.toFixed(0)+ "% upon sentiment analysis";
             return;
         }
 
