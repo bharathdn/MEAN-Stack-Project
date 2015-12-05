@@ -20,8 +20,27 @@
 
             ClientSearchService.analyseReview(userReview)
                 .then(function(sentimentResponse){
-                    console.log(sentimentResponse.docSentiment);
+                    if(sentimentResponse.status == "OK") {
+                        displayReviewFeedback(sentimentResponse.docSentiment);
+                        console.log(sentimentResponse.docSentiment);
+                    }
+                    else{
+                        return;
+                        }
                 });
+        }
+
+        function displayReviewFeedback(sentimentResp) {
+
+            var score = parseFloat(sentimentResp.score);
+            var type = sentimentResp.type;
+
+            var centScore = score + 0.5 * 100;
+            model.sentimentMsg = "Your review was Positive and scored " + centScore.toFixed(0) + " upon sentiment analysis";
+
+            if (centScore > 75) {
+                model.sentimentMsg = "Your review was Positive and scored " + centScore + "upon sentiment analysis";
+            }
         }
 
 

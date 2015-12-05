@@ -38,6 +38,7 @@
             var deferred = $q.defer();
             $http.get(alchemyUrl)
                 .success(function (response) {
+                    console.log(response);
                     /*console.log(response.docSentiment);
                     console.log(response.docSentiment.score);
                     console.log(response.docSentiment.type);*/
