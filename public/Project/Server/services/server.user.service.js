@@ -10,6 +10,7 @@ module.exports = function(app, model, mongoose, passport){
     app.put("/rest/api/user/:id",               UpdateUserById);
     app.delete("/rest/api/user/:id",            RemoveUserByID);
 
+
     // user Friends APIS
     app.post("/rest/api/friend/:userId/:friendId" , AddFriendForUserId);
     app.get("/rest/api/friends/:userId",            FindFriendsAndFollowersForId);
@@ -20,6 +21,7 @@ module.exports = function(app, model, mongoose, passport){
     app.post("/rest/api/login", passport.authenticate('local'), loginUser);
     app.post("/rest/api/logout",                                logOutUser);
     app.get("/rest/api/loggedin",                               loggedIn);
+
 
     //User BOOK APIs
     app.post("/rest/api/bookfav/:userId",           addFavBookForUser);

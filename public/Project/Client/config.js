@@ -3,11 +3,9 @@
         .module("BukReviewApp",["ngRoute"])
         .config(function($routeProvider) {
             $routeProvider
-                .when("/",{
-                    templateUrl: "views/home/home.view.html",
-                    controller: "HomeController as model",
+                .when("/",{redirectTo: "/home",
                     resolve: {
-                        loggedin: checkCurrentUser
+                        loggedin: checkLoggedIn
                     }
                 })
                 .when("/home",{
@@ -39,7 +37,7 @@
                     templateUrl: "views/search/search.view.html",
                     controller: "SearchController as model",
                     resolve: {
-                        loggedin: checkCurrentUser
+                        loggedin: checkLoggedIn
                     }
                 })
                 .when("/search_result",{
@@ -74,7 +72,7 @@
                     controller: "LoginController as model"
                 })
                 .otherwise("/",
-                    {redirectTo: "/",
+                    {redirectTo: "/home",
                         resolve: {
                             loggedin: checkLoggedIn
                         }
@@ -113,7 +111,7 @@
                 // User is Authenticated
                 if (user !== '0')
                 {
-                    $rootScope.currentUser = user;
+                    $rootScope.user = user;
                 }
                 deferred.resolve();
             });

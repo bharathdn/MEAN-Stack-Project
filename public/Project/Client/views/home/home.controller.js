@@ -20,9 +20,6 @@
                 $location.url("/search_result");
             }
         }
-
-
-
     }
 
 })();
