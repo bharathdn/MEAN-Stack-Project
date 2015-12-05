@@ -66,7 +66,7 @@ module.exports = function(app, db, mongoose, passport){
                     deferred.reject(err);
                 }
                 else{
-                    console.log(result);
+                    //console.log(result);
                     deferred.resolve(result);
                 }
             });

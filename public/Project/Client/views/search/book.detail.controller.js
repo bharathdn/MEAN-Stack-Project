@@ -13,6 +13,7 @@
         //model.addFav = addFav;
         model.isLogin           = isLogin;
         model.submitReview      = submitReview;
+        model.isUserLoggedin    = isUserLoggedin;
 
         model.book = JSON.parse($window.sessionStorage.getItem("currentBook"));
         //console.log(model.book);
@@ -28,6 +29,14 @@
                     model.reviews = bookReviews;
                 });
         }
+
+        function isUserLoggedin(){
+            if($rootScope.user != null){
+                return true;
+            }
+            return false;
+        }
+
 
 
         function submitReview(userReview){

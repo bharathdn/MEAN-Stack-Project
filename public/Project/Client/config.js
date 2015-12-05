@@ -7,14 +7,14 @@
                     templateUrl: "views/home/home.view.html",
                     controller: "HomeController as model",
                     resolve: {
-                        loggedin: checkLoggedIn
+                        loggedin: checkCurrentUser
                     }
                 })
                 .when("/home",{
                     templateUrl: "views/home/home.view.html",
                     controller: "HomeController as model",
                     resolve: {
-                        loggedin: checkLoggedIn
+                        loggedin: checkCurrentUser
                     }
                 })
                 .when("/profile",{
@@ -39,21 +39,21 @@
                     templateUrl: "views/search/search.view.html",
                     controller: "SearchController as model",
                     resolve: {
-                        loggedin: checkLoggedIn
+                        loggedin: checkCurrentUser
                     }
                 })
                 .when("/search_result",{
                     templateUrl: "views/search/search.results.view.html",
                     controller: "SearchResultController as model",
                     resolve: {
-                        loggedin: checkLoggedIn
+                        loggedin: checkCurrentUser
                     }
                 })
                 .when("/bookdetail",{
                     templateUrl: "views/search/book.detail.view.html",
                     controller: "BookDetailController as model",
                     resolve: {
-                        loggedin: checkLoggedIn
+                        loggedin: checkCurrentUser
                     }
                 })
                 .when("/favorites",{
@@ -101,6 +101,24 @@
                 }
             });
         return deferred.promise;
-    }
+    };
+
+    var checkCurrentUser = function($q, $timeout, $http, $location, $rootScope)
+    {
+        var deferred = $q.defer();
+
+        $http.get("/rest/api/loggedin")
+            .success(function(user){
+                $rootScope.errorMessage = null;
+                // User is Authenticated
+                if (user !== '0')
+                {
+                    $rootScope.currentUser = user;
+                }
+                deferred.resolve();
+            });
+
+            return deferred.promise;
+    };
 
 })();

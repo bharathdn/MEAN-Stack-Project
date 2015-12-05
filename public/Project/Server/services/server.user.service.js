@@ -22,10 +22,18 @@ module.exports = function(app, model, mongoose, passport){
     app.get("/rest/api/loggedin",                               loggedIn);
 
     //User BOOK APIs
-    app.post("/rest/api/bookfav/:userId",       addFavBookForUser);
-    app.get("/rest/api/bookfavs/:userId",       GetFavBooksForCurrentUser);
-    app.post("/rest/api/bookReview/:userId",    submitReview);
-    app.get("/rest/api/bookreviews/:bookISBN",  getReviewsForBookISBN);
+    app.post("/rest/api/bookfav/:userId",           addFavBookForUser);
+    app.get("/rest/api/bookfavs/:userId",           GetFavBooksForCurrentUser);
+    app.post("/rest/api/bookReview/:userId",        submitReview);
+    app.get("/rest/api/bookreviews/:bookISBN",      getReviewsForBookISBN);
+    app.get("/rest/api/userbookreviews/:userId",    getReviewsByUserId);
+
+
+
+    function getReviewsByUserId(req, res){
+        //model.get(GetReviewsByUserId)
+
+    }
 
 
     function getReviewsForBookISBN(req, res){
