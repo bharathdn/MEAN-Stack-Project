@@ -4,7 +4,7 @@
         .controller("BookDetailController",BookDetailController);
 
 
-    function BookDetailController($window, $rootScope, $location, ClientSearchService){
+    function BookDetailController($window, $rootScope, $location, ClientSearchService, $q,$http){
 
         var model = this;
 
@@ -17,7 +17,14 @@
 
         function submitReview(userReview){
             console.log("the Submitted Review: \n"+userReview);
+
+            ClientSearchService.analyseReview(userReview)
+                .then(function(sentimentResponse){
+                    console.log(sentimentResponse.docSentiment);
+                });
         }
+
+
 
         model.book =JSON.parse($window.sessionStorage.getItem("currentBook"));
         //console.log(model.book);

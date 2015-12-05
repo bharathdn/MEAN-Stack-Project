@@ -1,4 +1,4 @@
-<h2 class="text-nowrap">{{model.book.volumeInfo.title}}</h2>
+<h2 class="text-nowrap">{{model.book.volumeInfo.title}} details page</h2>
 <div class="table">
 
     <div class="row text-nowrap">
@@ -43,6 +43,12 @@
         </div>
         <div class="col-md-10 text-justify">
             <p>{{model.book.volumeInfo.description}}</p>
+        </div>
+    </div>
+    &nbsp;
+    <div class="row">
+        <div class="col-md-6">
+            <h5>{{model.sentimentMsg}}</h5>
         </div>
     </div>
     &nbsp;
