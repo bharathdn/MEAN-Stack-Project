@@ -2,6 +2,7 @@ module.exports = function(mongoose) {
     var breBookReviewSchema =  mongoose.Schema({
             bookId          : String,
             userId          : String,
+            username        : String,
             reviewDesc      : String,
             reviewDate      : {type : Date,  default: Date.now},
             // breview rating for the book by userId

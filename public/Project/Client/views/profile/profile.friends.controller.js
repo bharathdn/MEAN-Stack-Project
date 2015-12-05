@@ -30,7 +30,9 @@
 
 
         function isCurrentUser(user){
-            return $rootScope.user.username == user.username;
+            if($rootScope.user != null) {
+                return $rootScope.user.username == user.username;
+            }
         }
 
         function renderAllUSers() {

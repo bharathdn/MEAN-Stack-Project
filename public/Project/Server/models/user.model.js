@@ -58,21 +58,28 @@ module.exports = function(app, db, mongoose, passport){
         var deferred = q.defer();
         breBookFavModel.findOne({userId: userId},
             function(err, favBookObj){
+
                 if(err){
+                    console.log("USER MODEL: GET FAVBOOKS error fetching user bookids");
                     deferred.reject(err);
                 }
                 else{
+                    console.log("USER MODEL: GET FAVBOOKS bookids");
+                    console.log(favBookObj);
                     if(favBookObj.bookIds.length == 0){
                         deferred.resolve(null);
                     }
                     breBookModel.find({$or: [{ISBN_13: {$in: favBookObj.bookIds}}]},
                         function(err, favBooks){
                            if(err){
+                               console.log("USER MODEL: GET FAVBOOKS error fetching user fav books");
                                deferred.reject(err);
                            }
                            else
                            {
                                //console.log(favBooks);
+                               console.log("USER MODEL: GET FAVBOOKS ")
+                               console.log(favBooks);
                                deferred.resolve(favBooks);
                            }
                         });
@@ -110,7 +117,7 @@ module.exports = function(app, db, mongoose, passport){
     function StoreBookDetails(book){
         var deferred = q.defer();
         // check if book exists
-        breBookModel.findOne({ISBN_13: book.volumeInfo. industryIdentifiers[1].identifier},
+        breBookModel.findOne({ISBN_13: book.volumeInfo. industryIdentifiers[0].identifier},
             function(err,result){
                 if(err){
                     deferred.reject(err);
@@ -120,7 +127,7 @@ module.exports = function(app, db, mongoose, passport){
                         deferred.resolve(1);
                     }else{
                         breBookModel.create({
-                            ISBN_13             : book.volumeInfo. industryIdentifiers[1].identifier,
+                            ISBN_13             : book.volumeInfo. industryIdentifiers[0].identifier,
                             title               : book.volumeInfo.title,
                             authors             : book.volumeInfo.authors,
                             thumbnailUrl        : book.volumeInfo.imageLinks.smallThumbnail,
@@ -281,12 +288,24 @@ module.exports = function(app, db, mongoose, passport){
                         breBookFavModel.create({userId: newUser._id, bookIds: []},
                             function(err, bookFavObj){
                                if(err){
+                                   console.log(err);
                                    deferred.reject(err);
                                }else{
-                                   //console.log(friendResult);
                                    finalResult.bookFav = bookFavObj;
                                    //console.log("USER MODEL CREATE END");
-                                   deferred.resolve(finalResult);
+                                   //deferred.resolve(finalResult);
+                                   breBookReviewModel.create({userId: newUser._id,
+                                                              username: newUser.username},
+                                        function(err, bookReviewObj){
+                                            if(err){
+                                                console.log(err);
+                                                deferred.reject(err);
+                                            }
+                                            else{
+                                                finalResult.bookReviewObj = bookReviewObj;
+                                                deferred.resolve(finalResult);
+                                            }
+                                        });
                                }
                             });
                     }
