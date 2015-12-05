@@ -17,6 +17,19 @@
         model.book = JSON.parse($window.sessionStorage.getItem("currentBook"));
         //console.log(model.book);
 
+        // set model.reviews
+        getReviewsForBookISBN(model.book.volumeInfo. industryIdentifiers[0].identifier);
+
+        function getReviewsForBookISBN(bookISBN){
+            console.log("fectching reviews for book "+model.book.volumeInfo.title);
+            ClientUserService.getReviewsForBookISBN(bookISBN)
+                .then(function(bookReviews){
+                    console.log(bookReviews);
+
+                    model.reviews = bookReviews;
+                });
+        }
+
 
         function submitReview(userReview){
             ClientSearchService.analyseReview(userReview)

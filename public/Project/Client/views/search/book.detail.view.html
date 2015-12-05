@@ -37,10 +37,12 @@
         </div>
     </div>
     &nbsp;
-    <div class="row ellipsis">
+    <div class="row">
         <div class="col-md-10 text-justify">
             <h5>Description:</h5>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-10 text-justify">
             <p>{{model.book.volumeInfo.description}}</p>
         </div>
@@ -67,6 +69,19 @@
     <div class="row">
         <div class="col-md-10 text-right">
             <button ng-click="model.submitReview(model.userReview)" type="button" class="btn btn-primary btn-sm btn-block">Submit Review</button>
+        </div>
+    </div>
+
+    <div ng-repeat="review in model.reviews">
+        <div class="row">
+            <div class="col-md-10 text-justify">
+                <h5>{{review.username}} wrote:</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 text-justify">
+                <p>{{review.reviewDesc}}</p>
+            </div>
         </div>
     </div>
 </div>

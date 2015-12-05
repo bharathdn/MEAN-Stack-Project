@@ -39,7 +39,8 @@ module.exports = function(app, db, mongoose, passport){
         //User Book Functions
         AddFavBookForUser               : AddFavBookForUser,
         GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser,
-        SubmitReview                    : SubmitReview
+        SubmitReview                    : SubmitReview,
+        GetReviewsForBookISBN           : GetReviewsForBookISBN
     };
     return api;
 
@@ -55,6 +56,22 @@ module.exports = function(app, db, mongoose, passport){
     // isbn for book Obj
     //book.volumeInfo. industryIdentifiers[1].identifier
 
+
+    function GetReviewsForBookISBN(bookISBN){
+        var deferred = q.defer();
+
+        breBookReviewModel.find({bookId : bookISBN},
+            function(err, result){
+                if(err){
+                    deferred.reject(err);
+                }
+                else{
+                    console.log(result);
+                    deferred.resolve(result);
+                }
+            });
+        return deferred.promise;
+    }
 
     function SubmitReview(userId, reviewObj){
         //console.log("Adding review as \n\n"+reviewObj.review+" \n\nfor the book  by userID "+userId);

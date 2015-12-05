@@ -25,6 +25,15 @@ module.exports = function(app, model, mongoose, passport){
     app.post("/rest/api/bookfav/:userId",       addFavBookForUser);
     app.get("/rest/api/bookfavs/:userId",       GetFavBooksForCurrentUser);
     app.post("/rest/api/bookReview/:userId",    submitReview);
+    app.get("/rest/api/bookreviews/:bookISBN",  getReviewsForBookISBN);
+
+
+    function getReviewsForBookISBN(req, res){
+        model.GetReviewsForBookISBN(req.params.bookISBN)
+            .then(function(bookReveiws){
+               res.json(bookReveiws);
+            });
+    }
 
 
     function submitReview(req, res){

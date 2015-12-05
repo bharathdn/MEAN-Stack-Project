@@ -24,9 +24,21 @@
             //User Book Functions
             addFavBookForUser               : addFavBookForUser,
             GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser,
-            submitReview                    : submitReview
+            submitReview                    : submitReview,
+            getReviewsForBookISBN           : getReviewsForBookISBN
         };
         return service;
+
+
+        function getReviewsForBookISBN(bookISBN){
+            var deferred = $q.defer();
+
+            $http.get("/rest/api/bookreviews/"+bookISBN)
+                .success(function(bookReviews){
+                   deferred.resolve(bookReviews);
+                });
+            return deferred.promise;
+        }
 
 
         function submitReview(book, user, userReview,centScore){
