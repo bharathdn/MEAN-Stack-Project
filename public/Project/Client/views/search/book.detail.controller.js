@@ -33,14 +33,25 @@
         function displayReviewFeedback(sentimentResp) {
 
             var score = parseFloat(sentimentResp.score);
+            console.log(score);
             var type = sentimentResp.type;
 
-            var centScore = score + 0.5 * 100;
-            model.sentimentMsg = "Your review was Positive and scored " + centScore.toFixed(0) + " upon sentiment analysis";
+            var centScore = (score + 0.3) * 100;
+            var positivity;  // = "Positive";
 
-            if (centScore > 75) {
-                model.sentimentMsg = "Your review was Positive and scored " + centScore + "upon sentiment analysis";
-            }
+            if (centScore >= 75)    {                       if(centScore > 100){
+                                                                centScore = 100;
+                                                            }
+                                                            positivity = "Positive";
+                                                            model.alert_class = "alert-success";}
+            else if(centScore >= 50 && centScore < 75)  { positivity = "moderately Positive";
+                                                            model.alert_class = "alert-info"}
+            else if(centScore >= 31 && centScore < 50)  { positivity = "moderatly Negative";
+                                                            model.alert_class = "alert-warning"}
+            else if(centScore >=  0 && centScore < 31)  { positivity = "Negative";
+                                                            model.alert_class = "alert-danger";}
+
+            model.sentimentMsg = "Your review was "+positivity+" and scored "+centScore.toFixed(0)+ "% upon sentiment analysis";
         }
 
 

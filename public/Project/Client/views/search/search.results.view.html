@@ -22,7 +22,7 @@
                     </div>
                     <div class="row text-nowrap" >
                         <div ng-if="book.volumeInfo.averageRating > 0" class="progress-bar"
-                             ng-class = "{'progress-bar-success'  : ((book.volumeInfo.averageRating >= 3.5) && (book.volumeInfo.averageRating < 5)),
+                             ng-class = "{'progress-bar-success'  : ((book.volumeInfo.averageRating >= 3.5) && (book.volumeInfo.averageRating <= 5)),
                                           'progress-bar-info'     : ((book.volumeInfo.averageRating >= 2.5) && (book.volumeInfo.averageRating < 3.5)),
                                           'progress-bar-warning'  : ((book.volumeInfo.averageRating >= 1.5) && (book.volumeInfo.averageRating < 2.5)),
                                           'progress-bar-danger'   : ((book.volumeInfo.averageRating >= 0 ) && (book.volumeInfo.averageRating < 1.5))}"
