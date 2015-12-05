@@ -56,12 +56,28 @@ module.exports = function(app, db, mongoose, passport){
     //book.volumeInfo. industryIdentifiers[1].identifier
 
 
-    function SubmitReview(bookISBN,userId, reviewObj){
-        console.log("Adding review as \n\n"+reviewObj.review+" \n\nfor the book "+ bookISBN
-        +" by userID "+userId);
+    function SubmitReview(userId, reviewObj){
+        //console.log("Adding review as \n\n"+reviewObj.review+" \n\nfor the book  by userID "+userId);
         //return("Book Review Submitted");
-
-        breBookReviewModel.create
+        //console.log(reviewObj);
+        var deferred = q.defer();
+        breBookReviewModel.create({ bookId              : reviewObj.bookObj.volumeInfo.industryIdentifiers[0].identifier,
+                                    userId              : userId,
+                                    username            : reviewObj.username,
+                                    reviewDesc          : reviewObj.review,
+                                    sentimentRating     : reviewObj.centScore
+                                    },
+            function(err, result){
+                if(err){
+                    deferred.reject(err);
+                }
+                else{
+                    reviewObj.bookObj.centScore = reviewObj.centScore;
+                    StoreBookDetails(reviewObj.bookObj);
+                    deferred.resolve(result);
+                }
+            });
+        return deferred.promise;
     }
 
     function GetFavBooksForCurrentUser(userId){
@@ -70,26 +86,19 @@ module.exports = function(app, db, mongoose, passport){
             function(err, favBookObj){
 
                 if(err){
-                    //console.log("USER MODEL: GET FAVBOOKS error fetching user bookids");
                     deferred.reject(err);
                 }
                 else{
-                    //console.log("USER MODEL: GET FAVBOOKS bookids");
-                    //console.log(favBookObj);
                     if(favBookObj.bookIds.length == 0){
                         deferred.resolve(null);
                     }
                     breBookModel.find({$or: [{ISBN_13: {$in: favBookObj.bookIds}}]},
                         function(err, favBooks){
                            if(err){
-                               //console.log("USER MODEL: GET FAVBOOKS error fetching user fav books");
                                deferred.reject(err);
                            }
                            else
                            {
-                               //console.log(favBooks);
-                               /*console.log("USER MODEL: GET FAVBOOKS ")
-                               console.log(favBooks);*/
                                deferred.resolve(favBooks);
                            }
                         });
@@ -114,7 +123,8 @@ module.exports = function(app, db, mongoose, passport){
                             deferred.reject(err);
                         }else{
                             // add the book to bookDetails schema
-                            StoreBookDetails(book)
+                            // the argument zero is dummy value
+                            StoreBookDetails(book);
                             deferred.resolve(favBookAddedObj);
                         }
                     })
@@ -133,8 +143,20 @@ module.exports = function(app, db, mongoose, passport){
                     deferred.reject(err);
                 }else{
                     if(result != null){
-                        //console.log("")
-                        deferred.resolve(1);
+                        var ISBN = book.volumeInfo. industryIdentifiers[0].identifier;
+                        // if book is already present, update the sentiment rating
+                        var newcentScore = (book.centScore + result.sentimentRating)/2;
+                        breBookModel.update({ISBN_13: ISBN}, {sentimentRating : newcentScore},
+                            function(err, updateResult){
+                                if(err){
+                                    console.log(err);
+                                    deferred.reject(err);
+                                }
+                                else{
+                                    deferred.resolve(updateResult);
+                                }
+                            });
+                            //deferred.resolve(1);
                     }else{
                         breBookModel.create({
                             ISBN_13             : book.volumeInfo. industryIdentifiers[0].identifier,
@@ -143,7 +165,7 @@ module.exports = function(app, db, mongoose, passport){
                             thumbnailUrl        : book.volumeInfo.imageLinks.smallThumbnail,
                             description         : book.volumeInfo.description,
                             googlePreviewLink   : book.volumeInfo.previewLink,
-                            breViewRating       : book.volumeInfo.averageRating,
+                            //breViewRating       : book.volumeInfo.averageRating,
                             sentimentRating     : book.volumeInfo.averageRating * 20
                         },function(err,bookObj){
                             if(err){
@@ -302,20 +324,8 @@ module.exports = function(app, db, mongoose, passport){
                                    deferred.reject(err);
                                }else{
                                    finalResult.bookFav = bookFavObj;
-                                   //console.log("USER MODEL CREATE END");
+                                   console.log("USER MODEL CREATE END");
                                    deferred.resolve(finalResult);
-                                   breBookReviewModel.create({userId: newUser._id,
-                                                              username: newUser.username},
-                                        function(err, bookReviewObj){
-                                            if(err){
-                                                console.log(err);
-                                                deferred.reject(err);
-                                            }
-                                            else{
-                                                finalResult.bookReviewObj = bookReviewObj;
-                                                deferred.resolve(finalResult);
-                                            }
-                                        });
                                }
                             });
                     }

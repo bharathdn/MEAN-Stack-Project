@@ -19,14 +19,14 @@
 
 
         function submitReview(userReview){
-            var bookISBN = model.book.volumeInfo. industryIdentifiers[0].identifier;
             console.log("the Submitted Review: \n"+userReview);
             ClientSearchService.analyseReview(userReview)
                 .then(function(sentimentResponse){
                     if(sentimentResponse.status == "OK") {
                         displayReviewFeedback(sentimentResponse.docSentiment);
                         console.log(sentimentResponse.docSentiment);
-                        ClientUserService.submitReview(bookISBN, $rootScope.user._id,userReview)
+                        var centScore = getcentScore(sentimentResponse.docSentiment.score);
+                        ClientUserService.submitReview(model.book, $rootScope.user,userReview, centScore)
                             .then(function(reviewSubmitResult){
                                 console.log(reviewSubmitResult);
                             });
@@ -38,13 +38,27 @@
                 });
         }
 
+        function getcentScore(score){
+
+            var centScore = (parseFloat(score) + 0.5) * 100;
+            if(centScore > 100)
+            {
+                centScore = 100;
+            }
+            if(centScore < 0)
+            {
+                centScore = 5;
+            }
+            return centScore.toFixed(0);
+        }
+
         function displayReviewFeedback(sentimentResp) {
 
             var score = parseFloat(sentimentResp.score);
             console.log(score);
             var type = sentimentResp.type;
 
-            var centScore = (score + 0.3) * 100;
+            var centScore = (score + 0.5) * 100;
             var positivity;  // = "Positive";
 
             if (centScore >= 75)    {                       if(centScore > 100){
@@ -56,7 +70,10 @@
                                                             model.alert_class = "alert-info"}
             else if(centScore >= 31 && centScore < 50)  { positivity = "moderatly Negative";
                                                             model.alert_class = "alert-warning"}
-            else if(centScore >=  0 && centScore < 31)  { positivity = "Negative";
+            else if(centScore >=  0 && centScore < 31)  { if(centScore < 0){
+                                                                centScore = 5;
+                                                            }
+                                                            positivity = "Negative";
                                                             model.alert_class = "alert-danger";}
 
             model.sentimentMsg = "Your review was "+positivity+" and scored "+centScore.toFixed(0)+ "% upon sentiment analysis";

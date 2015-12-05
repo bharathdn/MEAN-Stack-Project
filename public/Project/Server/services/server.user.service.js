@@ -22,13 +22,13 @@ module.exports = function(app, model, mongoose, passport){
     app.get("/rest/api/loggedin",                               loggedIn);
 
     //User BOOK APIs
-    app.post("/rest/api/bookfav/:userId",               addFavBookForUser);
-    app.get("/rest/api/bookfavs/:userId",               GetFavBooksForCurrentUser);
-    app.post("/rest/api/bookReview/:bookISBN/:userId",  submitReview);
+    app.post("/rest/api/bookfav/:userId",       addFavBookForUser);
+    app.get("/rest/api/bookfavs/:userId",       GetFavBooksForCurrentUser);
+    app.post("/rest/api/bookReview/:userId",    submitReview);
 
 
     function submitReview(req, res){
-        model.SubmitReview(req.params.bookISBN, req.params.userId, req.body)
+        model.SubmitReview(req.params.userId, req.body)
             .then(function (reviewRes) {
                 res.json(reviewRes);
             });

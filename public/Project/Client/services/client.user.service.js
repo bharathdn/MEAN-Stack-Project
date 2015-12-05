@@ -29,11 +29,14 @@
         return service;
 
 
-        function submitReview(bookISBN, userId, userReview){
-            var reviewObj = { review: userReview };
-            console.log(bookISBN);
+        function submitReview(book, user, userReview,centScore){
+            //console.log(centScore);
+            var reviewObj = { review    : userReview,
+                              username  : user.username,
+                              centScore : centScore,
+                              bookObj   : book };
             var deferred = $q.defer();
-            $http.post("/rest/api/bookReview/"+bookISBN+"/"+ userId, reviewObj)
+            $http.post("/rest/api/bookReview/"+ user._id, reviewObj)
                 .success(function (reviewRes){
                     deferred.resolve(reviewRes);
                 });
