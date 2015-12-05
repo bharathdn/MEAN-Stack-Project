@@ -47,6 +47,7 @@
             <p>{{model.book.volumeInfo.description}}</p>
         </div>
     </div>
+    <hr/>
     &nbsp;
     <div class="row" ng-if="model.sentimentMsg">
             <div class=" col-md-10 alert {{model.alert_class}}">
@@ -73,13 +74,28 @@
     </div>
     <div class="row">
         <div class="col-md-16">
-            <h4>Reviews:</h4>
+            <h4><span style="text-decoration: underline;">Reviews:</span></h4>
         </div>
     </div>
     <div ng-repeat="review in model.reviews">
         <div class="row">
-            <div class="col-md-16 text-justify">
-                <h5>{{review.username}} wrote:</h5>
+            <div class="col-md-3 text-justify">
+                <h4 >{{review.username}} wrote:</h4>
+            </div>
+            <div class="col-md-4">
+                <h5>Sentiment Rating for the review</h5>
+            </div>
+            <div class="col-md-4">
+                <div class="progress-bar"
+                         ng-class = "{'progress-bar-success'  : ((review.sentimentRating >= 75) && (review.sentimentRating <= 100)),
+                                      'progress-bar-info'     : ((review.sentimentRating >= 51) && (review.sentimentRating < 75)),
+                                      'progress-bar-warning'  : ((review.sentimentRating >= 31) && (review.sentimentRating < 51)),
+                                      'progress-bar-danger'   : ((review.sentimentRating >= 0 ) && (review.sentimentRating < 31))}"
+                         role="progressbar"
+                         aria-valuenow="review.sentimentRating" aria-valuemin="0" aria-valuemax="100"
+                         style="width:{{review.sentimentRating}}%">
+                        {{review.sentimentRating}}
+                </div>
             </div>
         </div>
         <div class="row">
@@ -87,5 +103,7 @@
                 <p>{{review.reviewDesc}}</p>
             </div>
         </div>
+        <br/>
+        <hr/>
     </div>
 </div>
