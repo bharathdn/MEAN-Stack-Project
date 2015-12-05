@@ -25,7 +25,6 @@
             ClientUserService.getReviewsForBookISBN(bookISBN)
                 .then(function(bookReviews){
                     console.log(bookReviews);
-
                     model.reviews = bookReviews;
                 });
         }
