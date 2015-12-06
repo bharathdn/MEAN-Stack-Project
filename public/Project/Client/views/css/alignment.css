@@ -21,8 +21,7 @@ p.bookDescPara{
 }
 
 .DescPara{
-    padding-left: 1%;
-    text-overflow:ellipsis;
+    padding-left: 2%;
 }
 
 .progressbarAlign{

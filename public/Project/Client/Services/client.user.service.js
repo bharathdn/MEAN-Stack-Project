@@ -26,7 +26,8 @@
             GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser,
             submitReview                    : submitReview,
             getReviewsForBookISBN           : getReviewsForBookISBN,
-            GetReviewsByUserId              : GetReviewsByUserId
+            GetReviewsByUserId              : GetReviewsByUserId,
+            processReviews                  : processReviews,
 
         };
         return service;
@@ -37,6 +38,12 @@
 
             $http.get("/rest/api/userReviews/"+userId)
                 .success(function(userReviews){
+                    var processedReviews;
+                    if((userReviews.reviews.length > 0)
+                        && (userReviews.bookDetails.length > 0)){
+                        processedReviews  = processReviews(userReviews);
+                        deferred.resolve(processedReviews);
+                    }
                     deferred.resolve(userReviews);
                 });
             return deferred.promise;
@@ -219,6 +226,37 @@
                     deferred.resolve(userResponse);
                 });
             return deferred.promise;
+        }
+
+
+        function processReviews(userRevBooks){
+            var books = userRevBooks.bookDetails;
+            var userReviews = userRevBooks.reviews;
+            var bookReview = [];
+            for(var i=0; i<books.length; i++){
+                var bookReviewObj = {};
+                bookReviewObj.id                = books[i].ISBN_13;
+                bookReviewObj.title             = books[i].title;
+                bookReviewObj.googlePreviewLink = books[i].googlePreviewLink;
+                bookReviewObj.sentimentRating   = books[i].sentimentRating;
+                bookReviewObj.thumbnailUrl      = books[i].thumbnailUrl;
+                bookReviewObj.reviews           = [];
+                for(var j=0; j<userReviews.length; j++){
+                    if(userReviews[j].bookId == books[i].ISBN_13){
+                        var userReviewObj = {};
+                        userReviewObj.reviewDesc        = userReviews[j].reviewDesc;
+                        userReviewObj.sentimentRating   = userReviews[j].sentimentRating;
+                        userReviewObj.date              = userReviews[j].reviewDate;
+                        userReviewObj.username          = userReviews[j].username;
+                        //console.log(userReviewObj);
+                        bookReviewObj.reviews.push(userReviewObj);
+                    }
+                    //bookReviewObj.reviews.push()
+                }
+                bookReview.push(bookReviewObj);
+            }
+            return bookReview;
+            //console.log(bookReview);
         }
     }
 })();
