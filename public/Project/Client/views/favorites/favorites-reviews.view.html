@@ -51,7 +51,7 @@
                 <div class="col-md-4">
                     <h5>Sentiment Rating for the review</h5>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 progressbarAlign">
                     <div class="progress-bar"
                          ng-class = "{'progress-bar-success'  : ((review.sentimentRating >= 75) && (review.sentimentRating <= 100)),
                                       'progress-bar-info'     : ((review.sentimentRating >= 51) && (review.sentimentRating < 75)),
@@ -64,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row DescPara">
                 <div class="col-md-16 text-justify">
                     <p>{{review.reviewDesc}}</p>
                 </div>

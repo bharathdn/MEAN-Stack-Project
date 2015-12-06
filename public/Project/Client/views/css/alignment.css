@@ -16,9 +16,23 @@ p.bookDescPara{
     -webkit-align-items: center; /* For Safari */
 }
 
+.Desc{
+
+}
+
+.DescPara{
+    padding-left: 1%;
+    text-overflow:ellipsis;
+}
+
+.progressbarAlign{
+    padding-top: 1%
+}
+
+
 img{
-    padding-top: 1%;
-    align-items: center;
+    padding-top: 10%;
+
 }
 
 

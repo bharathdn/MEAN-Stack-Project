@@ -19,7 +19,7 @@
             <div ng-if="model.book.volumeInfo.averageRating > 0" class="row text-nowrap">
                 <h4>User Sentiment Rating</h4>
             </div>
-            <div class="row text-nowrap" >
+            <div class="row text-nowrap  progressbarAlign">
                 <div ng-if="model.book.volumeInfo.averageRating > 0" class="progress-bar"
                      ng-class = "{'progress-bar-success'  : ((model.book.volumeInfo.averageRating >= 3.5) && (model.book.volumeInfo.averageRating < 5)),
                                       'progress-bar-info'     : ((model.book.volumeInfo.averageRating >= 2.5) && (model.book.volumeInfo.averageRating < 3.5)),
