@@ -40,21 +40,51 @@ module.exports = function(app, db, mongoose, passport){
         AddFavBookForUser               : AddFavBookForUser,
         GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser,
         SubmitReview                    : SubmitReview,
-        GetReviewsForBookISBN           : GetReviewsForBookISBN
+        GetReviewsForBookISBN           : GetReviewsForBookISBN,
+        GetReviewsByUserId              : GetReviewsByUserId
     };
     return api;
 
 
-    /*
-            userId      :  String,
-            friends     : [String],
-            followers   : [String]
-
-    */
-
-
-    // isbn for book Obj
-    //book.volumeInfo. industryIdentifiers[1].identifier
+    function GetReviewsByUserId(userId){
+        var deferred = q.defer();
+        var bookReviewandDetails = {};
+        breBookReviewModel.find({userId : userId},
+            function(err, userReviews){
+                if(err){
+                    deferred.reject(err);
+                }
+                else{
+                    //console.log(userReviews);
+                    bookReviewandDetails.reviews = userReviews;
+                    var userBookIds = [];
+                    //console.log("userBookIds");
+                    //console.log(userReviews.length);
+                    for(var i = 0 ; i<userReviews.length; i++){
+                        if(userBookIds.indexOf(userReviews[i].bookId) < 0) {
+                            userBookIds.push(userReviews[i].bookId);
+                        }
+                    }
+                    //console.log("----userBookIds array-----");
+                    //console.log(userBookIds);
+                    //deferred.resolve(userReviews);
+                    breBookModel.find({$or: [{ISBN_13: {$in : userBookIds}}]},
+                        function(err, bookDetails){
+                           if(err){
+                               deferred.reject(err);
+                           }
+                           else{
+                               //console.log("bookDetails");
+                               //console.log(bookDetails);
+                               bookReviewandDetails.bookDetails = bookDetails;
+                               console.log(bookReviewandDetails);
+                               deferred.resolve(bookReviewandDetails);
+                           }
+                        });
+                }
+            });
+        return deferred.promise;
+    }
 
 
     function GetReviewsForBookISBN(bookISBN){
@@ -79,11 +109,11 @@ module.exports = function(app, db, mongoose, passport){
         //console.log(reviewObj);
         var deferred = q.defer();
         breBookReviewModel.create({ bookId              : reviewObj.bookObj.volumeInfo.industryIdentifiers[0].identifier,
-                                    userId              : userId,
-                                    username            : reviewObj.username,
-                                    reviewDesc          : reviewObj.review,
-                                    sentimentRating     : reviewObj.centScore
-                                    },
+                userId              : userId,
+                username            : reviewObj.username,
+                reviewDesc          : reviewObj.review,
+                sentimentRating     : reviewObj.centScore
+            },
             function(err, result){
                 if(err){
                     deferred.reject(err);
@@ -111,13 +141,13 @@ module.exports = function(app, db, mongoose, passport){
                     }
                     breBookModel.find({$or: [{ISBN_13: {$in: favBookObj.bookIds}}]},
                         function(err, favBooks){
-                           if(err){
-                               deferred.reject(err);
-                           }
-                           else
-                           {
-                               deferred.resolve(favBooks);
-                           }
+                            if(err){
+                                deferred.reject(err);
+                            }
+                            else
+                            {
+                                deferred.resolve(favBooks);
+                            }
                         });
                 }
             });
@@ -173,7 +203,7 @@ module.exports = function(app, db, mongoose, passport){
                                     deferred.resolve(updateResult);
                                 }
                             });
-                            //deferred.resolve(1);
+                        //deferred.resolve(1);
                     }else{
                         breBookModel.create({
                             ISBN_13             : book.volumeInfo. industryIdentifiers[0].identifier,
@@ -212,21 +242,21 @@ module.exports = function(app, db, mongoose, passport){
                         }else{
                             // remove userId from friend's Obj
                             breUserFriendsModel.findOne({userId: friendId},
-                            function(err, friendUser){
-                                if(err){
-                                    deferred.reject(err);
-                                }else{
-                                    // remove userId from friendUser's followers
-                                    friendUser.followers.splice(friendUser.followers.indexOf(userId),1);
-                                    friendUser.save(function(err, result){
-                                        if(err){
-                                            deferred.reject(err);
-                                        }else{
-                                            deferred.resolve(result);
-                                        }
-                                    });
-                                }
-                            });
+                                function(err, friendUser){
+                                    if(err){
+                                        deferred.reject(err);
+                                    }else{
+                                        // remove userId from friendUser's followers
+                                        friendUser.followers.splice(friendUser.followers.indexOf(userId),1);
+                                        friendUser.save(function(err, result){
+                                            if(err){
+                                                deferred.reject(err);
+                                            }else{
+                                                deferred.resolve(result);
+                                            }
+                                        });
+                                    }
+                                });
                         }
                     });
                 }
@@ -241,20 +271,12 @@ module.exports = function(app, db, mongoose, passport){
         var finalRes = {};
         breUserFriendsModel.findOne({userId: userId},
             function (err, user) {
-
-                //console.log(user);
-
-                //console.log(user.friends);
-                //console.log(user.followers);
-
-
                 breUserModel.find({$or: [ {_id : {$in: user.friends}} ]},
                     function(err, friends){
                         if(err){
                             deferred.reject(err);
                         }
                         else {
-                            //deferred.resolve(users);
                             finalRes.friends = friends;
                             breUserModel.find({$or: [{_id: {$in: user.followers}}]},
                                 function(err, followers){
@@ -267,7 +289,7 @@ module.exports = function(app, db, mongoose, passport){
                                     }
                                 });
                         }
-                });
+                    });
             });
         return deferred.promise;
     }
@@ -283,32 +305,32 @@ module.exports = function(app, db, mongoose, passport){
         breUserFriendsModel.findOne({userId: userId},
             function(err,result){
                 breUserFriendsModel.findOne({userId: userId},
-                   function(err, userObj){
-                       userObj.friends.push(friendId);
-                       userObj.save(function(err,result){
-                           //console.log(result);
-                       });
-                   });
-                 breUserFriendsModel.findOne({userId: friendId},
-                   function(err, userObj){
-                       //console.log("user's friend has followers, updating now");
-                       userObj.followers.push(userId);
-                       userObj.save(function(err,result){
-                           //TODO, resolve both user obj and user friend obj to verify
-                           deferred.resolve(result);
-                       });
-                   });
-        });
+                    function(err, userObj){
+                        userObj.friends.push(friendId);
+                        userObj.save(function(err,result){
+                            //console.log(result);
+                        });
+                    });
+                breUserFriendsModel.findOne({userId: friendId},
+                    function(err, userObj){
+                        //console.log("user's friend has followers, updating now");
+                        userObj.followers.push(userId);
+                        userObj.save(function(err,result){
+                            //TODO, resolve both user obj and user friend obj to verify
+                            deferred.resolve(result);
+                        });
+                    });
+            });
         return deferred.promise;
     }
 
     // User Friend Functions above |^|
 
     /*
-    While creating new user,
-    Also create the follwing collections
-    -- UserFriends with array of Friends and Followers as empty
-    -- BookFav collection with user Id and array of BookIds as empty
+     While creating new user,
+     Also create the follwing collections
+     -- UserFriends with array of Friends and Followers as empty
+     -- BookFav collection with user Id and array of BookIds as empty
      */
 
 
@@ -327,26 +349,26 @@ module.exports = function(app, db, mongoose, passport){
                 console.log(newUser);
                 finalResult.user = newUser;
                 breUserFriendsModel.create({userId: newUser._id, friends: [], followers: []},
-                function(err, friendResult){
-                    if(err){
-                        console.log(err);
-                        deferred.reject(err);
-                    }else {
-                        console.log(friendResult);
-                        finalResult.friend = friendResult;
-                        breBookFavModel.create({userId: newUser._id, bookIds: []},
-                            function(err, bookFavObj){
-                               if(err){
-                                   console.log(err);
-                                   deferred.reject(err);
-                               }else{
-                                   finalResult.bookFav = bookFavObj;
-                                   console.log("USER MODEL CREATE END");
-                                   deferred.resolve(finalResult);
-                               }
-                            });
-                    }
-                });
+                    function(err, friendResult){
+                        if(err){
+                            console.log(err);
+                            deferred.reject(err);
+                        }else {
+                            console.log(friendResult);
+                            finalResult.friend = friendResult;
+                            breBookFavModel.create({userId: newUser._id, bookIds: []},
+                                function(err, bookFavObj){
+                                    if(err){
+                                        console.log(err);
+                                        deferred.reject(err);
+                                    }else{
+                                        finalResult.bookFav = bookFavObj;
+                                        console.log("USER MODEL CREATE END");
+                                        deferred.resolve(finalResult);
+                                    }
+                                });
+                        }
+                    });
             }
         });
         return deferred.promise;
@@ -358,14 +380,14 @@ module.exports = function(app, db, mongoose, passport){
         var username = credentials.username;
         var password = credentials.password;
         breUserModel.findOne({username: username, password: password},
-        function(err,result){
-           if(err){
-               deferred.reject(err);
-           } else {
-               //console.log(result);
-               deferred.resolve(result);
-           }
-        });
+            function(err,result){
+                if(err){
+                    deferred.reject(err);
+                } else {
+                    //console.log(result);
+                    deferred.resolve(result);
+                }
+            });
 
         return deferred.promise;
     }
@@ -375,12 +397,12 @@ module.exports = function(app, db, mongoose, passport){
         console.log("findall called");
         var deferred = q.defer();
         breUserModel.find(function(err,result){
-                if(err){
-                    deferred.reject(null);
-                } else {
-                    deferred.resolve(result);
-                }
-            });
+            if(err){
+                deferred.reject(null);
+            } else {
+                deferred.resolve(result);
+            }
+        });
         return deferred.promise;
     }
 

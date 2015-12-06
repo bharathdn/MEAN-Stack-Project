@@ -25,9 +25,22 @@
             addFavBookForUser               : addFavBookForUser,
             GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser,
             submitReview                    : submitReview,
-            getReviewsForBookISBN           : getReviewsForBookISBN
+            getReviewsForBookISBN           : getReviewsForBookISBN,
+            GetReviewsByUserId              : GetReviewsByUserId
+
         };
         return service;
+
+
+        function GetReviewsByUserId(userId){
+            var deferred = $q.defer();
+
+            $http.get("/rest/api/userReviews/"+userId)
+                .success(function(userReviews){
+                    deferred.resolve(userReviews);
+                });
+            return deferred.promise;
+        }
 
 
         function getReviewsForBookISBN(bookISBN){
@@ -55,6 +68,7 @@
             return deferred.promise;
         }
 
+
         function GetFavBooksForCurrentUser(userId){
             var deferred = $q.defer();
             $http.get("/rest/api/bookfavs/"+userId)
@@ -73,6 +87,7 @@
                 });
             return deferred.promise;
         }
+
 
         function LogOutUser(){
             var deferred = $q.defer();
@@ -138,8 +153,6 @@
             console.log(user);
             $http.post("/rest/api/user", user)
                 .success(function (user) {
-                    //console.log("added user obj from USerService");
-                     //console.log(users);
                     deferred.resolve(user);
                 });
             return deferred.promise;

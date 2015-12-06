@@ -48,8 +48,9 @@
                         var centScore = getcentScore(sentimentResponse.docSentiment.score);
                         ClientUserService.submitReview(model.book, $rootScope.user,userReview, centScore)
                             .then(function(reviewSubmitResult){
-                                console.log(reviewSubmitResult);
+                                //console.log(reviewSubmitResult);
                                 clearTextArea();
+                                getReviewsForBookISBN();
                             });
                     }
                     else{

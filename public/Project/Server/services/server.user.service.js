@@ -28,13 +28,15 @@ module.exports = function(app, model, mongoose, passport){
     app.get("/rest/api/bookfavs/:userId",           GetFavBooksForCurrentUser);
     app.post("/rest/api/bookReview/:userId",        submitReview);
     app.get("/rest/api/bookreviews/:bookISBN",      getReviewsForBookISBN);
-    app.get("/rest/api/userbookreviews/:userId",    getReviewsByUserId);
+    app.get("/rest/api/userReviews/:userId",        GetReviewsByUserId);
 
 
 
-    function getReviewsByUserId(req, res){
-        //model.get(GetReviewsByUserId)
-
+    function GetReviewsByUserId(req, res){
+        model.GetReviewsByUserId(req.params.userId)
+            .then(function(userReviews){
+               res.json(userReviews);
+            });
     }
 
 
