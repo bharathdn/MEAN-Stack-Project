@@ -55,29 +55,20 @@ module.exports = function(app, db, mongoose, passport){
                     deferred.reject(err);
                 }
                 else{
-                    //console.log(userReviews);
                     bookReviewandDetails.reviews = userReviews;
                     var userBookIds = [];
-                    //console.log("userBookIds");
-                    //console.log(userReviews.length);
                     for(var i = 0 ; i<userReviews.length; i++){
                         if(userBookIds.indexOf(userReviews[i].bookId) < 0) {
                             userBookIds.push(userReviews[i].bookId);
                         }
                     }
-                    //console.log("----userBookIds array-----");
-                    //console.log(userBookIds);
-                    //deferred.resolve(userReviews);
                     breBookModel.find({$or: [{ISBN_13: {$in : userBookIds}}]},
                         function(err, bookDetails){
                            if(err){
                                deferred.reject(err);
                            }
                            else{
-                               //console.log("bookDetails");
-                               //console.log(bookDetails);
                                bookReviewandDetails.bookDetails = bookDetails;
-                               console.log(bookReviewandDetails);
                                deferred.resolve(bookReviewandDetails);
                            }
                         });
@@ -104,11 +95,9 @@ module.exports = function(app, db, mongoose, passport){
     }
 
     function SubmitReview(userId, reviewObj){
-        //console.log("Adding review as \n\n"+reviewObj.review+" \n\nfor the book  by userID "+userId);
-        //return("Book Review Submitted");
-        //console.log(reviewObj);
         var deferred = q.defer();
-        breBookReviewModel.create({ bookId              : reviewObj.bookObj.volumeInfo.industryIdentifiers[0].identifier,
+        breBookReviewModel.create({
+                bookId              : reviewObj.bookObj.volumeInfo.industryIdentifiers[0].identifier,
                 userId              : userId,
                 username            : reviewObj.username,
                 reviewDesc          : reviewObj.review,
