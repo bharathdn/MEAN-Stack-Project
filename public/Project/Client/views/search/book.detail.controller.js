@@ -29,6 +29,7 @@
                 .then(function(bookReviews){
                     console.log(bookReviews);
                     model.reviews = bookReviews;
+                    //$rootScope.$apply();
                 });
         }
 
@@ -52,7 +53,8 @@
             if(!angular.isUndefined(userReview)){
                 ClientSearchService.analyseReview(userReview)
                     .then(function (sentimentResponse) {
-                        if (sentimentResponse.status == "OK") {
+                        if ((sentimentResponse.status == "OK")
+                            && (sentimentResponse.docSentiment.type != "neutral")) {
                             displayReviewFeedback(sentimentResponse.docSentiment);
                             console.log(sentimentResponse.docSentiment);
                             var centScore = getcentScore(sentimentResponse.docSentiment.score);
@@ -64,7 +66,10 @@
                                 });
                         }
                         else {
-                            console.log("error in sentiment analysis api result");
+                            model.alert_class = "alert-warning";
+                            model.sentimentMsg = "Our sentiment analysis engine could not analyse your review. " +
+                                "Please write your review again!";
+                            clearTextArea();
                             return;
                         }
                     });

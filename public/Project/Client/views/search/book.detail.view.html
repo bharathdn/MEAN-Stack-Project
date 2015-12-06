@@ -48,14 +48,12 @@
         </div>
     </div>
     <hr/>
-    &nbsp;
     <div class="row" ng-if="model.sentimentMsg">
-            <div class=" col-md-10 alert {{model.alert_class}}">
+            <div class=" col-md-16 alert {{model.alert_class}}">
                 <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 {{model.sentimentMsg}}
             </div>
     </div>
-    &nbsp;
     <div class="row" ng-if="model.isUserLoggedin()">
         <div class="col-md-16">
             <h5>Write Your Review:</h5>
