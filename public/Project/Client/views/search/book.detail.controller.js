@@ -1,3 +1,4 @@
+"use strict";
 (function(){
     angular
         .module("BukReviewApp")//,['ui.bootstrap'])
@@ -14,6 +15,7 @@
         model.isLogin           = isLogin;
         model.submitReview      = submitReview;
         model.isUserLoggedin    = isUserLoggedin;
+        model.isCurrentUser     = isCurrentUser;
 
         model.book = JSON.parse($window.sessionStorage.getItem("currentBook"));
         //console.log(model.book);
@@ -37,27 +39,39 @@
             return false;
         }
 
+        function isCurrentUser(username){
+            if($rootScope.user.username == username){
+                return true;
+            }
+            return false;
+        }
+
 
 
         function submitReview(userReview){
-            ClientSearchService.analyseReview(userReview)
-                .then(function(sentimentResponse){
-                    if(sentimentResponse.status == "OK") {
-                        displayReviewFeedback(sentimentResponse.docSentiment);
-                        console.log(sentimentResponse.docSentiment);
-                        var centScore = getcentScore(sentimentResponse.docSentiment.score);
-                        ClientUserService.submitReview(model.book, $rootScope.user,userReview, centScore)
-                            .then(function(reviewSubmitResult){
-                                //console.log(reviewSubmitResult);
-                                clearTextArea();
-                                getReviewsForBookISBN();
-                            });
-                    }
-                    else{
-                        console.log("error in sentiment analysis api result");
-                        return;
+            if(!angular.isUndefined(userReview)){
+                ClientSearchService.analyseReview(userReview)
+                    .then(function (sentimentResponse) {
+                        if (sentimentResponse.status == "OK") {
+                            displayReviewFeedback(sentimentResponse.docSentiment);
+                            console.log(sentimentResponse.docSentiment);
+                            var centScore = getcentScore(sentimentResponse.docSentiment.score);
+                            ClientUserService.submitReview(model.book, $rootScope.user, userReview, centScore)
+                                .then(function (reviewSubmitResult) {
+                                    //console.log(reviewSubmitResult);
+                                    clearTextArea();
+                                    getReviewsForBookISBN();
+                                });
                         }
-                });
+                        else {
+                            console.log("error in sentiment analysis api result");
+                            return;
+                        }
+                    });
+            }
+            else{
+                model.reviewBlankMsg = "Write a review in about 700 characters to submit!";
+            }
         }
 
         function clearTextArea(){

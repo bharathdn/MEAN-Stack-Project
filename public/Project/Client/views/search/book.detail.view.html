@@ -42,7 +42,7 @@
             <h5>Description:</h5>
         </div>
     </div>
-    <div class="row">
+    <div class="row DescPara">
         <div class="col-md-16 text-justify">
             <p>{{model.book.volumeInfo.description}}</p>
         </div>
@@ -61,9 +61,16 @@
             <h5>Write Your Review:</h5>
         </div>
     </div>
+    <div class="row" ng-if="model.reviewBlankMsg">
+        <div class=" col-md-10 alert alert-warning">
+            <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{model.reviewBlankMsg}}
+        </div>
+    </div>
     <div class="row" ng-if="model.isUserLoggedin()">
         <div class="col-md-16">
-            <textarea ng-model="model.userReview" class="form-control"> </textarea>
+            <textarea ng-model="model.userReview" class="form-control" maxlength="700"
+                      placeholder="Limit your review for upto 700 characters :)" required> </textarea>
         </div>
     </div>
     &nbsp;
@@ -79,7 +86,10 @@
     </div>
     <div ng-repeat="review in model.reviews">
         <div class="row">
-            <div class="col-md-3 text-justify">
+            <div class="col-md-3 text-justify" ng-if= "model.isCurrentUser(review.username)">
+                <h4 >You wrote:</h4>
+            </div>
+            <div class="col-md-3 text-justify" ng-if= "!model.isCurrentUser(review.username)">
                 <h4 >{{review.username}} wrote:</h4>
             </div>
             <div class="col-md-4">
@@ -98,7 +108,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row DescPara">
             <div class="col-md-16 text-justify">
                 <p>{{review.reviewDesc}}</p>
             </div>
