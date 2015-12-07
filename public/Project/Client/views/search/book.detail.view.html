@@ -58,9 +58,9 @@
         </div>
     </div>
     <hr/>
-    <div class="row" ng-if="model.sentimentMsg">
+    <div class="row" ng-hide="model.sentimentMsg == null">
             <div class=" col-md-16 alert {{model.alert_class}}">
-                <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <a href="" class="close" ng-click="model.hideAlert()" aria-label="close">&times;</a>
                 {{model.sentimentMsg}}
             </div>
     </div>
@@ -69,9 +69,9 @@
             <h5>Write Your Review:</h5>
         </div>
     </div>
-    <div class="row" ng-if="model.reviewBlankMsg">
+    <div class="row" ng-hide="model.reviewBlankMsg == null">
         <div class=" col-md-10 alert alert-warning">
-            <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <a href="" class="close" ng-click="model.hideAlert()" aria-label="close">&times;</a>
             {{model.reviewBlankMsg}}
         </div>
     </div>

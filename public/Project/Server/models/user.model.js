@@ -87,6 +87,7 @@ module.exports = function(app, db, mongoose, passport){
                     deferred.reject(err);
                 }
                 else{
+                    //console.log("----USER MDOEL Result for ISBN REVIEWS---");
                     //console.log(result);
                     deferred.resolve(result);
                 }
@@ -129,7 +130,7 @@ module.exports = function(app, db, mongoose, passport){
                         deferred.resolve(null);
                     }
                     //console.log("user found");
-                    console.log(favBookObj);
+                    //console.log(favBookObj);
                     breBookModel.find({$or: [{ISBN_13: {$in: favBookObj.bookIds}}]},
                         function(err, favBooks){
                             if(err){
@@ -365,7 +366,7 @@ module.exports = function(app, db, mongoose, passport){
                             console.log(err);
                             deferred.reject(err);
                         }else {
-                            console.log(friendResult);
+                            //console.log(friendResult);
                             finalResult.friend = friendResult;
                             breBookFavModel.create({userId: newUser._id, bookIds: []},
                                 function(err, bookFavObj){
@@ -405,7 +406,7 @@ module.exports = function(app, db, mongoose, passport){
 
 
     function FindAll(){
-        console.log("findall called");
+        //console.log("findall called");
         var deferred = q.defer();
         breUserModel.find(function(err,result){
             if(err){

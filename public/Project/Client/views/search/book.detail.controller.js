@@ -22,7 +22,9 @@
         model.hideAlert         = hideAlert;
 
         function hideAlert(){
-            model.addFavMsg = null;
+            model.addFavMsg         = null;
+            model.reviewBlankMsg    = null;
+            model.sentimentMsg      = null;
         }
 
         var userFavBookIds = [];
@@ -32,6 +34,7 @@
             if ($rootScope.user != null) {
                 ClientUserService.GetFavBooksForCurrentUser($rootScope.user._id)
                     .then(function (userFavBooks) {
+                        //console.log(userFavBooks);
                         getBookIds(userFavBooks);
                     });
             }
@@ -73,7 +76,7 @@
         //console.log(model.book);
 
         // set model.reviews
-        getReviewsForBookISBN(model.book.volumeInfo. industryIdentifiers[0].identifier);
+        getReviewsForBookISBN(model.book.id);
 
         function getReviewsForBookISBN(bookISBN){
             //console.log("fectching reviews for book "+model.book.volumeInfo.title);
@@ -95,8 +98,10 @@
 
 
         function isCurrentUser(username){
-            if($rootScope.user.username == username){
-                return true;
+            if($rootScope.user){
+                if($rootScope.user.username == username){
+                    return true;
+                }
             }
             return false;
         }
@@ -106,7 +111,7 @@
             if(!angular.isUndefined(userReview)){
                 ClientSearchService.analyseReview(userReview)
                     .then(function (sentimentResponse) {
-                        if ((sentimentResponse.status == "OK")
+                        if ((sentimentResponse.status === "OK")
                             && (sentimentResponse.docSentiment.type != "neutral")) {
                             displayReviewFeedback(sentimentResponse.docSentiment);
                             console.log(sentimentResponse.docSentiment);
@@ -115,7 +120,7 @@
                                 .then(function (reviewSubmitResult) {
                                     //console.log(reviewSubmitResult);
                                     clearTextArea();
-                                    getReviewsForBookISBN(model.book.volumeInfo. industryIdentifiers[0].identifier);
+                                    getReviewsForBookISBN(model.book.id);
                                 });
                         }
                         else {

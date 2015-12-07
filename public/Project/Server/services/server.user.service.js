@@ -59,7 +59,7 @@ module.exports = function(app, model, mongoose, passport){
     function GetFavBooksForCurrentUser(req, res){
         model.GetFavBooksForCurrentUser(req.params.userId)
             .then(function (userFavs) {
-                console.log(userFavs);
+                //console.log(userFavs);
                 res.json(userFavs);
             });
     }
