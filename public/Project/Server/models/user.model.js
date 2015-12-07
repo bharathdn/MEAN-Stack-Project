@@ -152,18 +152,29 @@ module.exports = function(app, db, mongoose, passport){
                     deferred.reject(err);
                 }
                 else{
-                    //console.log(book);
-                    favBookObj.bookIds.push(book.volumeInfo.industryIdentifiers[0].identifier);
-                    favBookObj.save(function(err, favBookAddedObj){
-                        if(err){
-                            deferred.reject(err);
-                        }else{
-                            // add the book to bookDetails schema
-                            // the argument zero is dummy value
-                            StoreBookDetails(book);
-                            deferred.resolve(favBookAddedObj);
-                        }
-                    })
+                    //console.log("-------favBookObj---------");
+                    //console.log(favBookObj);
+                    //console.log("----------Book ID --------");
+                    var bookId = book.volumeInfo.industryIdentifiers[0].identifier;
+                    //console.log(bookId);
+                    //console.log(favBookObj.bookIds.indexOf(bookId));
+                    if(favBookObj.bookIds.indexOf(bookId) == -1 ) {
+                        //console.log("user fav does not have the book, adding now");
+                        favBookObj.bookIds.push(book.volumeInfo.industryIdentifiers[0].identifier);
+                        favBookObj.save(function (err, favBookAddedObj) {
+                            if (err) {
+                                deferred.reject(err);
+                            } else {
+                                // add the book to bookDetails schema
+                                // the argument zero is dummy value
+                                StoreBookDetails(book);
+                                deferred.resolve(favBookAddedObj);
+                            }
+                        })
+                    }
+                    else{
+                        deferred.resolve(null);
+                    }
                 }
             });
         return deferred.promise;

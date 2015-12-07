@@ -67,7 +67,7 @@
                         }
                         else {
                             model.alert_class = "alert-warning";
-                            model.sentimentMsg = "Our sentiment analysis engine could not analyse your review. " +
+                            model.sentimentMsg = "Oops,,  Our sentiment analysis engine failed to analyse your review. " +
                                 "Please write your review again!";
                             clearTextArea();
                             return;

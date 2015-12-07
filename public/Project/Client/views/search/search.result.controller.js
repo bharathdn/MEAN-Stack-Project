@@ -13,27 +13,25 @@
         model.addFav                = addFav;
         model.isLogin               = isLogin;
         model.getBookDetails        = getBookDetails;
+        model.hideAlert             = hideAlert;
 
-        // Rating code
-        //model.maxRating = 5;
-        //model.isReadonly = true;
-        //end of rating code
 
-        /*model.rate = 2;
-        model.max = 7;
-        model.isReadonly = true;*/
-
-        //model.searchQueryString = $rootScope.searchQueryString;
 
         model.searchQueryString = $window.sessionStorage.searchQueryString;
-        console.log(model.searchQueryString);
-        console.log($window.sessionStorage.searchQueryString);
+        /*console.log(model.searchQueryString);
+        console.log($window.sessionStorage.searchQueryString);*/
 
         if(!angular.isUndefined(model.searchQueryString)){
+            model.addFavMsg = null;
             searchQuery(model.searchQueryString);
         }else{
             //searchQuery("Godfather");
             $location.url("/search");
+        }
+
+
+        function hideAlert(){
+            model.addFavMsg = null;
         }
 
         function getBookDetails(book){
@@ -45,8 +43,8 @@
         }
 
         function searchQuery(searchQueryString) {
-            console.log("func called");
-            console.log(searchQueryString);
+            //console.log("func called");
+            //console.log(searchQueryString);
             if(!angular.isUndefined(searchQueryString)){
                 ClientSearchService.searchGoogleBooks(searchQueryString)
                 .then(function (searchResult) {
@@ -60,18 +58,26 @@
             console.log(book);
             ClientUserService.addFavBookForUser($rootScope.user._id,book)
                 .then(function (favAddResult){
+                    /*console.log("favAddResult");
+                    console.log(favAddResult);*/
                     if(favAddResult != null) {
-                        console.log("favAddResult");
-                        console.log(favAddResult);
-                        console.log("Book " + book.volumeInfo.title + " added to User Fav");
+                        //console.log("favAddResult");
+                        //console.log(favAddResult);
+                        //console.log("Book " + book.volumeInfo.title + " added to User Fav");
+                        model.fav_class = "alert-success";
+                        model.addFavMsg = book.volumeInfo.title + " added to your Favorites";
+                        $window.scrollTo(0,0)
                         //TODO: once user has added a book as fav,
                         // dont show fav icon for that user again
                     }else{
-                        console.log("favAddResult");
+                        /*console.log("favAddResult");
                         console.log(favAddResult);
-                        console.log("user has already added this book as fav");
+                        console.log("user has already added this book as fav");*/
+                        model.fav_class = "alert-warning";
+                        model.addFavMsg = "You have already added this book as your favorites";
+                        $window.scrollTo(0,0)
                     }
-                    });
+                });
         }
 
         function isLogin(){
