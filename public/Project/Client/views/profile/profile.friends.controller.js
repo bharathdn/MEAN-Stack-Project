@@ -12,7 +12,7 @@
 
      */
 
-    function ProfileFriendsController($rootScope,ClientUserService){
+    function ProfileFriendsController($rootScope,ClientUserService, $location, $window){
         console.log("ProfileFriendsController");
         var model = this;
         model.addFriend                 = addFriend;
@@ -21,12 +21,24 @@
         model.removeFriend              = removeFriend;
         model.removeFollower            = removeFollower;
         model.isCurrentUser             = isCurrentUser;
+        model.visitFriend               = visitFriend;
+
+
         //TODO: implement user search
         var users = [];
 
 
         renderAllUSers();
         renderFriendsFollowers();
+
+
+        function visitFriend(user){
+            //console.log(user);
+            //$rootScope.visitFriend = user;
+            $window.sessionStorage.setItem("visitFriend",angular.toJson(user));
+            console.log("you chose to visit "+user.username+"'s profile page");
+            $location.url("/publicprofile");
+        }
 
 
         function isCurrentUser(user){

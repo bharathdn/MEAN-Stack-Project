@@ -18,13 +18,13 @@
 
     <div>
         <div>
-            <h3>Friend Search Results:</h3>
+            <h3>Users you might be interested to follow:</h3>
             <div class="container">
                 <ul class="thumbnails list-inline">
                     <li class="span4" ng-repeat="user in model.FriendUsers">
                         <div class="thumbnail" ng-hide=model.isCurrentUser(user)>
                             <a style="color:#7000FF" class="close" href="" ng-click="model.addFriend(user)">+</a>
-                            <img src="//placehold.it/80x80">
+                            <a ng-click="model.visitFriend(user)"><img src="//placehold.it/80x80"></a>
                             <p>{{user.firstName}} {{user.lastName}}</p>
                         </div>
                     </li>
