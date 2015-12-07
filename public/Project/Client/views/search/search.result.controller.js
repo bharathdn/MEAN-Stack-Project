@@ -61,6 +61,8 @@
             ClientUserService.addFavBookForUser($rootScope.user._id,book)
                 .then(function (favAddResult){
                     if(favAddResult != null) {
+                        console.log("favAddResult");
+                        console.log(favAddResult);
                         console.log("Book " + book.volumeInfo.title + " added to User Fav");
                         //TODO: once user has added a book as fav,
                         // dont show fav icon for that user again
