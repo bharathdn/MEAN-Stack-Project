@@ -97,7 +97,7 @@ module.exports = function(app, db, mongoose, passport){
     function SubmitReview(userId, reviewObj){
         var deferred = q.defer();
         breBookReviewModel.create({
-                bookId              : reviewObj.bookObj.volumeInfo.industryIdentifiers[0].identifier,
+                bookId              : reviewObj.bookObj.id,
                 userId              : userId,
                 username            : reviewObj.username,
                 reviewDesc          : reviewObj.review,
@@ -155,12 +155,12 @@ module.exports = function(app, db, mongoose, passport){
                     //console.log("-------favBookObj---------");
                     //console.log(favBookObj);
                     //console.log("----------Book ID --------");
-                    var bookId = book.volumeInfo.industryIdentifiers[0].identifier;
+                    var bookId = book.id;
                     //console.log(bookId);
                     //console.log(favBookObj.bookIds.indexOf(bookId));
                     if(favBookObj.bookIds.indexOf(bookId) == -1 ) {
                         //console.log("user fav does not have the book, adding now");
-                        favBookObj.bookIds.push(book.volumeInfo.industryIdentifiers[0].identifier);
+                        favBookObj.bookIds.push(book.id);
                         favBookObj.save(function (err, favBookAddedObj) {
                             if (err) {
                                 deferred.reject(err);

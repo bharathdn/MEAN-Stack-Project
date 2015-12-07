@@ -14,19 +14,60 @@
         model.isLogin               = isLogin;
         model.getBookDetails        = getBookDetails;
         model.hideAlert             = hideAlert;
+        model.getFavButtonColor     = getFavButtonColor;
+        model.getFavButtonState     = getFavButtonState;
 
 
+        var userFavBookIds = [];
+
+
+        function getFavBooksForCurrentUser() {
+            if ($rootScope.user != null) {
+                ClientUserService.GetFavBooksForCurrentUser($rootScope.user._id)
+                    .then(function (userFavBooks) {
+                        getBookIds(userFavBooks);
+                    });
+            }
+        }
+
+        function getBookIds(bookFavObj){
+            userFavBookIds = [];
+            for(var i=0; i<bookFavObj.length; i++){
+                if(userFavBookIds.indexOf(bookFavObj[i].ISBN_13) == -1) {
+                    userFavBookIds.push(bookFavObj[i].ISBN_13);
+                }
+            }
+        }
+
+        function getFavButtonState(book){
+            console.log(book);
+            if(userFavBookIds.indexOf(book.id) == -1){
+                //console.log("setting state auto");
+                return "auto";
+            }
+            //console.log("setting state none");
+            return "none";
+        }
+
+        function getFavButtonColor(book){
+            if(userFavBookIds.indexOf(book.id) == -1){
+                //console.log("setting color red");
+                return "red";
+            }
+            //console.log("setting color Grey");
+            return "blue";
+        }
 
         model.searchQueryString = $window.sessionStorage.searchQueryString;
-        /*console.log(model.searchQueryString);
-        console.log($window.sessionStorage.searchQueryString);*/
-
-        if(!angular.isUndefined(model.searchQueryString)){
-            model.addFavMsg = null;
-            searchQuery(model.searchQueryString);
-        }else{
-            //searchQuery("Godfather");
-            $location.url("/search");
+        searchForQuery();
+        function searchForQuery() {
+            if (!angular.isUndefined(model.searchQueryString)) {
+                model.addFavMsg = null;
+                searchQuery(model.searchQueryString);
+            } else {
+                //searchQuery("Godfather");
+                $location.url("/search");
+            }
         }
 
 
@@ -48,31 +89,22 @@
             if(!angular.isUndefined(searchQueryString)){
                 ClientSearchService.searchGoogleBooks(searchQueryString)
                 .then(function (searchResult) {
+                    getFavBooksForCurrentUser();
                     model.bookResults = searchResult.items;
                 });
             }
         }
 
         function addFav(book){
-            console.log("You marked the book as favorite :"+ book.volumeInfo.title);
-            console.log(book);
             ClientUserService.addFavBookForUser($rootScope.user._id,book)
                 .then(function (favAddResult){
-                    /*console.log("favAddResult");
-                    console.log(favAddResult);*/
                     if(favAddResult != null) {
-                        //console.log("favAddResult");
-                        //console.log(favAddResult);
-                        //console.log("Book " + book.volumeInfo.title + " added to User Fav");
                         model.fav_class = "alert-success";
-                        model.addFavMsg = book.volumeInfo.title + " added to your Favorites";
+                        model.addFavMsg = "\""+book.volumeInfo.title+ "\"" + " was added to your Favorites";
                         $window.scrollTo(0,0)
-                        //TODO: once user has added a book as fav,
-                        // dont show fav icon for that user again
+                        //searchQuery(model.searchQueryString);
+                        getFavBooksForCurrentUser();
                     }else{
-                        /*console.log("favAddResult");
-                        console.log(favAddResult);
-                        console.log("user has already added this book as fav");*/
                         model.fav_class = "alert-warning";
                         model.addFavMsg = "You have already added this book as your favorites";
                         $window.scrollTo(0,0)
@@ -81,8 +113,6 @@
         }
 
         function isLogin(){
-            //console.log("checking if user is logged in");
-            //console.log($rootScope.user);
             if($rootScope.user == null)
             {
                 return true;
