@@ -5,7 +5,7 @@ module.exports = function(mongoose) {
             bookIds          : [String]
             //bookIds          : {type: [String], unique : true}
         },
-        {collection: "bukreview.test.bookfav"});
+        {collection: "bukreview.test2.bookfav"});
 
     return breBookFavSchema;
 };
