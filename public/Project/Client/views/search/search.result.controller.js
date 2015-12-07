@@ -65,6 +65,7 @@
                         //TODO: once user has added a book as fav,
                         // dont show fav icon for that user again
                     }else{
+                        console.log(favAddResult);
                         console.log("user has already added this book as fav");
                     }
                     });
