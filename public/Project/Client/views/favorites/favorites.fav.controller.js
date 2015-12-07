@@ -43,10 +43,10 @@
             volumeInfo.previewLink                  = favbook.googlePreviewLink;
             volumeInfo.averageRating                = favbook.sentimentRating/20;
             volumeInfo.description                  = favbook.description;
-            volumeInfo.id                           = favbook.ISBN_13;
+            //volumeInfo.id                           = favbook.ISBN_13;
 
             bookObj.volumeInfo = volumeInfo;
-
+            bookObj.id                              = favbook.ISBN_13;
             $window.sessionStorage.setItem("currentBook",angular.toJson(bookObj));
             $location.url("/bookdetail");
         }

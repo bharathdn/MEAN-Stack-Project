@@ -21,10 +21,16 @@
         model.addFav            = addFav;
         model.hideAlert         = hideAlert;
 
-        function hideAlert(){
-            model.addFavMsg         = null;
-            model.reviewBlankMsg    = null;
-            model.sentimentMsg      = null;
+        function hideAlert(alertName){
+            if(alertName == "Fav") {
+                model.addFavMsg = null;
+            }
+            if(alertName == "Blank") {
+                model.reviewBlankMsg = null;
+            }
+            if(alertName == "Sentiment") {
+                model.sentimentMsg = null;
+            }
         }
 
         var userFavBookIds = [];
@@ -116,9 +122,12 @@
                         if ((sentimentResponse.status === "OK")
                             && (sentimentResponse.docSentiment.type != "neutral")) {
                             displayReviewFeedback(sentimentResponse.docSentiment);
-                            console.log(sentimentResponse.docSentiment);
+                            //console.log(sentimentResponse.docSentiment);
                             var centScore = getcentScore(sentimentResponse.docSentiment.score);
+                            console.log("model.book");
+                            console.log(model.book);
                             ClientUserService.submitReview(model.book, $rootScope.user, userReview, centScore)
+
                                 .then(function (reviewSubmitResult) {
                                     //console.log(reviewSubmitResult);
                                     clearTextArea();

@@ -41,7 +41,7 @@
         </div>
         <div class="row" ng-hide="model.addFavMsg == null">
             <div class="alert {{model.fav_class}} fade in">
-                <a href="" class="close" ng-click="model.hideAlert()" aria-label="close">&times;</a>
+                <a href="" class="close" ng-click="model.hideAlert('Fav')" aria-label="close">&times;</a>
                 {{model.addFavMsg}}
             </div>
         </div>
@@ -60,7 +60,7 @@
     <hr/>
     <div class="row" ng-hide="model.sentimentMsg == null">
             <div class=" col-md-16 alert {{model.alert_class}}">
-                <a href="" class="close" ng-click="model.hideAlert()" aria-label="close">&times;</a>
+                <a href="" class="close" ng-click="model.hideAlert('Sentiment')" aria-label="close">&times;</a>
                 {{model.sentimentMsg}}
             </div>
     </div>
@@ -71,7 +71,7 @@
     </div>
     <div class="row" ng-hide="model.reviewBlankMsg == null">
         <div class=" col-md-10 alert alert-warning">
-            <a href="" class="close" ng-click="model.hideAlert()" aria-label="close">&times;</a>
+            <a href="" class="close" ng-click="model.hideAlert('Blank')" aria-label="close">&times;</a>
             {{model.reviewBlankMsg}}
         </div>
     </div>
