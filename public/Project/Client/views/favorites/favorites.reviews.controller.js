@@ -17,8 +17,11 @@
 
             ClientUserService.GetReviewsByUserId(userId)
                 .then(function(userRevBooks){
-                    if((userRevBooks != null) && (userRevBooks.bookDetails.length>0)){
-                        renderReviews(userRevBooks);
+                    if((userRevBooks != null) && (userRevBooks.bookDetails)){
+                        console.log(userRevBooks);
+                        if((userRevBooks.bookDetails.length>0)) {
+                            renderReviews(userRevBooks);
+                        }
                     }else{
                         model.noBookMsg = "You have not reviewed books yet!";
                     }

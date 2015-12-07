@@ -44,7 +44,7 @@
                         processedReviews  = processReviews(userReviews);
                         deferred.resolve(processedReviews);
                     }
-                    deferred.resolve(userReviews);
+                    deferred.resolve(null);
                 });
             return deferred.promise;
         }

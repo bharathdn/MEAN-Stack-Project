@@ -46,10 +46,8 @@
         }
 
         function logoutShow(){
-            if($rootScope.user) {
-                if ($rootScope.user == null) {
-                    return true;
-                }
+            if($rootScope.user == null){
+                return true;
             }
             return false;
         }

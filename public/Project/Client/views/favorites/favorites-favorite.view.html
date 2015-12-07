@@ -4,9 +4,6 @@
         <li role="presentation" class=active><a href="#/favorite_books">Favorites</a></li>
     </ul>
     <br/>
-    <!--div class="jumbotron">
-        <h1>{{model.noBookMsg}}</h1>
-    </div-->
     <h1>{{model.noBookMsg}}</h1>
 
 
@@ -17,7 +14,7 @@
             </div>
             <div class ="col-md-5 col-xs-4 text-nowrap">
                     <div class="row">
-                        <h3 ><a href="">
+                        <h3><a href="" ng-click="model.getBookDetails(favbook)">
                             {{favbook.title}}
                         </a></h3>
                     </div>

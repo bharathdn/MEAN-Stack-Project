@@ -79,7 +79,7 @@
         }
 
         function getBookDetails(book){
-            //console.log(book);
+            console.log(book);
             $rootScope.book = book;
             $window.sessionStorage.setItem("currentBook",angular.toJson(book));
 

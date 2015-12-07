@@ -4,10 +4,12 @@
         .controller("FavFavController",FavFavController);
 
 
-    function FavFavController($location, $rootScope, ClientUserService, ClientSearchService) {
+    function FavFavController($window ,$location, $rootScope, ClientUserService, ClientSearchService) {
         var model = this;
 
         model.GetFavBooksForCurrentUser = GetFavBooksForCurrentUser;
+        model.getBookDetails            = getBookDetails;
+
 
         GetFavBooksForCurrentUser();
         function GetFavBooksForCurrentUser() {
@@ -21,6 +23,32 @@
                         model.noBookMsg = "You don't have any favorites yet!";
                     }
                 });
+        }
+
+
+        function getBookDetails(favbook){
+            console.log(favbook);
+
+            var bookObj = {};
+
+            var volumeInfo = {};
+            volumeInfo.title                        = favbook.title;
+
+            var imageLinks = {}
+            imageLinks.smallThumbnail               = favbook.thumbnailUrl;
+
+
+            volumeInfo.imageLinks                   = imageLinks;
+            volumeInfo.canonicalVolumeLink          = favbook.googlePreviewLink;
+            volumeInfo.previewLink                  = favbook.googlePreviewLink;
+            volumeInfo.averageRating                = favbook.sentimentRating/20;
+            volumeInfo.description                  = favbook.description;
+            volumeInfo.id                           = favbook.ISBN_13;
+
+            bookObj.volumeInfo = volumeInfo;
+
+            $window.sessionStorage.setItem("currentBook",angular.toJson(bookObj));
+            $location.url("/bookdetail");
         }
 
 
