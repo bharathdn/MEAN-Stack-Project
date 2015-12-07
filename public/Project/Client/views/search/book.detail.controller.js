@@ -16,6 +16,58 @@
         model.submitReview      = submitReview;
         model.isUserLoggedin    = isUserLoggedin;
         model.isCurrentUser     = isCurrentUser;
+        model.getFavButtonColor = getFavButtonColor;
+        model.getFavButtonState = getFavButtonState;
+        model.addFav            = addFav;
+        model.hideAlert         = hideAlert;
+
+        function hideAlert(){
+            model.addFavMsg = null;
+        }
+
+        var userFavBookIds = [];
+        getFavBooksForCurrentUser();
+
+        function getFavBooksForCurrentUser() {
+            if ($rootScope.user != null) {
+                ClientUserService.GetFavBooksForCurrentUser($rootScope.user._id)
+                    .then(function (userFavBooks) {
+                        getBookIds(userFavBooks);
+                    });
+            }
+        }
+
+        function getBookIds(bookFavObj){
+            userFavBookIds = [];
+            //console.log(bookFavObj);
+            if(bookFavObj != null) {
+                for (var i = 0; i < bookFavObj.length; i++) {
+                    if (userFavBookIds.indexOf(bookFavObj[i].ISBN_13) == -1) {
+                        userFavBookIds.push(bookFavObj[i].ISBN_13);
+                    }
+                }
+            }
+            //console.log(userFavBookIds);
+        }
+
+        function addFav(book){
+            console.log("book");
+            console.log(book);
+            ClientUserService.addFavBookForUser($rootScope.user._id,book)
+                .then(function (favAddResult){
+                    if(favAddResult != null) {
+                        model.fav_class = "alert-success";
+                        model.addFavMsg = "\""+book.volumeInfo.title+ "\"" + " was added to your Favorites";
+                        $window.scrollTo(0,0)
+                        //searchQuery(model.searchQueryString);
+                        getFavBooksForCurrentUser();
+                    }else{
+                        model.fav_class = "alert-warning";
+                        model.addFavMsg = "You have already added this book as your favorites";
+                        $window.scrollTo(0,0)
+                    }
+                });
+        }
 
         model.book = JSON.parse($window.sessionStorage.getItem("currentBook"));
         //console.log(model.book);
@@ -24,14 +76,15 @@
         getReviewsForBookISBN(model.book.volumeInfo. industryIdentifiers[0].identifier);
 
         function getReviewsForBookISBN(bookISBN){
-            console.log("fectching reviews for book "+model.book.volumeInfo.title);
+            //console.log("fectching reviews for book "+model.book.volumeInfo.title);
             ClientUserService.getReviewsForBookISBN(bookISBN)
                 .then(function(bookReviews){
-                    console.log(bookReviews);
+                    //console.log(bookReviews);
                     model.reviews = bookReviews;
                     //$rootScope.$apply();
                 });
         }
+
 
         function isUserLoggedin(){
             if($rootScope.user != null){
@@ -40,13 +93,13 @@
             return false;
         }
 
+
         function isCurrentUser(username){
             if($rootScope.user.username == username){
                 return true;
             }
             return false;
         }
-
 
 
         function submitReview(userReview){
@@ -128,13 +181,7 @@
         }
 
 
-        function addFav(book){
-            console.log("You marked the book as favorite :"+ book.volumeInfo.title);
-        }
-
         function isLogin(){
-            //console.log("checking if user is logged in");
-            //console.log($rootScope.user);
             if($rootScope.user == null)
             {
                 return true;
@@ -144,5 +191,27 @@
                 model.username = loggedInUser[0].toUpperCase() + loggedInUser.slice(1);
             }
         }
+
+
+        function getFavButtonState(book){
+            //console.log(book);
+            if(userFavBookIds.indexOf(book.id) == -1){
+                //console.log("setting state auto");
+                return "auto";
+            }
+            //console.log("setting state none");
+            return "none";
+        }
+
+
+        function getFavButtonColor(book){
+            if(userFavBookIds.indexOf(book.id) == -1){
+                //console.log("setting color red");
+                return "red";
+            }
+            //console.log("setting color Grey");
+            return "blue";
+        }
+
     }
 })();

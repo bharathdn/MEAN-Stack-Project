@@ -32,7 +32,17 @@
                 </div>
             </div>
             <div class="row text-nowrap" ng-hide="model.isLogin()">
-                <a ng-click="addFav(book)"><span style="color:red" class="glyphicon glyphicon-heart"></span></a>
+                <a class="disabled" ng-click="model.addFav(model.book)"
+                   style="pointer-events:{{model.getFavButtonState(model.book)}}">
+                            <span style="color:{{model.getFavButtonColor(model.book)}}"
+                                  class="glyphicon glyphicon-heart text-muted"></span>
+                </a>
+            </div>
+        </div>
+        <div class="row" ng-hide="model.addFavMsg == null">
+            <div class="alert {{model.fav_class}} fade in">
+                <a href="" class="close" ng-click="model.hideAlert()" aria-label="close">&times;</a>
+                {{model.addFavMsg}}
             </div>
         </div>
     </div>

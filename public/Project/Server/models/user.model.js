@@ -227,8 +227,8 @@ module.exports = function(app, db, mongoose, passport){
                                 deferred.reject("err adding book");
                                 deferred.reject(err);
                             }else{
-                                console.log("bookObj");
-                                console.log(bookObj);
+                                //console.log("bookObj");
+                                //console.log(bookObj);
                                 deferred.resolve(1);
                             }
                         });

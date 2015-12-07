@@ -44,7 +44,6 @@
         }
 
         function getFavButtonState(book){
-            //console.log(book);
             if(userFavBookIds.indexOf(book.id) == -1){
                 //console.log("setting state auto");
                 return "auto";
