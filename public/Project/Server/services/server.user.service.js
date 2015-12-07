@@ -59,6 +59,7 @@ module.exports = function(app, model, mongoose, passport){
     function GetFavBooksForCurrentUser(req, res){
         model.GetFavBooksForCurrentUser(req.params.userId)
             .then(function (userFavs) {
+                console.log(userFavs);
                 res.json(userFavs);
             });
     }
@@ -74,7 +75,7 @@ module.exports = function(app, model, mongoose, passport){
     function RemoveFriendOrFollower(req,res){
         model.RemoveFriendorFollower(req.params.userId,req.params.friendId)
             .then(function(userFriendFollowerObj){
-                console.log(userFriendFollowerObj);
+                //console.log(userFriendFollowerObj);
                 res.json(userFriendFollowerObj);
             });
     }
@@ -165,8 +166,8 @@ module.exports = function(app, model, mongoose, passport){
     function UpdateUserById(req, res){
         var user = req.body;
         var userId = req.params.id;
-        console.log("updating user on Server Userservice");
-        console.log(user);
+        //console.log("updating user on Server Userservice");
+        //console.log(user);
         model.Update(userId, user)
             .then(function (user) {
                 //console.log(user);

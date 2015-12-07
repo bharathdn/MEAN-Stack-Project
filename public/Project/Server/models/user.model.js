@@ -125,9 +125,11 @@ module.exports = function(app, db, mongoose, passport){
                     deferred.reject(err);
                 }
                 else{
-                    if(favBookObj.bookIds.length == 0){
+                    if(favBookObj.bookIds == 0){
                         deferred.resolve(null);
                     }
+                    //console.log("user found");
+                    console.log(favBookObj);
                     breBookModel.find({$or: [{ISBN_13: {$in: favBookObj.bookIds}}]},
                         function(err, favBooks){
                             if(err){
@@ -184,13 +186,13 @@ module.exports = function(app, db, mongoose, passport){
     function StoreBookDetails(book){
         var deferred = q.defer();
         // check if book exists
-        breBookModel.findOne({ISBN_13: book.volumeInfo. industryIdentifiers[0].identifier},
+        breBookModel.findOne({ISBN_13: book.id},
             function(err,result){
                 if(err){
                     deferred.reject(err);
                 }else{
                     if(result != null){
-                        var ISBN = book.volumeInfo. industryIdentifiers[0].identifier;
+                        var ISBN = book.id;
                         // if book is already present, update the sentiment rating
                         var newcentScore = (book.centScore + result.sentimentRating)/2;
                         breBookModel.update({ISBN_13: ISBN}, {sentimentRating : newcentScore},
@@ -205,19 +207,28 @@ module.exports = function(app, db, mongoose, passport){
                             });
                         //deferred.resolve(1);
                     }else{
+
+                        console.log("book details not present, adding");
+                        var avgRating = 2.5;
+                        if(book.volumeInfo.averageRating){
+                            avgRating = book.volumeInfo.averageRating;
+                        }
                         breBookModel.create({
-                            ISBN_13             : book.volumeInfo. industryIdentifiers[0].identifier,
+                            ISBN_13             : book.id,
                             title               : book.volumeInfo.title,
                             authors             : book.volumeInfo.authors,
                             thumbnailUrl        : book.volumeInfo.imageLinks.smallThumbnail,
                             description         : book.volumeInfo.description,
                             googlePreviewLink   : book.volumeInfo.previewLink,
                             //breViewRating       : book.volumeInfo.averageRating,
-                            sentimentRating     : book.volumeInfo.averageRating * 20
+                            sentimentRating     : avgRating * 20
                         },function(err,bookObj){
                             if(err){
+                                deferred.reject("err adding book");
                                 deferred.reject(err);
                             }else{
+                                console.log("bookObj");
+                                console.log(bookObj);
                                 deferred.resolve(1);
                             }
                         });
@@ -345,8 +356,8 @@ module.exports = function(app, db, mongoose, passport){
                 deferred.reject(err);
             } else {
                 //TODO, resolve both user obj and user friend obj to verify
-                console.log("USER MODEL: CREATED USER");
-                console.log(newUser);
+                //console.log("USER MODEL: CREATED USER");
+                //console.log(newUser);
                 finalResult.user = newUser;
                 breUserFriendsModel.create({userId: newUser._id, friends: [], followers: []},
                     function(err, friendResult){

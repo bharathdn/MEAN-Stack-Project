@@ -32,15 +32,19 @@
 
         function getBookIds(bookFavObj){
             userFavBookIds = [];
-            for(var i=0; i<bookFavObj.length; i++){
-                if(userFavBookIds.indexOf(bookFavObj[i].ISBN_13) == -1) {
-                    userFavBookIds.push(bookFavObj[i].ISBN_13);
+            console.log(bookFavObj);
+            if(bookFavObj != null) {
+                for (var i = 0; i < bookFavObj.length; i++) {
+                    if (userFavBookIds.indexOf(bookFavObj[i].ISBN_13) == -1) {
+                        userFavBookIds.push(bookFavObj[i].ISBN_13);
+                    }
                 }
             }
+            console.log(userFavBookIds);
         }
 
         function getFavButtonState(book){
-            console.log(book);
+            //console.log(book);
             if(userFavBookIds.indexOf(book.id) == -1){
                 //console.log("setting state auto");
                 return "auto";
