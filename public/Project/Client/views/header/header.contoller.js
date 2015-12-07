@@ -14,8 +14,10 @@
 
 
         function registerShow(){
-            if($rootScope.user != null){
-                return true;
+            if($rootScope.user) {
+                if ($rootScope.user != null) {
+                    return true;
+                }
             }
             else { return false; }
         }
@@ -24,9 +26,10 @@
         function isLogin(){
             //console.log("checking if user is logged in");
             //console.log($rootScope.user);
-            if($rootScope.user == null)
-            {
-                return true;
+            if($rootScope.user) {
+                if ($rootScope.user != null) {
+                    return true;
+                }
             }
             else{
                 var loggedInUser = $rootScope.user.username;
@@ -35,15 +38,19 @@
         }
 
         function loginShow(){
-            if($rootScope.user != null){
-                return true;
+            if($rootScope.user) {
+                if ($rootScope.user != null) {
+                    return true;
+                }
             }
             return false;
         }
 
         function logoutShow(){
-            if($rootScope.user == null){
-                return true;
+            if($rootScope.user) {
+                if ($rootScope.user != null) {
+                    return true;
+                }
             }
             return false;
         }

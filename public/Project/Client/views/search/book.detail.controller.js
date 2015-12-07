@@ -90,8 +90,10 @@
 
 
         function isUserLoggedin(){
-            if($rootScope.user != null){
-                return true;
+            if($rootScope.user) {
+                if ($rootScope.user != null) {
+                    return true;
+                }
             }
             return false;
         }

@@ -26,8 +26,10 @@
         }
 
         function isCurrentUser(username){
-            if($rootScope.user.username == username){
-                return true;
+            if($rootScope.user) {
+                if ($rootScope.user.username == username) {
+                    return true;
+                }
             }
             return false;
         }
