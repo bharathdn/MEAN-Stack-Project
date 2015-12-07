@@ -5,7 +5,7 @@
             $routeProvider
                 .when("/",{redirectTo: "/home",
                     resolve: {
-                        loggedin: checkLoggedIn
+                        loggedin: checkCurrentUser
                     }
                 })
                 .when("/home",{
@@ -18,6 +18,13 @@
                 .when("/profile",{
                     templateUrl: "views/profile/profile.view.html",
                     controller: "ProfileController as model",
+                    resolve: {
+                        loggedin: checkLoggedIn
+                    }
+                })
+                .when("/publicprofile",{
+                    templateUrl: "views/profile/profile.public.html",
+                    controller: "ProfilePublicController as model",
                     resolve: {
                         loggedin: checkLoggedIn
                     }

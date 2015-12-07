@@ -62,7 +62,7 @@
                                 .then(function (reviewSubmitResult) {
                                     //console.log(reviewSubmitResult);
                                     clearTextArea();
-                                    getReviewsForBookISBN();
+                                    getReviewsForBookISBN(model.book.volumeInfo. industryIdentifiers[0].identifier);
                                 });
                         }
                         else {
