@@ -26,7 +26,7 @@ p.bookDescPara{
 @media screen and (min-width: 900px) {
     .col-md-3 {
         width: 23%;
-        
+        float: left;
     }
     .progressbarAlign{
         padding-top: 1%
@@ -48,7 +48,7 @@ p.bookDescPara{
 
     .col-md-3 {
         width: 17%;
-
+        float: left;
     }
 }
 
@@ -68,7 +68,7 @@ p.bookDescPara{
 
     .col-md-3 {
         width: 12%;
-
+        float: left;
     }
 }
 
