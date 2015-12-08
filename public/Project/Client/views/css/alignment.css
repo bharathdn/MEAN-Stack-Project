@@ -29,11 +29,6 @@ p.bookDescPara{
 }
 
 
-img{
-    padding-top: 10%;
-
-}
-
 
 @media screen and (min-width: 900px) {
     .col-md-3 {
@@ -43,6 +38,9 @@ img{
 }
 
 @media screen and (min-width: 1300px) {
+    img{
+        padding-top: 10%;
+    }
     .col-md-3 {
         width: 17%;
         float: left;
@@ -50,6 +48,9 @@ img{
 }
 
 @media screen and (min-width: 1600px) {
+    img{
+        padding-top: 10%;
+    }
     .col-md-3 {
         width: 12%;
         float: left;
