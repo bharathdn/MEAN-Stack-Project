@@ -176,8 +176,8 @@ module.exports = function(app, db, mongoose, passport){
                     if(favBookObj.bookIds == 0){
                         deferred.resolve(null);
                     }
-                    //console.log("user found");
-                    //console.log(favBookObj);
+                    console.log("user found");
+                    console.log(favBookObj);
                     breBookModel.find({$or: [{ISBN_13: {$in: favBookObj.bookIds}}]},
                         function(err, favBooks){
                             if(err){
@@ -185,6 +185,8 @@ module.exports = function(app, db, mongoose, passport){
                             }
                             else
                             {
+                                console.log("favBooks");
+                                console.log(favBooks);
                                 deferred.resolve(favBooks);
                             }
                         });
@@ -239,26 +241,28 @@ module.exports = function(app, db, mongoose, passport){
                 if(err){
                     deferred.reject(err);
                 }else{
-                    if((result != null)&& (updateFlag ==1)){
-                        var ISBN = book.id;
-                        // if book is already present, update the sentiment rating
+                    if(result != null){
+                        if(updateFlag ==1){
+                            var ISBN = book.id;
+                            // if book is already present, update the sentiment rating
 
-                        var newcentScore = parseFloat((parseInt(book.centScore) + parseInt(result.sentimentRating))/2);
-                        /*console.log("Old Sent Score "+result.sentimentRating);
-                        console.log("Review Sent Score "+book.centScore);
-                        console.log("new Sent Score "+newcentScore);*/
+                            var newcentScore = parseFloat((parseInt(book.centScore) + parseInt(result.sentimentRating))/2);
+                            /*console.log("Old Sent Score "+result.sentimentRating);
+                            console.log("Review Sent Score "+book.centScore);
+                            console.log("new Sent Score "+newcentScore);*/
 
-                        breBookModel.update({ISBN_13: ISBN}, {sentimentRating : newcentScore},
-                            function(err, updateResult){
-                                if(err){
-                                    console.log(err);
-                                    deferred.reject(err);
-                                }
-                                else{
-                                    deferred.resolve(updateResult);
-                                }
-                            });
-                        //deferred.resolve(1);
+                            breBookModel.update({ISBN_13: ISBN}, {sentimentRating : newcentScore},
+                                function(err, updateResult){
+                                    if(err){
+                                        console.log(err);
+                                        deferred.reject(err);
+                                    }
+                                    else{
+                                        deferred.resolve(updateResult);
+                                    }
+                                });
+                            //deferred.resolve(1);
+                            }
                     }else{
 
                         /*console.log("book details not present, adding");
