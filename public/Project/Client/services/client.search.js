@@ -44,9 +44,9 @@
                         responseItems[i].volumeInfo.description.substr(0,
                             responseItems[i].volumeInfo.description.indexOf(' ', 695)) + ".....";
                 }
-                if(responseItems[i].volumeInfo.title && (responseItems[i].volumeInfo.title.length > 50 )){
+                if(responseItems[i].volumeInfo.title && (responseItems[i].volumeInfo.title.length > 40 )){
                     responseItems[i].volumeInfo.title = responseItems[i].volumeInfo.title.substr(0,
-                        responseItems[i].volumeInfo.title.indexOf(' ', 50));
+                        responseItems[i].volumeInfo.title.indexOf(' ', 40));
                 }
             }
             var result = {};

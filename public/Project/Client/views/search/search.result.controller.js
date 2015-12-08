@@ -69,7 +69,7 @@
                 searchQuery(model.searchQueryString);
             } else {
                 //searchQuery("Godfather");
-                $location.url("/search");
+                $location.url("/home");
             }
         }
 
