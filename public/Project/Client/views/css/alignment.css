@@ -20,13 +20,6 @@ p.bookDescPara{
 
 }
 
-.DescPara{
-    padding-left: 2%;
-}
-
-.progressbarAlign{
-    padding-top: 1%
-}
 
 
 
@@ -41,6 +34,15 @@ p.bookDescPara{
     img{
         padding-top: 10%;
     }
+
+    .DescPara{
+        padding-left: 2%;
+    }
+
+    .progressbarAlign{
+        padding-top: 1%
+    }
+
     .col-md-3 {
         width: 17%;
         float: left;
@@ -51,6 +53,16 @@ p.bookDescPara{
     img{
         padding-top: 10%;
     }
+
+    .DescPara{
+        padding-left: 2%;
+    }
+
+    .progressbarAlign{
+        padding-top: 1%
+    }
+
+
     .col-md-3 {
         width: 12%;
         float: left;
