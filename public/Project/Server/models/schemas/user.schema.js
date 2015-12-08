@@ -13,7 +13,7 @@ module.exports = function(mongoose) {
             //authType: String
 
         },
-        {collection: "bukreview.test2.userinfo"});
+        {collection: "bukreview.test3.userinfo"});
 
     return userSchema;
 };

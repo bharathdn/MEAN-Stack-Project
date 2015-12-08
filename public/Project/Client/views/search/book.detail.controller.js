@@ -88,7 +88,7 @@
             //console.log("fectching reviews for book "+model.book.volumeInfo.title);
             ClientUserService.getReviewsForBookISBN(bookISBN)
                 .then(function(bookReviews){
-                    //console.log(bookReviews);
+                    console.log(bookReviews);
                     model.reviews = bookReviews;
                     //$rootScope.$apply();
                 });
@@ -207,6 +207,7 @@
                 model.username = loggedInUser[0].toUpperCase() + loggedInUser.slice(1);
             }
         }
+
 
 
         function getFavButtonState(book){
