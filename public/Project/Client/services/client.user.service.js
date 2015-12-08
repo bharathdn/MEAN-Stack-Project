@@ -23,6 +23,7 @@
 
             //User Book Functions
             addFavBookForUser               : addFavBookForUser,
+            RemoveFavBookForCurrentUser     : RemoveFavBookForCurrentUser,
             GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser,
             submitReview                    : submitReview,
             getReviewsForBookISBN           : getReviewsForBookISBN,
@@ -31,6 +32,19 @@
             GetBookDetailsById              : GetBookDetailsById
         };
         return service;
+
+
+        function RemoveFavBookForCurrentUser(bookId, userId){
+            var deferred = $q.defer();
+
+            $http.delete("/rest/api/bookfav/"+userId+"/"+bookId)
+                .success(function (userFavs){
+                    deferred.resolve(userFavs);
+                });
+            return deferred.promise;
+        }
+
+
 
         function GetBookDetailsById(bookId) {
             var deferred = $q.defer();
@@ -152,6 +166,8 @@
             //console.log(user);
             $http.post("/rest/api/login",user)
                 .success(function (userObj){
+                    console.log("login Result");
+                    console.log(userObj);
                     deferred.resolve(userObj);
                 });
             return deferred.promise;

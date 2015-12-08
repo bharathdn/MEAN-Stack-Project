@@ -34,6 +34,12 @@
                             {{favbook.sentimentRating}}
                         </div>
                     </div>
+                    <div class="row text-nowrap" ng-hide="model.isLogin()">
+                        <a class="disabled" ng-click="model.removeFav(favbook)">
+                                <span style="color:orangered" class="glyphicon glyphicon-heart-empty"></span>
+                        </a>
+                    </div>
+
                     &nbsp;
                     <div class="row">
                         <a ng-href={{favbook.googlePreviewLink}}>Preview on Google</a>

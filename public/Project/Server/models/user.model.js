@@ -38,6 +38,7 @@ module.exports = function(app, db, mongoose, passport){
 
         //User Book Functions
         AddFavBookForUser               : AddFavBookForUser,
+        RemoveFavBookForUser            : RemoveFavBookForUser,
         GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser,
         SubmitReview                    : SubmitReview,
         GetReviewsForBookISBN           : GetReviewsForBookISBN,
@@ -45,6 +46,32 @@ module.exports = function(app, db, mongoose, passport){
         GetBookObjectById               : GetBookObjectById
     };
     return api;
+
+
+
+    function RemoveFavBookForUser(userId, bookId){
+        var deferred = q.defer();
+
+        breBookFavModel.findOne({userId: userId},
+            function(err, userFavObj){
+                if(err){
+                    deferred.reject(err);
+                }
+                else {
+                    userFavObj.bookIds.splice(userFavObj.bookIds.indexOf(bookId), 1);
+                    userFavObj.save(function (err, userFavObj) {
+                        if (err) {
+                            deferred.reject(err);
+                        }
+                        else {
+                            deferred.resolve(userFavObj);
+                        }
+                    });
+                }
+            });
+        return deferred.promise;
+    }
+
 
 
     function GetBookObjectById(bookId){
@@ -129,7 +156,7 @@ module.exports = function(app, db, mongoose, passport){
                 }
                 else{
                     reviewObj.bookObj.centScore = reviewObj.centScore;
-                    StoreBookDetails(reviewObj.bookObj);
+                    StoreBookDetails(reviewObj.bookObj,1);
                     deferred.resolve(result);
                 }
             });
@@ -190,7 +217,7 @@ module.exports = function(app, db, mongoose, passport){
                             } else {
                                 // add the book to bookDetails schema
                                 // the argument zero is dummy value
-                                StoreBookDetails(book);
+                                StoreBookDetails(book,0);
                                 deferred.resolve(favBookAddedObj);
                             }
                         })
@@ -204,7 +231,7 @@ module.exports = function(app, db, mongoose, passport){
     }
 
 
-    function StoreBookDetails(book){
+    function StoreBookDetails(book, updateFlag){
         var deferred = q.defer();
         // check if book exists
         breBookModel.findOne({ISBN_13: book.id},
@@ -212,7 +239,7 @@ module.exports = function(app, db, mongoose, passport){
                 if(err){
                     deferred.reject(err);
                 }else{
-                    if(result != null){
+                    if((result != null)&& (updateFlag ==1)){
                         var ISBN = book.id;
                         // if book is already present, update the sentiment rating
 
@@ -220,6 +247,7 @@ module.exports = function(app, db, mongoose, passport){
                         /*console.log("Old Sent Score "+result.sentimentRating);
                         console.log("Review Sent Score "+book.centScore);
                         console.log("new Sent Score "+newcentScore);*/
+
                         breBookModel.update({ISBN_13: ISBN}, {sentimentRating : newcentScore},
                             function(err, updateResult){
                                 if(err){
@@ -233,10 +261,13 @@ module.exports = function(app, db, mongoose, passport){
                         //deferred.resolve(1);
                     }else{
 
-                        console.log("book details not present, adding");
+                        /*console.log("book details not present, adding");
+                        console.log(book.volumeInfo.averageRating);*/
+
                         var avgRating = 2.5;
                         if(book.volumeInfo.averageRating){
-                            avgRating = book.volumeInfo.averageRating;
+                            console.log("avg rating present updating");
+                            avgRating = parseFloat(book.volumeInfo.averageRating);
                         }
                         var imageUrl = "//placehold.it/100x100";
                         if(book.volumeInfo.imageLinks)

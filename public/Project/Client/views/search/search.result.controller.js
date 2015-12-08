@@ -69,7 +69,7 @@
                 searchQuery(model.searchQueryString);
             } else {
                 //searchQuery("Godfather");
-                $location.url("/home");
+                $location.url("/homecc");
             }
         }
 
@@ -99,6 +99,7 @@
         }
 
         function addFav(book){
+            console.log(book);
             ClientUserService.addFavBookForUser($rootScope.user._id,book)
                 .then(function (favAddResult){
                     if(favAddResult != null) {

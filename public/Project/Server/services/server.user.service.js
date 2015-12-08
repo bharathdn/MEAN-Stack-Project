@@ -25,6 +25,7 @@ module.exports = function(app, model, mongoose, passport){
 
     //User BOOK APIs
     app.post("/rest/api/bookfav/:userId",           addFavBookForUser);
+    app.delete("/rest/api/bookfav/:userId/:bookId", removeFavBookForUser);
     app.get("/rest/api/bookfavs/:userId",           GetFavBooksForCurrentUser);
     app.post("/rest/api/bookReview/:userId",        submitReview);
     app.get("/rest/api/bookreviews/:bookISBN",      getReviewsForBookISBN);
@@ -32,10 +33,17 @@ module.exports = function(app, model, mongoose, passport){
     app.get("/rest/api/bookdetails/:bookId",        GetBookObjectById);
 
 
+    function removeFavBookForUser(req, res){
+        model.RemoveFavBookForUser(req.params.userId, req.params.bookId)
+            .then(function(userFavs){
+                res.json(userFavs);
+            })
+    }
+
+
     function GetBookObjectById(req, res){
         model.GetBookObjectById(req.params.bookId)
             .then(function(bookObj){
-
                res.json(bookObj);
             });
     }
@@ -226,10 +234,12 @@ module.exports = function(app, model, mongoose, passport){
         }
     ));
 
-    function loginUser(req,res){
+    function loginUser(req,res, info){
+        /*console.log(info);
+        console.log("1USER SERVICE: Login USER -> ");*/
         var user = req.user;
-        //console.log("USER SERVICE: Login USER -> ");
-        //console.log(user);
+        /*console.log("2USER SERVICE: Login USER -> ");
+        console.log(user);*/
         res.json(user);
     }
 
@@ -250,6 +260,7 @@ module.exports = function(app, model, mongoose, passport){
     var auth = function (req, res, next) {
         if(!req.isAuthenticated())
         {
+            //console.log("Invalid Credentials");
             res.send(401);
         }else{
             next();

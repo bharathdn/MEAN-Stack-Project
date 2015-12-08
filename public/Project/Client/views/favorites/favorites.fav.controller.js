@@ -9,6 +9,20 @@
 
         model.GetFavBooksForCurrentUser = GetFavBooksForCurrentUser;
         model.getBookDetails            = getBookDetails;
+        model.removeFav                 = removeFav;
+
+
+
+
+        function removeFav(favbook){
+            //console.log("you chose to unfavorite :"+favbook.title);
+            //console.log(favbook);
+            ClientUserService.RemoveFavBookForCurrentUser(favbook.ISBN_13, $rootScope.user._id)
+                .then(function(userFavBooks){
+                    GetFavBooksForCurrentUser();
+                })
+        }
+
 
 
         GetFavBooksForCurrentUser();
