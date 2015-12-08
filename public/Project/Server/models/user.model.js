@@ -218,11 +218,18 @@ module.exports = function(app, db, mongoose, passport){
                         if(book.volumeInfo.averageRating){
                             avgRating = book.volumeInfo.averageRating;
                         }
+                        var imageUrl = "//placehold.it/100x100";
+                        if(book.volumeInfo.imageLinks)
+                        {
+                            imageUrl = book.volumeInfo.imageLinks.smallThumbnail;
+                        }
+
+
                         breBookModel.create({
                             ISBN_13             : book.id,
                             title               : book.volumeInfo.title,
                             authors             : book.volumeInfo.authors,
-                            thumbnailUrl        : book.volumeInfo.imageLinks.smallThumbnail,
+                            thumbnailUrl        : imageUrl,
                             description         : book.volumeInfo.description,
                             googlePreviewLink   : book.volumeInfo.previewLink,
                             //breViewRating       : book.volumeInfo.averageRating,

@@ -39,7 +39,7 @@
         function trimResponse(response){
             var responseItems = response.items;
             for(var i=0; i < responseItems.length; i++){
-                if(responseItems[i].volumeInfo.description.length > 700) {
+                if(responseItems[i].volumeInfo.description &&  (responseItems[i].volumeInfo.description.length > 700)) {
                     responseItems[i].volumeInfo.description =
                         responseItems[i].volumeInfo.description.substr(0,
                             responseItems[i].volumeInfo.description.indexOf(' ', 695)) + ".....";
