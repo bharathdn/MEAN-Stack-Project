@@ -28,6 +28,9 @@ p.bookDescPara{
         width: 23%;
         float: left;
     }
+    .progressbarAlign{
+        padding-top: 1%
+    }
 }
 
 @media screen and (min-width: 1300px) {
