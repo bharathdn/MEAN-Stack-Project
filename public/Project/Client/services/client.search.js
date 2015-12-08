@@ -51,7 +51,7 @@
             }
             var result = {};
             result.items = responseItems;
-            
+
             return result;
 
         }
