@@ -32,7 +32,7 @@
 
         function getBookIds(bookFavObj){
             userFavBookIds = [];
-            console.log(bookFavObj);
+            //console.log(bookFavObj);
             if(bookFavObj != null) {
                 for (var i = 0; i < bookFavObj.length; i++) {
                     if (userFavBookIds.indexOf(bookFavObj[i].ISBN_13) == -1) {
@@ -40,7 +40,7 @@
                     }
                 }
             }
-            console.log(userFavBookIds);
+            //console.log(userFavBookIds);
         }
 
         function getFavButtonState(book){
@@ -79,7 +79,7 @@
         }
 
         function getBookDetails(book){
-            console.log(book);
+            //console.log(book);
             $rootScope.book = book;
             $window.sessionStorage.setItem("currentBook",angular.toJson(book));
 

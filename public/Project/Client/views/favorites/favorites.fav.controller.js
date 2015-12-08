@@ -13,7 +13,7 @@
 
         GetFavBooksForCurrentUser();
         function GetFavBooksForCurrentUser() {
-            console.log("Fetching Fav books for User :" + $rootScope.user.username);
+            //console.log("Fetching Fav books for User :" + $rootScope.user.username);
 
             ClientUserService.GetFavBooksForCurrentUser($rootScope.user._id)
                 .then(function(userFavBooks){
@@ -27,7 +27,7 @@
 
 
         function getBookDetails(favbook){
-            console.log(favbook);
+            //console.log(favbook);
 
             var bookObj = {};
 

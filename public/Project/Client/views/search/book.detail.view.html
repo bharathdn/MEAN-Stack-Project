@@ -87,7 +87,7 @@
             <button ng-click="model.submitReview(model.userReview)" type="button" class="btn btn-primary btn-sm btn-block">Submit Review</button>
         </div>
     </div>
-    <div class="row">
+    <div class="row"  ng-if="if(model.reviews)">
         <div class="col-md-16">
             <h4><span style="text-decoration: underline;">Reviews:</span></h4>
         </div>

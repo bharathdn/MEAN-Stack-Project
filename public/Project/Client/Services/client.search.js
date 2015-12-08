@@ -13,7 +13,7 @@
         return service;
 
         function searchGoogleBooks(searchQuery) {
-            console.log("Client Search Service :: Searching for Query -> " + searchQuery);
+            //console.log("Client Search Service :: Searching for Query -> " + searchQuery);
 
             var url = "https://www.googleapis.com/books/v1/volumes?q=" + searchQuery + "&key=AIzaSyDX4yrNGscA-AsXKxw5mzD6oKxnjaukLT0"
 
@@ -38,7 +38,7 @@
             var deferred = $q.defer();
             $http.get(alchemyUrl)
                 .success(function (response) {
-                    console.log(response);
+                    //console.log(response);
                     /*console.log(response.docSentiment);
                     console.log(response.docSentiment.score);
                     console.log(response.docSentiment.type);*/

@@ -40,7 +40,7 @@
             //console.log(user);
             if(user != null){
                 $rootScope.user = user;
-                console.log("user found, login sucessful");
+                //console.log("user found, login sucessful");
                 $location.url("/home");
             }
             else
