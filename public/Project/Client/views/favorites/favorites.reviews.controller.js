@@ -4,11 +4,12 @@
         .controller("FavReviewController",FavReviewController);
 
 
-    function FavReviewController($location, $rootScope, ClientUserService, ClientSearchService) {
+    function FavReviewController($http, $window ,$location, $rootScope, ClientUserService, ClientSearchService) {
         var model = this;
 
         model.GetReviewsByCurrentUser = GetReviewsByCurrentUser;
         model.isCurrentUser           = isCurrentUser;
+        model.getBookDetails          = getBookDetails;
 
 
         GetReviewsByCurrentUser($rootScope.user._id);
@@ -39,6 +40,20 @@
         function renderReviews(userReviews){
             console.log(userReviews);
             model.reviewBooks = userReviews;
+        }
+
+
+        function getBookDetails(book){
+            //console.log(favbook);
+
+            var bookObj;
+            //console.log(book);
+            ClientUserService.GetBookDetailsById(book.id)
+                .then(function(bookObjRes){
+                    console.log(bookObjRes);
+                    $window.sessionStorage.setItem("currentBook",angular.toJson(bookObjRes));
+                    $location.url("/bookdetail");
+                });
         }
     }
 })();

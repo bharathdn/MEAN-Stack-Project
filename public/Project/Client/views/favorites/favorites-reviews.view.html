@@ -14,7 +14,7 @@
                 </div>
                 <div class ="col-md-5 col-xs-4 text-nowrap">
                     <div class="row">
-                        <h3 ><a href="">
+                        <h3 ><a href="" ng-click="model.getBookDetails(reviewBook)">
                             {{reviewBook.title}}
                         </a></h3>
                     </div>
@@ -25,9 +25,9 @@
                     <div class="row text-nowrap">
                         <div class="progress-bar"
                              ng-class = "{'progress-bar-success'  : ((reviewBook.sentimentRating >= 75) && (reviewBook.sentimentRating <= 100)),
-                                         'progress-bar-info'     : ((reviewBook.sentimentRating >= 51) && (reviewBook.sentimentRating < 75)),
-                                         'progress-bar-warning'  : ((reviewBook.sentimentRating >= 31) && (reviewBook.sentimentRating < 51)),
-                                         'progress-bar-danger'   : ((reviewBook.sentimentRating >= 0 ) && (reviewBook.sentimentRating < 31))}"
+                                         'progress-bar-info'      : ((reviewBook.sentimentRating >= 51) && (reviewBook.sentimentRating < 75)),
+                                         'progress-bar-warning'   : ((reviewBook.sentimentRating >= 31) && (reviewBook.sentimentRating < 51)),
+                                         'progress-bar-danger'    : ((reviewBook.sentimentRating >= 0 ) && (reviewBook.sentimentRating < 31))}"
                              role="progressbar"
                              aria-valuenow="reviewBook.sentimentRating" aria-valuemin="0" aria-valuemax="100"
                              style="width:{{reviewBook.sentimentRating}}%">
@@ -36,7 +36,7 @@
                     </div>
                     &nbsp;
                     <div class="row">
-                        <a ng-href={{reviewBook.googlePreviewLink}}>Preview on Google</a>
+                        <a ng-href={{reviewBook.googlePreviewLink}} target="_blank">Preview on Google</a>
                     </div>
                 </div>
             </div>

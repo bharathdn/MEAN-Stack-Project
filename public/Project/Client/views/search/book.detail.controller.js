@@ -79,7 +79,7 @@
         }
 
         model.book = JSON.parse($window.sessionStorage.getItem("currentBook"));
-        //console.log(model.book);
+        console.log(model.book);
 
         // set model.reviews
         getReviewsForBookISBN(model.book.id);

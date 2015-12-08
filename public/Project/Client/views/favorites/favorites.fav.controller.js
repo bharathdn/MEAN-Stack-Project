@@ -25,30 +25,15 @@
                 });
         }
 
+        function getBookDetails(book){
+            console.log(book);
 
-        function getBookDetails(favbook){
-            //console.log(favbook);
-
-            var bookObj = {};
-
-            var volumeInfo = {};
-            volumeInfo.title                        = favbook.title;
-
-            var imageLinks = {}
-            imageLinks.smallThumbnail               = favbook.thumbnailUrl;
-
-
-            volumeInfo.imageLinks                   = imageLinks;
-            volumeInfo.canonicalVolumeLink          = favbook.googlePreviewLink;
-            volumeInfo.previewLink                  = favbook.googlePreviewLink;
-            volumeInfo.averageRating                = parseFloat(parseInt(favbook.sentimentRating))/20;
-            volumeInfo.description                  = favbook.description;
-            //volumeInfo.id                           = favbook.ISBN_13;
-
-            bookObj.volumeInfo = volumeInfo;
-            bookObj.id                              = favbook.ISBN_13;
-            $window.sessionStorage.setItem("currentBook",angular.toJson(bookObj));
-            $location.url("/bookdetail");
+            ClientUserService.GetBookDetailsById(book.ISBN_13)
+                .then(function(bookObjRes){
+                    console.log(bookObjRes);
+                    $window.sessionStorage.setItem("currentBook",angular.toJson(bookObjRes));
+                    $location.url("/bookdetail");
+                });
         }
 
 

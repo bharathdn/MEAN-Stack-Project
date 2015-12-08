@@ -29,7 +29,16 @@ module.exports = function(app, model, mongoose, passport){
     app.post("/rest/api/bookReview/:userId",        submitReview);
     app.get("/rest/api/bookreviews/:bookISBN",      getReviewsForBookISBN);
     app.get("/rest/api/userReviews/:userId",        GetReviewsByUserId);
+    app.get("/rest/api/bookdetails/:bookId",        GetBookObjectById);
 
+
+    function GetBookObjectById(req, res){
+        model.GetBookObjectById(req.params.bookId)
+            .then(function(bookObj){
+
+               res.json(bookObj);
+            });
+    }
 
 
     function GetReviewsByUserId(req, res){

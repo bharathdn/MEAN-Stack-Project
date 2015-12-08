@@ -41,10 +41,28 @@ module.exports = function(app, db, mongoose, passport){
         GetFavBooksForCurrentUser       : GetFavBooksForCurrentUser,
         SubmitReview                    : SubmitReview,
         GetReviewsForBookISBN           : GetReviewsForBookISBN,
-        GetReviewsByUserId              : GetReviewsByUserId
+        GetReviewsByUserId              : GetReviewsByUserId,
+        GetBookObjectById               : GetBookObjectById
     };
     return api;
 
+
+    function GetBookObjectById(bookId){
+        var deferred = q.defer();
+
+        breBookModel.findOne({ISBN_13 : bookId},
+            function(err, result){
+                if(err){
+                    deferred.reject(err);
+                }
+                else{
+                    //console.log("+++++++++++BOOKOBJ result++++++++");
+                    //console.log(result);
+                    deferred.resolve(result);
+                }
+            });
+        return deferred.promise;
+    }
 
     function GetReviewsByUserId(userId){
         var deferred = q.defer();
@@ -95,6 +113,7 @@ module.exports = function(app, db, mongoose, passport){
         return deferred.promise;
     }
 
+
     function SubmitReview(userId, reviewObj){
         var deferred = q.defer();
         breBookReviewModel.create({
@@ -116,6 +135,7 @@ module.exports = function(app, db, mongoose, passport){
             });
         return deferred.promise;
     }
+
 
     function GetFavBooksForCurrentUser(userId){
         var deferred = q.defer();

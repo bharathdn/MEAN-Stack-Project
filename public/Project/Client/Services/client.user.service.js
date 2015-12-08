@@ -28,9 +28,49 @@
             getReviewsForBookISBN           : getReviewsForBookISBN,
             GetReviewsByUserId              : GetReviewsByUserId,
             processReviews                  : processReviews,
-
+            GetBookDetailsById              : GetBookDetailsById
         };
         return service;
+
+        function GetBookDetailsById(bookId) {
+            var deferred = $q.defer();
+
+            $http.get("/rest/api/bookdetails/" + bookId)
+                .success(function (bookObjRes) {
+                    //console.log(bookObjRes);
+                    var bookObj = getBookDetails(bookObjRes)
+                    console.log(bookObj);
+                    deferred.resolve(bookObj);
+                });
+            return deferred.promise;
+
+        }
+
+
+        function getBookDetails(favbook){
+            //console.log(favbook);
+
+            var bookObj = {};
+
+            var volumeInfo = {};
+            volumeInfo.title                        = favbook.title;
+
+            var imageLinks = {}
+            imageLinks.smallThumbnail               = favbook.thumbnailUrl;
+
+
+            volumeInfo.imageLinks                   = imageLinks;
+            volumeInfo.canonicalVolumeLink          = favbook.googlePreviewLink;
+            volumeInfo.previewLink                  = favbook.googlePreviewLink;
+            volumeInfo.averageRating                = parseFloat(parseInt(favbook.sentimentRating))/20;
+            volumeInfo.description                  = favbook.description;
+            //volumeInfo.id                           = favbook.ISBN_13;
+
+            bookObj.volumeInfo = volumeInfo;
+            bookObj.id                              = favbook.ISBN_13;
+
+            return bookObj;
+        }
 
 
         function GetReviewsByUserId(userId){
