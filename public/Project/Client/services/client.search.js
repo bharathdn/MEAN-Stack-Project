@@ -20,12 +20,37 @@
             var deferred = $q.defer();
             $http.get(url)//+"&callback=JSON_CALLBACK")
                 .success(function (response) {
-                    deferred.resolve(response);
-                    /*console.log(response.items);
-                     return response.items;*/
+                    //for all responses, set the description to 700 words
+                    if(response != null) {
+                        var trimmedResponse = trimResponse(response);
+                        deferred.resolve(trimmedResponse);
+                        /*console.log(response.items);
+                         return response.items;*/
+                    }
+                    else
+                    {
+                        deferred.resolve(null);
+                    }
                 });
             //return "Dummy";
             return deferred.promise;
+        }
+
+        function trimResponse(response){
+            var responseItems = response.items;
+            for(var i=0; i < responseItems.length; i++){
+                if(responseItems[i].volumeInfo.description.length > 700) {
+                    responseItems[i].volumeInfo.description =
+                        responseItems[i].volumeInfo.description.substr(0,
+                            responseItems[i].volumeInfo.description.indexOf(' ', 695)) + ".....";
+                }
+            }
+            var result = {};
+            result.items = responseItems;
+
+
+            return result;
+
         }
 
 
