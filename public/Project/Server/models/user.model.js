@@ -195,7 +195,11 @@ module.exports = function(app, db, mongoose, passport){
                     if(result != null){
                         var ISBN = book.id;
                         // if book is already present, update the sentiment rating
-                        var newcentScore = (book.centScore + result.sentimentRating)/2;
+
+                        var newcentScore = parseFloat((parseInt(book.centScore) + parseInt(result.sentimentRating))/2);
+                        /*console.log("Old Sent Score "+result.sentimentRating);
+                        console.log("Review Sent Score "+book.centScore);
+                        console.log("new Sent Score "+newcentScore);*/
                         breBookModel.update({ISBN_13: ISBN}, {sentimentRating : newcentScore},
                             function(err, updateResult){
                                 if(err){

@@ -41,7 +41,7 @@
             volumeInfo.imageLinks                   = imageLinks;
             volumeInfo.canonicalVolumeLink          = favbook.googlePreviewLink;
             volumeInfo.previewLink                  = favbook.googlePreviewLink;
-            volumeInfo.averageRating                = favbook.sentimentRating/20;
+            volumeInfo.averageRating                = parseFloat(parseInt(favbook.sentimentRating))/20;
             volumeInfo.description                  = favbook.description;
             //volumeInfo.id                           = favbook.ISBN_13;
 
