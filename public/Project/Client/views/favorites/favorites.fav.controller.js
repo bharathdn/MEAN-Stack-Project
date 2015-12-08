@@ -20,7 +20,7 @@
             ClientUserService.RemoveFavBookForCurrentUser(favbook.ISBN_13, $rootScope.user._id)
                 .then(function(userFavBooks){
                     GetFavBooksForCurrentUser();
-                })
+                });
         }
 
 
