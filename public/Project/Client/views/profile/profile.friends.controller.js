@@ -28,7 +28,7 @@
         var users = [];
 
 
-        renderAllUSers();
+        //renderAllUSers();
         renderFriendsFollowers();
 
 
@@ -49,11 +49,39 @@
 
         function renderAllUSers() {
             ClientUserService.findAllUsers()
-                .then(function (userResponse) {
-                    users = userResponse;
-                    model.FriendUsers = userResponse;
+                .then(function (allUsers) {
+                    users = allUsers;
+                    model.FriendUsers = filterFriendsFromUSers(allUsers);
                 });
         }
+
+
+        function filterFriendsFromUSers(allUsers){
+            var filteredAllUsers = [];
+            var friendsUsernamesList = getFriendsUsernamesList(model.Friends);
+            if(friendsUsernamesList != null){
+                for(var i = 0; i < allUsers.length; i++) {
+                    if (friendsUsernamesList.indexOf(allUsers[i].username) == -1){
+                        filteredAllUsers.push(allUsers[i]);
+                    }
+                }
+                return filteredAllUsers;
+            }
+            return allUsers;
+        }
+
+
+        function getFriendsUsernamesList(friends){
+            var friendsUsernamesList = [];
+            if(friends){
+                for(var i = 0; i < friends.length; i++ ){
+                    friendsUsernamesList.push(friends[i].username);
+                }
+                return friendsUsernamesList;
+            }
+            return null;
+        }
+
 
         function renderFriendsFollowers() {
             // find followers for userID
@@ -62,6 +90,7 @@
                 .then(function (friendsObj) {
                     model.Friends = friendsObj.friends;
                     model.Followers = friendsObj.followers;
+                    renderAllUSers();
                 });
         }
 

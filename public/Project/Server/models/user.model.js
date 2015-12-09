@@ -176,8 +176,8 @@ module.exports = function(app, db, mongoose, passport){
                     if(favBookObj.bookIds == 0){
                         deferred.resolve(null);
                     }
-                    console.log("user found");
-                    console.log(favBookObj);
+                    /*console.log("user found");
+                    console.log(favBookObj);*/
                     breBookModel.find({$or: [{ISBN_13: {$in: favBookObj.bookIds}}]},
                         function(err, favBooks){
                             if(err){
