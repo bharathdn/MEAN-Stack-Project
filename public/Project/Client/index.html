@@ -2,7 +2,9 @@
 <html lang="en" ng-app="BukReviewApp">
 <head>
     <meta charset="utf-8">
-    <title>Home</title>
+    <title>Breview</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
@@ -58,14 +60,12 @@
 </head>
 
 <body>
+<div ng-include="'views/header/header.view.html'">
+</div>
 
-<div class="container">
-    <div ng-include="'views/header/header.view.html'">
-    </div>
-
-
+<div class="container-fluid">
     <div class="row">
-        <div class="col-sm-2 col-xs-2 col-md-2 sidebar">
+        <div class="col-sm-2 col-xs-0 col-md-2 sidebar">
             <div ng-include="'views/sidebar/sidebar.view.html'"></div>
         </div>
         <div ng-view class="col-sm-9  col-sm-offset-2
