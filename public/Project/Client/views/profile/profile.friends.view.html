@@ -24,7 +24,7 @@
                     <li class="span4" ng-repeat="user in model.FriendUsers">
                         <div class="thumbnail" ng-hide=model.isCurrentUser(user)>
                             <a style="color:#7000FF" class="close" href="" ng-click="model.addFriend(user)">+</a>
-                            <a ng-click="model.visitFriend(user)"><img src="//placehold.it/80x80"></a>
+                            <a ng-click="model.visitFriend(user)"><img src="//placehold.it/120x120"></a>
                             <p>{{user.firstName}} {{user.lastName}}</p>
                             <p ng-if="user.firstName == null">{{user.username}}</p>
                         </div>
