@@ -26,16 +26,6 @@
                 return;
             }
 
-            if(user.username != null) {
-                ClientUserService.findUserByUserName(user.username)
-                    .then(function (userResult) {
-                        if (userResult !== null) {
-                            registrationPossible = false;
-                            model.message = "Username already exists, please choose a different username";
-                        }
-                    });
-            }
-
             if(user.password == null || user.password == "undefined"){
                 model.passwordMsg = "Password is mandotory";
                 if (user.password != user.verifypassword) {
@@ -60,6 +50,16 @@
              model.message = "All fields are mandatory";
              registrationPossible = false;
              }
+
+            if(user.username != null) {
+                ClientUserService.findUserByUserName(user.username)
+                    .then(function (userResult) {
+                        if (userResult !== null) {
+                            registrationPossible = false;
+                            model.message = "Username already exists, please choose a different username";
+                        }
+                    });
+            }
 
 
             if(registrationPossible == true) {
