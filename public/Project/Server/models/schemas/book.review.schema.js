@@ -11,7 +11,7 @@ module.exports = function(mongoose) {
             sentimentRating : {type: Number, max:100}
             //authType: String
         },
-        {collection: "bukreview.test3.bookreview"});
+        {collection: "bukreview.test4.bookreview"});
 
     return breBookReviewSchema;
 };

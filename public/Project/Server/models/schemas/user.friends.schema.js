@@ -10,7 +10,7 @@ module.exports = function(mongoose) {
             /*friends     : {type: [String], unique: true},
             followers   : {type: [String], unique: true}*/
         },
-        {collection: "bukreview.test3.friends"});
+        {collection: "bukreview.test4.friends"});
 
     return userFriends;
 };

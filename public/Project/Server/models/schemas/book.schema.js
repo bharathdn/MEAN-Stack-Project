@@ -14,7 +14,7 @@ module.exports = function(mongoose) {
             // overall breview  Sentiment rating for the book
             sentimentRating : {type: Number, max:100, default : 50}
         },
-        {collection: "bukreview.test3.book"});
+        {collection: "bukreview.test4.book"});
 
     return breBookSchema;
 };
