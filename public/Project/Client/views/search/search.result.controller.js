@@ -92,8 +92,14 @@
             if(!angular.isUndefined(searchQueryString)){
                 ClientSearchService.searchGoogleBooks(searchQueryString)
                 .then(function (searchResult) {
-                    getFavBooksForCurrentUser();
-                    model.bookResults = searchResult.items;
+                        if(searchResult == 400){
+                            model.fav_class = "alert-warning";
+                            model.addFavMsg = "Oops! we could not find the book you were looking for. Please try again";
+                        }
+                    else{
+                            getFavBooksForCurrentUser();
+                            model.bookResults = searchResult.items;
+                        }
                 });
             }
         }

@@ -22,6 +22,10 @@
                 .success(function (response) {
                     //for all responses, set the description to 700 words
                     if(response != null) {
+
+                        if(response.totalItems === 0){
+                            deferred.resolve(400);
+                        }
                         var trimmedResponse = trimResponse(response);
                         deferred.resolve(trimmedResponse);
                         /*console.log(response.items);
