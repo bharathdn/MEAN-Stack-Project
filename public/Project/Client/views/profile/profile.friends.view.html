@@ -44,7 +44,7 @@
                             <a style="color:#7000FF" class="close" href="" ng-click="model.removeFriend(friend)">x</a>
                             <a ng-click="model.visitFriend(friend)"><img src="//placehold.it/120x120"></a>
                             <p>{{friend.firstName}} {{friend.lastName}}</p>
-                            <p ng-if="user.firstName == null">{{user.username}}</p>
+                            <p ng-if="friend.firstName == null">{{friend.username}}</p>
                         </div>
                     </li>
                 </ul>
@@ -60,7 +60,7 @@
                             <a style="color:#7000FF" class="close" href="" ng-click="model.removeFollower(friend)">x</a>
                             <a ng-click="model.visitFriend(friend)"><img src="//placehold.it/120x120"></a>
                             <p>{{friend.firstName}} {{friend.lastName}}</p>
-                            <p ng-if="user.firstName == null">{{user.username}}</p>
+                            <p ng-if="friend.firstName == null">{{friend.username}}</p>
                         </div>
                     </li>
                 </ul>
