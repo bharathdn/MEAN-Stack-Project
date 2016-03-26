@@ -19,7 +19,6 @@
     <div>
         <div>
             <h3>Users you might be interested to follow:</h3>
-            <div class="">
                 <ul class="thumbnails list-inline">
                     <li ng-repeat="user in model.FriendUsers">
                         <div class="thumbnail" ng-hide=model.isCurrentUser(user)>
@@ -29,11 +28,9 @@
                         </div>
                     </li>
                 </ul>
-            </div>
         </div>
         <div>
             <h3>Users you follow:</h3>
-            <div class="">
                 <ul class="thumbnails list-inline">
                     <li ng-repeat="friend in model.Friends">
                         <div class="thumbnail">
@@ -43,11 +40,9 @@
                         </div>
                     </li>
                 </ul>
-            </div>
         </div>
         <div>
             <h3>Users who follow you:</h3>
-            <div class="">
                 <ul class="thumbnails list-inline">
                     <li ng-repeat="follower in model.Followers">
                         <div class="thumbnail">
@@ -57,7 +52,6 @@
                         </div>
                     </li>
                 </ul>
-            </div>
         </div>
     </div>
 </div>
