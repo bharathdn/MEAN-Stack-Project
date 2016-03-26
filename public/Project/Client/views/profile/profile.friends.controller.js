@@ -39,10 +39,10 @@
             }
 
             if(user.firstName != null){
-                return (user.firstName + " " + user.lastName).substr(0,15);
+                return (user.firstName + " " + user.lastName).substr(0,13);
             }
             else if(user.firstName == null) {
-                return (user.username).substr(0,15);
+                return (user.username).substr(0,13);
             }
         }
 
