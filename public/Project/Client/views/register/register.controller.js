@@ -65,10 +65,10 @@
                             registrationPossible = false;
                             model.message = "Username already exists, please choose a different username";
                             model.submitDisabled = false;
+                            return;
                         }
                     });
             }
-
 
             if(registrationPossible == true) {
                 //console.log("creation of user possible: " + user.username);
