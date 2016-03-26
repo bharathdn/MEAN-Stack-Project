@@ -67,21 +67,18 @@
                             model.message = "Username already exists, please choose a different username";
                             model.submitDisabled = false;
                             return;
-                        }
-                    });
-            }
-
-            console.log("Value of registrationPossible "+ registrationPossible);
-            if(registrationPossible == true) {
-                //console.log("creation of user possible: " + user.username);
-                ClientUserService.createUser(user)
-                    .then(function (retuser) {
-                        if(retuser != null) {
-                            console.log(retuser.user);
-                            registerCallback(retuser.user);
-                        }
-                        else {model.submitDisabled = true;
-                            model.submitDisabled = false;
+                        }else {
+                            ClientUserService.createUser(user)
+                                .then(function (retuser) {
+                                    if (retuser != null) {
+                                        console.log(retuser.user);
+                                        registerCallback(retuser.user);
+                                    }
+                                    else {
+                                        model.submitDisabled = true;
+                                        model.submitDisabled = false;
+                                    }
+                                })
                         }
                     });
             }
