@@ -22,6 +22,7 @@
         model.removeFollower            = removeFollower;
         model.isCurrentUser             = isCurrentUser;
         model.visitFriend               = visitFriend;
+        model.displayUser               = displayUser;
 
 
         //TODO: implement user search
@@ -31,6 +32,18 @@
         //renderAllUSers();
         renderFriendsFollowers();
 
+        function displayUser(user){
+
+            if(!user.firstName == null){
+                return user.firstName + angular.whiteSpace + user.lastName;
+            }
+            else if(!user.firstName == null) {
+                return user.username;
+            }
+            else if(user.username == angular.undefined) {
+                return "Anonymous";
+            }
+        }
 
         function visitFriend(user){
             //console.log(user);
