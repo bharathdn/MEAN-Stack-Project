@@ -71,6 +71,7 @@
                     });
             }
 
+            console.log("Value of registrationPossible "+ registrationPossible);
             if(registrationPossible == true) {
                 //console.log("creation of user possible: " + user.username);
                 ClientUserService.createUser(user)
