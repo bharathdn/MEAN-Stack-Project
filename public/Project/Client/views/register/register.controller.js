@@ -59,6 +59,8 @@
             if(user.username != null) {
                 ClientUserService.findUserByUserName(user.username)
                     .then(function (userResult) {
+                        console.log("Checking if User already exists");
+                        console.log(userResult);
                         if (userResult !== null) {
                             registrationPossible = false;
                             model.message = "Username already exists, please choose a different username";
@@ -76,7 +78,7 @@
                             console.log(retuser.user);
                             registerCallback(retuser.user);
                         }
-                        else {
+                        else {model.submitDisabled = true;
                             model.submitDisabled = false;
                         }
                     });
