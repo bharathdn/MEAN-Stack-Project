@@ -35,9 +35,9 @@
         function displayUser(user){
 
             if(!user.firstName == null){
-                return user.firstName + angular.whiteSpace + user.lastName;
+                return user.firstName + " " + user.lastName;
             }
-            else if(!user.firstName == null) {
+            else if(user.firstName == null) {
                 return user.username;
             }
             else if(user.username == angular.undefined) {
