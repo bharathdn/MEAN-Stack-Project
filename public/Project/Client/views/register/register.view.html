@@ -66,6 +66,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-8">
                 <button ng-click="model.registerNewUser(user)"
+                        ng-disabled = "model.submitDisabled"
                         class="btn btn-primary col-sm-12"
                         type="submit"
                         role="button">Register</button>
