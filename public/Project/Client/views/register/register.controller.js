@@ -62,6 +62,7 @@
                         console.log("Checking if User already exists");
                         console.log(userResult);
                         if (userResult) {
+                            console.log("username already present,returning");
                             registrationPossible = false;
                             model.message = "Username already exists, please choose a different username";
                             model.submitDisabled = false;
