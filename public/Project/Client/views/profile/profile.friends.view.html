@@ -21,14 +21,11 @@
             <h3>Users you might be interested to follow:</h3>
             <div class="">
                 <ul class="thumbnails list-inline">
-                    <li class="span4" ng-repeat="user in model.FriendUsers">
+                    <li ng-repeat="user in model.FriendUsers">
                         <div class="thumbnail" ng-hide=model.isCurrentUser(user)>
                             <a style="color:#7000FF" class="close" href="" ng-click="model.addFriend(user)">+</a>
                             <a ng-click="model.visitFriend(user)"><img src="//placehold.it/120x120"></a>
                             <p align="center">{{model.displayUser(user)}}</p>
-                            <!--p>{{user.firstName}} {{user.lastName}}</p>
-                            <p ng-if="user.firstName == null">{{user.username}}</p>
-                            <p ng-if="user.username == angular.undefined">Anonymous</p-->
                         </div>
                     </li>
                 </ul>
@@ -46,9 +43,6 @@
                             <a style="color:#7000FF" class="close" href="" ng-click="model.removeFriend(friend)">x</a>
                             <a ng-click="model.visitFriend(friend)"><img src="//placehold.it/120x120"></a>
                             <p align="center">{{model.displayUser(friend)}}</p>
-                            <!--p>{{friend.firstName}} {{friend.lastName}}</p>
-                            <p ng-if="friend.firstName == null">{{friend.username}}</p>
-                            <p ng-if="friend.username == angular.undefined">Anonymous</p-->
                         </div>
                     </li>
                 </ul>
@@ -64,9 +58,6 @@
                             <a style="color:#7000FF" class="close" href="" ng-click="model.removeFollower(follower)">x</a>
                             <a ng-click="model.visitFriend(friend)"><img src="//placehold.it/120x120"></a>
                             <p align="center">{{model.displayUser(follower)}}</p>
-                            <!--p>{{follower.firstName}} {{follower.lastName}}</p>
-                            <p ng-if="follower.firstName == null">{{follower.username}}</p>
-                            <p ng-if="follower.username == undefined">Anonymous</p-->
                         </div>
                     </li>
                 </ul>
