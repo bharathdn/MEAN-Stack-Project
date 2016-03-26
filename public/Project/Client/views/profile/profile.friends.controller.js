@@ -42,7 +42,7 @@
                 return (user.firstName + " " + user.lastName).substr(0,15);
             }
             else if(user.firstName == null) {
-                return user.username;
+                return (user.username).substr(0,15);
             }
         }
 
