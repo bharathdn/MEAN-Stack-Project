@@ -27,7 +27,7 @@
                             <a ng-click="model.visitFriend(user)"><img src="//placehold.it/120x120"></a>
                             <p>{{user.firstName}} {{user.lastName}}</p>
                             <p ng-if="user.firstName == null">{{user.username}}</p>
-                            <p ng-if="user.username == 'undefined'">"Anonymous!"</p>
+                            <p ng-if="user.username == angular.undefined">"Anonymous!"</p>
                         </div>
                     </li>
                 </ul>
@@ -46,7 +46,7 @@
                             <a ng-click="model.visitFriend(friend)"><img src="//placehold.it/120x120"></a>
                             <p>{{friend.firstName}} {{friend.lastName}}</p>
                             <p ng-if="friend.firstName == null">{{friend.username}}</p>
-                            <p ng-if="user.username == 'undefined'">"Anonymous!"</p>
+                            <p ng-if="friend.username == angular.undefined">"Anonymous!"</p>
                         </div>
                     </li>
                 </ul>
@@ -63,7 +63,7 @@
                             <a ng-click="model.visitFriend(friend)"><img src="//placehold.it/120x120"></a>
                             <p>{{friend.firstName}} {{friend.lastName}}</p>
                             <p ng-if="friend.firstName == null">{{friend.username}}</p>
-                            <p ng-if="user.username == 'undefined'">"Anonymous!"</p>
+                            <p ng-if="friend.username == undefined">"Anonymous!"</p>
                         </div>
                     </li>
                 </ul>
