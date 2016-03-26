@@ -34,7 +34,7 @@
 
         function displayUser(user){
 
-            if(!user.firstName == null){
+            if(user.firstName != null){
                 return user.firstName + " " + user.lastName;
             }
             else if(user.firstName == null) {
