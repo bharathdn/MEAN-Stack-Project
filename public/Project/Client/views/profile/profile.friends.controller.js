@@ -34,14 +34,15 @@
 
         function displayUser(user){
 
+            if(user.username == angular.undefined) {
+                return "Anonymous";
+            }
+
             if(user.firstName != null){
                 return user.firstName + " " + user.lastName;
             }
             else if(user.firstName == null) {
                 return user.username;
-            }
-            else if(user.username == angular.undefined) {
-                return "Anonymous";
             }
         }
 
