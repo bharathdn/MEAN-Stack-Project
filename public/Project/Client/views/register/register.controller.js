@@ -62,6 +62,7 @@
                         if (userResult !== null) {
                             registrationPossible = false;
                             model.message = "Username already exists, please choose a different username";
+                            model.submitDisabled = true;
                         }
                     });
             }
