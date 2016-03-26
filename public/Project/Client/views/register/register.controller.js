@@ -30,7 +30,7 @@
                 model.submitDisabled = false;
                 return;
             }
-
+            
             if(user.password == null || user.password == "undefined"){
                 model.passwordMsg = "Password is mandotory";
                 if (user.password != user.verifypassword) {
@@ -51,7 +51,8 @@
              user.email == "undefined" ||
              user.password == "undefined" ||
              user.verifypassword == "undefined"
-             ){
+             )
+             {
              model.message = "All fields are mandatory";
              registrationPossible = false;
              }
@@ -59,13 +60,10 @@
             if(user.username != null) {
                 ClientUserService.findUserByUserName(user.username)
                     .then(function (userResult) {
-                        console.log("Checking if User already exists");
-                        console.log(userResult);
                         if (userResult) {
                             console.log("username already present,returning");
                             registrationPossible = false;
                             model.message = "Username already exists, please choose a different username";
-                            model.submitDisabled = false;
                             return;
                         }else {
                             ClientUserService.createUser(user)
