@@ -64,7 +64,7 @@
                         if (userResult) {
                             registrationPossible = false;
                             model.message = "Username already exists, please choose a different username";
-                            model.submitDisabled = true;
+                            model.submitDisabled = false;
                         }
                     });
             }
