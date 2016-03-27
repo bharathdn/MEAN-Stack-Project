@@ -1,7 +1,14 @@
 <h1 class="page-header">Welcome to Breview!</h1>
 <h4 class="text-justify">
-    You review them, we will give it a rating!
+    Breview, A unique way for rating your favorite books.
 </h4>
+<h4 class="text-justify" ng-hide="!model.isNotLogin()">
+    Breview computes sentiment ratings for books, based on your reviews.
+</h4>
+<h4 class="text-justify" ng-hide="model.isNotLogin()">
+    Breview computes sentiment ratings for books, based on your reviews. Please register and login to start reviewing books.
+</h4>
+
 <br/>
 <div class="form-group input-group-lg has-feedback has-feedback-right">
     <div class="input-group">

@@ -30,7 +30,7 @@
                 model.submitDisabled = false;
                 return;
             }
-            
+
             if(user.password == null || user.password == "undefined"){
                 model.passwordMsg = "Password is mandotory";
                 if (user.password != user.verifypassword) {
