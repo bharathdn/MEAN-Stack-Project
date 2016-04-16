@@ -47,7 +47,7 @@
                     <li ng-repeat="follower in model.Followers">
                         <div class="thumbnail">
                             <a style="color:#7000FF" class="close" href="" ng-click="model.removeFollower(follower)">x</a>
-                            <a ng-click="model.visitFriend(friend)"><img src="//placehold.it/120x120"></a>
+                            <a ng-click="model.visitFriend(follower)"><img src="//placehold.it/120x120"></a>
                             <p align="center">{{model.displayUser(follower)}}</p>
                         </div>
                     </li>
