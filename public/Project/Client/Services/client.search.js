@@ -15,7 +15,7 @@
         function searchGoogleBooks(searchQuery) {
             //console.log("Client Search Service :: Searching for Query -> " + searchQuery);
 
-            var url = "https://www.googleapis.com/books/v1/volumes?q=" + searchQuery + "&key=AIzaSyDX4yrNGscA-AsXKxw5mzD6oKxnjaukLT0"
+            var url = "https://www.googleapis.com/books/v1/volumes?q=" + searchQuery + "&key=AIzaSyBdQyDKgpdXsrbXepXUXZEdL4Zy6E1PlfM"
 
             var deferred = $q.defer();
             $http.get(url)//+"&callback=JSON_CALLBACK")
